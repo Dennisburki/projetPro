@@ -1,0 +1,160 @@
+* {
+    font-family: 'Baloo 2';
+}
+
+.global {
+    background-color: rgb(0, 0, 0, 0.1);
+}
+
+.header {
+    background-image: url("../img/cartes.jpg");
+    height: 50vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.footer {
+    background-color: black;
+}
+
+.mainTitle {
+    font-family: 'Baloo 2', cursive;
+    font-size:18vh;
+    letter-spacing: -0.08em;
+}
+
+.navbar {
+    font-family: 'Baloo 2', ;
+    background-color: black;
+}
+
+.nav-link {
+    font-size: 3vh;
+}
+
+.quote {
+    font-size: 5vh;
+    font-family: 'Baloo 2', ;
+}
+
+.carousel {
+    width: 40rem;
+}
+
+.img-categorie {
+    height: 15rem;
+}
+
+.categorie-label-left {
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2rem;
+    background-color: rgb(0, 0, 0, 0.6)
+    
+}
+
+.categorie-label-right {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2rem;
+    background-color: rgb(0, 0, 0, 0.6)
+    
+}
+
+.categorie-picture {
+    position: relative;
+    text-align: center;
+    color: red;
+}
+
+.categorie-intro {
+    max-width: 50%;
+}
+
+.categorie-card {
+    width: 25rem;
+}
+
+@media screen and (max-width : 600px) {
+    .carousel {
+        width: 20rem;
+    }
+}
+
+
+@media screen and (max-width : 600px) {
+    .navbar {
+        background-color: black;
+    
+    }
+}
+
+@media screen and (max-width : 600px) {
+    .text {
+        position: initial;
+    }
+    .menu {
+        background-color: black;
+        height: initial; 
+        width: initial; 
+        border-radius: initial;
+        font-size: initial;
+    }
+}
+
+@media screen and (max-width : 600px) {
+
+    .menu {
+        background-color: black;
+        height: initial; 
+        width: initial; 
+        border-radius: initial;
+        font-size: initial;
+    }
+}
+
+@media screen and (max-width : 600px) {
+    .img-categorie {
+        height: 14rem;
+        padding-top: 1rem;
+    
+    }
+}
+
+@media screen and (max-width : 600px) {
+    .categorie-label-right {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 1.5rem;
+        background-color: rgb(0, 0, 0, 0.6);
+        
+    }
+    
+}
+
+@media screen and (max-width : 600px) {
+    .categorie-label-left {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 1.5rem;
+        background-color: rgb(0, 0, 0, 0.6);
+        
+    }
+    
+}
+
+
+
