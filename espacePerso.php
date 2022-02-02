@@ -1,5 +1,9 @@
 <?php
 require "controllers/connexion-controller.php";
+require "my-config.php";
+
+var_dump($_SESSION);
+var_dump($_POST);
 ?>
 
 <!DOCTYPE html>

@@ -81,6 +81,9 @@
 .categorie-card {
     width: 25rem;
 }
+.mainText {
+    max-width: 50%;
+}
 
 @media screen and (max-width : 600px) {
     .carousel {

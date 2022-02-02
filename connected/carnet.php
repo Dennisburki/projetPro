@@ -2,7 +2,9 @@
 require "../controllers/admin-controller.php";
 require "../my-config.php";
 
-if (session_status() == PHP_SESSION_NONE) session_start();
+if(session_status() != PHP_SESSION_ACTIVE) {
+    header("location: ../index.php");
+};
 
 ?>
 
@@ -36,7 +38,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                 <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark fs-6"></div>
             </form>
         </div>
-        <a href="index.php" class="text-decoration-none">
+        <a href="../index.php" class="text-decoration-none">
             <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
         </a>
     </header>
@@ -67,7 +69,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                             <?php } else { ?>
                                 <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
                             <?php } ?>
-                        </li>   
+                        </li>
                     <?php if(isset($_SESSION['login'])){ ?>
                     <li class="d-lg-none nav-item justify-lg-content-end">
                         <form action="#" method="POST">
@@ -79,6 +81,12 @@ if (session_status() == PHP_SESSION_NONE) session_start();
             </div>
         </div>
     </nav>
+
+    <h1 class="text-center pt-5">Bienvenue sur ton espace, <?= $_SESSION['login']?></h1>
+
+
+
+
 
     <footer class="footer bg-dark" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">

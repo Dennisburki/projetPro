@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php require "../controllers/admin-controller.php";
+require "../my-config.php";
+
+ ?>
+ 
+ <!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -22,7 +27,10 @@
     <header class="header d-lg-block d-none">
 
         <div class="text-white d-flex justify-content-end m-auto">
-            <i class="bi bi-person pt-2"></i><a class="btn text-white" href="espacePerso.php">Se connecter</a>
+            <?php if (session_status() == PHP_SESSION_NONE) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
+            <?php } else { ?>
+                <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
+            <?php } ?>
         </div>
 
         <a href="index.php" class="text-decoration-none">
@@ -74,61 +82,61 @@
         <div class="row m-auto pt-5 ">
 
 
-        <!-- ***************************************Exemple card a boucler avec JS en utilisant les data comme JSON film****************************************************** -->
+            <!-- ***************************************Exemple card a boucler avec JS en utilisant les data comme JSON film****************************************************** -->
 
-        <!-- remplacer le fichier json par la base de donnée? en rentrant les valeurs (image description etc) ca va dans la BDD puis ca boucle? -->
+            <!-- remplacer le fichier json par la base de donnée? en rentrant les valeurs (image description etc) ca va dans la BDD puis ca boucle? -->
 
-                <div class="col-lg-6 d-flex justify-content-center pt-3">
-                    <div class="card categorie-card col-lg-6 pt-3" >
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
+            <div class="col-lg-6 d-flex justify-content-center pt-3">
+                <div class="card categorie-card col-lg-6 pt-3">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex justify-content-center pt-3">
-                    <div class="card categorie-card col-lg-6 pt-3" >
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-center pt-3">
+                <div class="card categorie-card col-lg-6 pt-3">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex justify-content-center pt-3">
-                    <div class="card categorie-card col-lg-6 pt-3" >
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-center pt-3">
+                <div class="card categorie-card col-lg-6 pt-3">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex justify-content-center pt-3">
-                    <div class="card categorie-card col-lg-6 pt-3" >
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-center pt-3">
+                <div class="card categorie-card col-lg-6 pt-3">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex justify-content-center pt-3">
-                    <div class="card categorie-card col-lg-6 pt-3" >
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-center pt-3">
+                <div class="card categorie-card col-lg-6 pt-3">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
-               
+            </div>
+
         </div>
 
 

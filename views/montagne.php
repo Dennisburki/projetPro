@@ -1,3 +1,9 @@
+<?php require "../controllers/admin-controller.php";
+require "../my-config.php";
+
+ ?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -22,7 +28,10 @@
     <header class="header d-lg-block d-none">
 
         <div class="text-white d-flex justify-content-end m-auto">
-            <i class="bi bi-person pt-2"></i><a class="btn text-white" href="espacePerso.php">Se connecter</a>
+        <?php if (session_status() == PHP_SESSION_NONE) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
+            <?php } else { ?>
+                <a href="../connected/<?php if($_SESSION['login'] == 'admin'){ ?>admin.php<?php } else { ?>user.php<?php } ?>" class="fs-3"><?= $_SESSION['login'] ?></a>
+                <?php } ?>
         </div>
 
         <a href="index.php" class="text-decoration-none">
@@ -74,7 +83,7 @@
         <div class="row m-auto pt-5 ">
 
 
-        <!-- ***************************************Exemple card a boucler avec JS en utilisant les data comme JSON film****************************************************** -->
+        <!-- ***************************************Exemple card a boucler avec JS?php?mysql? en utilisant les data comme JSON film****************************************************** -->
 
         <!-- remplacer le fichier json par la base de donnée? en rentrant les valeurs (image description etc) ca va dans la BDD puis ca boucle? -->
 
@@ -85,6 +94,7 @@
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <?php if (session_status() == PHP_SESSION_ACTIVE) { ?><a href="#" class="btn btn-primary">test</a><?php } ?>
                         </div>
                     </div>
                 </div>
@@ -95,6 +105,7 @@
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <?php if (session_status() == PHP_SESSION_ACTIVE) { ?><a href="#" class="btn btn-primary">test</a><?php } ?>
                         </div>
                     </div>
                 </div>
@@ -105,6 +116,7 @@
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <?php if (session_status() == PHP_SESSION_ACTIVE) { ?><a href="#" class="btn btn-primary">test</a><?php } ?>
                         </div>
                     </div>
                 </div>
@@ -115,6 +127,7 @@
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <?php if (session_status() == PHP_SESSION_ACTIVE) { ?><a href="#" class="btn btn-primary">test</a><?php } ?>
                         </div>
                     </div>
                 </div>
@@ -125,6 +138,7 @@
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <?php if (session_status() == PHP_SESSION_ACTIVE) { ?><a href="#" class="btn btn-primary">test</a><?php } ?>
                         </div>
                     </div>
                 </div>

@@ -1,3 +1,9 @@
+<?php require "controllers/admin-controller.php";
+require "my-config.php";
+
+ ?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -22,10 +28,15 @@
     <header class="header d-lg-block d-none">
 
         <div class="text-white d-flex justify-content-end m-auto">
-            <i class="bi bi-person pt-2"></i><a class="btn text-white" href="espacePerso.php">Se connecter</a>
+            <?php if (session_status() == PHP_SESSION_NONE) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
+            <?php } else { ?>
+                <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
+            <?php } ?>
         </div>
 
-        <a href="index.php" class="text-decoration-none"><h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1></a>
+        <a href="index.php" class="text-decoration-none">
+            <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
+        </a>
 
 
     </header>

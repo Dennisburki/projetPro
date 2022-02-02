@@ -63,7 +63,6 @@ if (!empty($_POST)) {
             }
         }
 
-
         if (empty($_POST["password"])) {
             $errors["password"] = "Veuillez saisir un mot de passe";
         }
@@ -82,4 +81,15 @@ if (!empty($_POST)) {
     }
 } 
 
+//********************************Si deja connecté, redirige vers la page compte**************************************************
+
+ if (isset($_SESSION['login'])) {
+
+    if($_SESSION['login'] != "admin") {
+        header("location: ../connected/user.php");
+    } else {
+        header("location: ../connected/admin.php");
+    }
+}
+ 
 ?>

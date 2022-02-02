@@ -2,7 +2,9 @@
 require "../controllers/admin-controller.php";
 require "../my-config.php";
 
-if (session_status() == PHP_SESSION_NONE) session_start();
+if (session_status() != PHP_SESSION_ACTIVE) {
+    header("location: ../index.php");
+};
 
 ?>
 
@@ -22,21 +24,25 @@ if (session_status() == PHP_SESSION_NONE) session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espace Admin</title>
+
+
+
+
+    <title>Wishlist</title>
 </head>
 
 <body>
 
     <header class="header d-lg-block d-none">
         <div class="text-white d-flex justify-content-end m-auto pe-2">
-            <p class="fs-3"><?= $_SESSION['login'] ?></p>
+            <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
         </div>
         <div class="text-white d-flex justify-content-end m-auto pe-2">
             <form action="admin.php" method="POST">
                 <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark fs-6"></div>
             </form>
         </div>
-        <a href="index.php" class="text-decoration-none">
+        <a href="../index.php" class="text-decoration-none">
             <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
         </a>
     </header>
@@ -67,18 +73,75 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                             <?php } else { ?>
                                 <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
                             <?php } ?>
-                        </li>   
-                    <?php if(isset($_SESSION['login'])){ ?>
-                    <li class="d-lg-none nav-item justify-lg-content-end">
-                        <form action="#" method="POST">
-                            <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
-                        </form>
-                    </li>
+                        </li>
+                    <?php if (isset($_SESSION['login'])) { ?>
+                        <li class="d-lg-none nav-item justify-lg-content-end">
+                            <form action="#" method="POST">
+                                <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                            </form>
+                        </li>
                     <?php } ?>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <h1 class="text-center pt-5 fw-bold">Wishlist</h1>
+
+
+    <div class="row text-center justify-content-center">
+
+        <!-- ****************************BOUCLER A PARTIR D'ICI -- CA MARCHE ET C'EST VERIFIE******************************************************* -->
+
+        <div class="card mb-3 col-lg-12" style="max-width: 800px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="../assets/img/montagne2.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ********************SUPPRIMER A PARTIR D'ICI QUAND BOUCLE************************************ -->
+        <div class="card mb-3 col-lg-12" style="max-width: 800px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="../assets/img/questionmark.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3 col-lg-12" style="max-width: 800px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="../assets/img/velo.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- *****************************************************STOP SUPPRIMER******************************************************************* -->
+
+
+    </div>
 
     <footer class="footer bg-dark" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">

@@ -1,3 +1,8 @@
+<?php require "controllers/admin-controller.php";
+require "my-config.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -22,17 +27,24 @@
     <header class="header d-lg-block d-none">
 
         <div class="text-white d-flex justify-content-end m-auto">
-            <i class="bi bi-person pt-2"></i><a class="btn text-white" href="espacePerso.php">Se connecter</a>
+            <?php if (session_status() == PHP_SESSION_NONE) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
+            <?php } else { ?>
+                <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
+            <?php } ?>
+        </div>
+        <div class="text-white d-flex justify-content-end m-auto pe-2">
+            <form action="admin.php" method="POST">
+                <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark fs-6"></div>
+            </form>
         </div>
 
         <a href="index.php" class="text-decoration-none">
             <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
         </a>
 
-
     </header>
 
-    <nav class="navbar navbar-expand-lg navbar-white bg-white">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -43,27 +55,37 @@
                 <ul class="navbar-nav container row">
                     <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
                         <div class="text-center">
-                            <a class="menu nav-link active bg-dark" aria-current="page" href="index.php"><span class="text text-white">Accueil</span></a>
+                            <a class="menu nav-link active text-white" aria-current=" page" href="index.php"><span class="text text-white">Accueil</span></a>
                         </div>
                     </li>
                     <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
                         <div class="text-center">
-                            <a class="menu nav-link active bg-dark  text-white" aria-current="page" href="categories.php"><span class="text text-white">Catégories</span></a>
+                            <a class="menu nav-link active text-white" aria-current="page" href="categories.php"><span class="text text-white">Catégories</span></a>
                         </div>
                     </li>
                     <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
                         <div class="text-center">
-                            <a class="menu nav-link active bg-dark  text-white" aria-current="page" href="guide.php"><span class="text text-white">Guide</span></a>
+                            <a class="menu nav-link active text-white" aria-current="page" href="guide.php"><span class="text text-white">Guide</span></a>
                         </div>
                     </li>
                     <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
                         <div class="text-center">
-                            <a class="menu nav-link active bg-dark  text-white" aria-current="page" href="blog.php"><span class="text text-white">Blog</span></a>
+                            <a class="menu nav-link active text-white" aria-current="page" href="blog.php"><span class="text text-white">Blog</span></a>
                         </div>
                     </li>
                     <li class="d-lg-none nav-item justify-lg-content-end">
-                        <a class="nav-link active" href="espacePerso.php">Se connecter</a>
+                        <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
+                        <?php } else { ?>
+                            <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
+                        <?php } ?>
                     </li>
+                    <?php if (isset($_SESSION['login'])) { ?>
+                        <li class="d-lg-none nav-item justify-lg-content-end">
+                            <form action="#" method="POST">
+                                <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                            </form>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>
