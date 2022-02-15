@@ -16,9 +16,12 @@ $usersArray = [ // tableau ou pas a la fin? ou BDD?
 ];
 
 
+define('DBNAME', 'estenouest');
+define('DBUSER', 'admin');
+define('DBPASSWORD', 'admin');
 
 
 
 
 
-?>
+

@@ -1,9 +1,11 @@
 <?php
-require "controllers/connexion-controller.php";
-require "my-config.php";
 
-var_dump($_SESSION);
-var_dump($_POST);
+session_start();
+
+
+require_once "controllers/connexion-controller.php";
+require_once "my-config.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -12,10 +14,14 @@ var_dump($_POST);
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
@@ -33,6 +39,7 @@ var_dump($_POST);
         </div>
         <a href="index.php" class="text-decoration-none">
             <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
+            <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
         </a>
     </header>
 

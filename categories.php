@@ -1,6 +1,7 @@
 <?php
 
-require "controllers/admin-controller.php";
+session_start();
+
 require "my-config.php";
 ?>
 
@@ -10,10 +11,14 @@ require "my-config.php";
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
@@ -25,25 +30,33 @@ require "my-config.php";
 
 <body>
 
-    <header class="header d-lg-block d-none">
+    <header class="header d-lg-block d-none m-0">
 
-        <div class="text-white d-flex justify-content-end m-auto">
-            <?php if (session_status() == PHP_SESSION_NONE) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
-            <?php } else { ?>
-                <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
-            <?php } ?>
+        <div class="text-white d-flex justify-content-end m-0">
+            <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="espacePerso.php">Se connecter</a>
+        </div>
+    <?php } else { ?>
+        <a href="connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['login'] ?></a>
         </div>
 
-        <a href="index.php" class="text-decoration-none">
-            <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
-        </a>
+        <div class="text-white d-flex justify-content-end m-0 pe-2">
+            <form action="home.php" method="POST">
+                <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark fs-6"></div>
+            </form>
+        </div>
+    <?php } ?>
+
+    <a href="index.php" class="text-decoration-none">
+        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
+        <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
+    </a>
 
 
     </header>
     <div class="global m-auto">
 
-        <nav class="navbar navbar-expand-lg m-auto">
-            <div class="container-fluid m-auto">
+        <nav class="navbar navbar-expand-lg m-0">
+            <div class="container-fluid m-0">
                 <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon text-white pt-1 pe-5">Menu</span>
                 </button>
@@ -72,9 +85,9 @@ require "my-config.php";
                             </div>
                         </li>
                         <li class="d-lg-none nav-item justify-lg-content-end">
-                            <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
+                        <?php if (empty($_SESSION)) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
                             <?php } else { ?>
-                                <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
+                                <a href="connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
                             <?php } ?>
                         </li>
                         <?php if (isset($_SESSION['login'])) { ?>
@@ -90,19 +103,24 @@ require "my-config.php";
         </nav>
 
         <div class="categorie-intro text-center m-auto h2 fw-bold pt-5 ">Pour se détendre ou se dépenser, le temps d’un week-end, une semaine ou plus, il y a une destination faite pour vous!</div>
-        <div class="row pt-5 m-auto">
+
+        
+        <div class="row pt-5 m-0">
             <div class="categorie-picture col-lg-6 text-lg-end m-auto">
-                <a href="views/montagne.php">
-                    <img src="assets/img/montagne2.jpg" alt="photo de montagne" class="img-categorie rounded">
-                    <div class="categorie-label-left m-auto">
+                <a href="views/views.php?id=1">
+                    <img src="assets/img/montagne3.jpg" alt="photo de montagne" class="img-categorie rounded">
+                    <div class="categorie-label-left m-0">
                         <div>Montagne</div>
                     </div>
                 </a>
             </div>
-            <div class="categorie-picture col-lg-6 text-lg-start m-auto">
-                <a href="views/plage.php">
-                    <img src="assets/img/plage2.jpg" alt="photo de plage" class="img-categorie rounded">
-                    <div class="categorie-label-right m-auto">
+
+
+
+            <div class="categorie-picture col-lg-6 text-lg-start m-0">
+                <a href="views/views.php?id=2">
+                    <img src="assets/img/plage3.jpg" alt="photo de plage" class="img-categorie rounded">
+                    <div class="categorie-label-right m-0">
                         <div>Plage</div>
                     </div>
                 </a>
@@ -110,19 +128,19 @@ require "my-config.php";
 
         </div>
 
-        <div class="row pt-3 m-auto">
-            <div class="categorie-picture col-lg-6 text-lg-end m-auto">
-                <a href="views/ville.php">
-                    <img src="assets/img/italie.jpg" alt="photo de montagne" class="img-categorie rounded">
-                    <div class="categorie-label-left m-auto">
+        <div class="row pt-3 m-0">
+            <div class="categorie-picture col-lg-6 text-lg-end m-0">
+                <a href="views/views.php?id=3">
+                    <img src="assets/img/ville2.jpg" alt="photo de montagne" class="img-categorie rounded">
+                    <div class="categorie-label-left m-0">
                         <div>Ville</div>
                     </div>
                 </a>
             </div>
-            <div class="categorie-picture col-lg-6 text-lg-start m-auto">
-                <a href="views/sport.php">
-                    <img src="assets/img/sport.jpg" alt="photo de plage" class="img-categorie rounded">
-                    <div class="categorie-label-right m-auto">
+            <div class="categorie-picture col-lg-6 text-lg-start m-0">
+                <a href="views/views.php?id=4">
+                    <img src="assets/img/sport2.jpg" alt="photo de plage" class="img-categorie rounded">
+                    <div class="categorie-label-right m-0">
                         <div>Sport</div>
                     </div>
                 </a>
@@ -130,22 +148,22 @@ require "my-config.php";
 
         </div>
 
-        <div class="row pt-3 pb-5 m-auto">
+        <div class="row pt-3 pb-5 m-0">
 
-            <div class="categorie-picture col-lg-6 text-lg-end m-auto">
-                <a href="views/histoire.php">
+            <div class="categorie-picture col-lg-6 text-lg-end m-0">
+                <a href="views/views.php?id=5">
                     <img src="assets/img/petra.jpg" alt="photo de montagne" class="img-categorie rounded">
-                    <div class="categorie-label-left m-auto">
+                    <div class="categorie-label-left m-0">
                         <div>Histoire</div>
                     </div>
                 </a>
             </div>
 
 
-            <div class="categorie-picture col-lg-6 text-lg-start m-auto">
-                <a href="views/gastronomie.php">
-                    <img src="assets/img/jambon.jpg" alt="photo de plage" class="img-categorie rounded">
-                    <div class="categorie-label-right m-auto">
+            <div class="categorie-picture col-lg-6 text-lg-start m-0">
+                <a href="views/views.php?id=6">
+                    <img src="assets/img/gastronomie.jpg" alt="photo de plage" class="img-categorie rounded">
+                    <div class="categorie-label-right m-0">
                         <div>Gastronomie</div>
                     </div>
                 </a>
@@ -153,15 +171,15 @@ require "my-config.php";
 
         </div>
 
-        <footer class="footer m-auto" style="height: 15vh;">
-            <div class="d-flex justify-content-evenly pt-5 m-auto">
-                <div class="m-auto">
+        <footer class="footer m-0" style="height: 15vh;">
+            <div class="d-flex justify-content-evenly pt-5 m-0">
+                <div class="m-0">
                     <p class="text-white">©Estenouest</p>
                 </div>
-                <div class="m-auto">
+                <div class="m-0">
                     <p class="text-white">Qui sommes-nous?</p>
                 </div>
-                <div class="m-auto">
+                <div class="m-0">
                     <p class="text-white">Mentions Légales</p>
                 </div>
             </div>

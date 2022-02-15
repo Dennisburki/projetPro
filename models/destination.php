@@ -1,0 +1,220 @@
+<?php
+
+
+class Destinations extends DataBase
+{
+    /**
+     * Permet d'afficher les différentes catégories de voyage
+     */
+    public function getCategories()
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `cat_category` FROM `pro_categories`";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+
+    /**
+     * Permet de rajouter des destinations dans la rubrique categories mais aussi destination(detaillé)
+     * @param string $picture : photo d'illustration
+     * @param string $title : Nom de la destination
+     * @param string $descr : rapide descriptif des activités
+     * @param string $cityCode : code openweathermap pour le widget meteo
+     * @param string $iframe : iframe google pour la localisation
+     * @param string $category : la categorie a laquelle appartient la destination
+     */
+    public function addDestination($picture, $title, $descr, $cityCode, $iframe, $category)
+    {
+        $base = $this->connectDb();
+        $query = "INSERT INTO `pro_destination` (`des_picture`,`des_title`,`des_description`,`des_city_code`,`des_iframe`,`cat_id`)
+        VALUES (:picture, :title, :descr, :cityCode, :iframe,(SELECT `cat_id` FROM `pro_categories` WHERE `cat_category` = :category))";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':picture', $picture, PDO::PARAM_STR);
+        $resultQuery->bindValue(':title', $title, PDO::PARAM_STR);
+        $resultQuery->bindValue(':descr', $descr, PDO::PARAM_STR);
+        $resultQuery->bindValue(':cityCode', $cityCode, PDO::PARAM_STR);
+        $resultQuery->bindValue(':iframe', $iframe, PDO::PARAM_STR);
+        $resultQuery->bindValue(':category', $category, PDO::PARAM_STR);
+        $resultQuery->execute();
+    }
+
+
+    /**
+     * Permet d'afficher les destinations en fonction de leur categorie dans la rubrique categories
+     * @param string $id : id correspondant a la categorie
+     */
+    public function getDestinationDetails($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT * FROM `pro_destination`
+        INNER JOIN `pro_categories` ON pro_categories.cat_id = pro_destination.cat_id
+        WHERE pro_categories.cat_id = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+
+    /**
+     * Permet d'afficher uniquement le nom de la categorie de la categorie séléctionnée
+     * @param string $id : id correspondant a la categorie
+     */
+    public function getCategoryTitle($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT * FROM `pro_categories` WHERE pro_categories.cat_id = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+
+    /**
+     * Permet d'afficher les destinations en fonction de leur categorie dans la rubrique détails
+     * @param string $id : id correspondant a la categorie
+     */
+    public function getSingleDetails($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT * FROM `pro_destination` WHERE `des_id` = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+    public function getDestinations()
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `des_picture`,`des_title`,`des_id`,`des_picture`,`cat_category` FROM `pro_destination`
+        INNER JOIN `pro_categories` ON pro_categories.cat_id = pro_destination.cat_id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+
+    public function getSelectedDestination($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT * FROM `pro_destination`
+        INNER JOIN `pro_categories` ON pro_categories.cat_id = pro_destination.cat_id
+        WHERE pro_destination.des_id = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+
+    /**
+     * Permet de mettre à jour une destination si aucune nouvelle photo n'est ajoutée
+     * @param string $title : nom de la destination
+     * @param string $descr : description de la destination
+     * @param string $cityCode : code openweathermap pour la meteo
+     * @param string $iframe : iframe de la destination
+     * @param string $category : categorie de la destination
+     * @param string $id : id de la destination présente dans le GET
+     */
+    public function updateDestinationNoPicture($title, $descr, $cityCode, $iframe, $category, $id)
+    {
+        $base = $this->connectDb();
+        $query = "UPDATE `pro_destination`
+        SET `des_title` = :title, `des_description`= :descr,`des_city_code` = :cityCode, `des_iframe` = :iframe, `cat_id` = (SELECT `cat_id` FROM `pro_categories` WHERE `cat_category` = :category) WHERE `des_id` = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':title', $title, PDO::PARAM_STR);
+        $resultQuery->bindValue(':descr', $descr, PDO::PARAM_STR);
+        $resultQuery->bindValue(':cityCode', $cityCode, PDO::PARAM_STR);
+        $resultQuery->bindValue(':iframe', $iframe, PDO::PARAM_STR);
+        $resultQuery->bindValue(':category', $category, PDO::PARAM_STR);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
+
+
+    /**
+     * Permet de mettre a jour une destination si une nouvelle photo est ajoutée
+     * @param string $title : nom de la destination
+     * @param string $descr : description de la destination
+     * @param string $cityCode : code openweathermap pour la meteo
+     * @param string $iframe : iframe de la destination
+     * @param string $category : categorie de la destination
+     * @param string $id : id de la destination présente dans le GET
+     * @param string $picture : Nom de la nouvelle image
+     */
+    public function updateDestinationWithPicture($title, $descr, $cityCode, $iframe, $category, $id, $picture)
+    {
+        $base = $this->connectDb();
+        $query = "UPDATE `pro_destination`
+        SET `des_picture` = :picture, `des_title` = :title, `des_description`= :descr,`des_city_code` = :cityCode, `des_iframe` = :iframe, `cat_id` = (SELECT `cat_id` FROM `pro_categories` WHERE `cat_category` = :category) WHERE `des_id` = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':title', $title, PDO::PARAM_STR);
+        $resultQuery->bindValue(':descr', $descr, PDO::PARAM_STR);
+        $resultQuery->bindValue(':cityCode', $cityCode, PDO::PARAM_STR);
+        $resultQuery->bindValue(':iframe', $iframe, PDO::PARAM_STR);
+        $resultQuery->bindValue(':category', $category, PDO::PARAM_STR);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+        $resultQuery->bindValue(':picture', $picture, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
+
+    /**
+     * Permet d'obtenir le nom de l'image pour la supprimer dans le dossier pendant l'update
+     * @param string $id : id de la destination présente dans le GET
+     */
+    public function getPictureName($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `des_picture` FROM `pro_destination` WHERE `des_id` = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+    public function getSortedDestinations($category)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `des_picture`,`des_title`,`des_id`,`des_picture`,`cat_category` FROM `pro_destination`
+        INNER JOIN `pro_categories` ON pro_categories.cat_id = pro_destination.cat_id
+        WHERE `cat_category` = :category";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':category', $category, PDO::PARAM_STR);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+
+
+    }
+
+
+    public function deleteDestination($id)
+    {
+
+        $base = $this->connectDb();
+        $query = "DELETE FROM `pro_destination` WHERE `des_id`= :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
+
+
+}

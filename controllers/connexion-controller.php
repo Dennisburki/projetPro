@@ -1,6 +1,6 @@
 <?php
 
-require "my-config.php";
+require_once "my-config.php";
 
 if (session_status() == PHP_SESSION_NONE) session_start();
 
@@ -26,6 +26,8 @@ if (!empty($_POST['login']) && !empty($_POST['passwordConect'])) {
 
             header("Location: connected/user.php");
         }
+} else {
+    $errorsConect['invalid'] = "Login ou mot de passe invalide";
 }
     } else {
         $errorsConect['invalid'] = "Login ou mot de passe invalide";
@@ -91,5 +93,3 @@ if (!empty($_POST)) {
         header("location: ../connected/admin.php");
     }
 }
- 
-?>
