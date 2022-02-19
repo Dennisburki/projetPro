@@ -40,7 +40,7 @@ require_once "../controllers/detailsController.php";
             <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
         </div>
     <?php } else { ?>
-        <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['login'] ?></a>
+        <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
         <div class="text-white d-flex justify-content-end m-auto pe-2">
@@ -57,7 +57,7 @@ require_once "../controllers/detailsController.php";
 
 
     </header>
-    <div class="global">
+    <div class="global m-0">
 
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid m-0">
@@ -91,7 +91,7 @@ require_once "../controllers/detailsController.php";
                         <li class="d-lg-none nav-item justify-lg-content-end">
                             <?php if (empty($_SESSION)) { ?><a class="menu text-white nav-link active" href="../espacePerso.php">Se connecter</a>
                             <?php } else { ?>
-                                <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
+                                <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['name'] ?></a>
                             <?php } ?>
                         </li>
                         <?php if (isset($_SESSION['login'])) { ?>
@@ -107,23 +107,47 @@ require_once "../controllers/detailsController.php";
         </nav>
 
 
-
         <?php foreach ($detailsArray as $details) { ?>
+
+            <?php if (!empty($_SESSION)) { ?>
+                <?php $addedObj = new Destinations();
+                if ($addedObj->addedWishlist($details['des_id']) !== FALSE) { ?>
+
+                    <div class="text-center bg-success text-white pb-2 pt-2" name="wishlist" id="liveToastBtn">Ajouté à ma wishlist</div>
+
+            <?php }
+            } ?>
+
             <h1 class="text-center fw-bold pt-5 detailsTitle">Découvrez <?= $details['des_title'] ?> !</h1>
 
-            <a href="views.php?id=<?= $details['cat_id'] ?>" class="text-dark fs-5 ps-3 d-lg-block d-none"><button class="btn btn-outline-dark"><i class="bi bi-chevron-left"></i>Retour</button></a>
+            <div class="text-center fst-italic">Cette page a été visitée <?= $visitObj->getVisit($id)['des_visit'] ?> fois!</div>
+
+            <a href="views.php?id=<?= $details['cat_id'] ?>" class="ms-5 d-lg-block d-none"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
 
 
             <div class="text-center pt-5">
                 <img src="../assets/img/img_destinations/<?= $details['des_picture'] ?>" alt="Image d'illustration" class="w-50 rounded">
             </div>
 
-            <div class="mainText text-center m-auto pt-3">
+            <div class="mainText  m-auto pt-3">
                 <p class="text-center fw-bold fs-5"><?= $details['des_description'] ?></p>
+
+
+                <p class=" fw-bold fs-5 text-center pt-5">Les Principales activités sur place sont : </p>
+                <ul class="d-inline-block d-flex row fs-5"><?php foreach ($activitiesArray as $activities) { ?><li class="col-lg-4"><?= $activities['act_name'] ?></li><?php } ?></ul>
+
             </div>
             <div class="text-center pb-3">
-                <?php if (!empty($_SESSION)) { ?><a href="#" class="btn btn-dark">Ajouter à la wishlist</a><?php } ?>
+                <?php if (!empty($_SESSION) && $addedObj->addedWishlist($details['des_id']) == FALSE) { ?>
+                    <form action="" method="POST">
+                        <input type="submit" class="btn btn-dark" value="Ajouter à la wishlist" name="wishlist" id="liveToastBtn">
+                        <input type="hidden" name="id" value="<?= $details['des_id'] ?>">
+                    </form>
+                <?php } ?>
+
             </div>
+
+
 
             <div class="text-center fw-bold fs-3 pt-2">Où se trouve <?= $details['des_title'] ?> ?</div>
             <div class="container">
@@ -133,24 +157,24 @@ require_once "../controllers/detailsController.php";
             <div class="text-center fw-bold fs-3 pb-1 pt-5">La météo à <?= $details['des_title'] ?> :</div>
             <div id="openweathermap-widget-21" class="d-none d-lg-block"></div>
             <div id="openweathermap-widget-24" class="d-lg-none d-block"></div>
-
-
         <?php } ?>
 
+    </div>
 
-        <footer class="footer m-auto" style="height: 15vh;">
-            <div class="d-flex justify-content-evenly pt-5 m-auto">
-                <div class="m-auto">
-                    <p class="text-white">©Estenouest</p>
-                </div>
-                <div class="m-auto">
-                    <p class="text-white">Qui sommes-nous?</p>
-                </div>
-                <div class="m-auto">
-                    <p class="text-white">Mentions Légales</p>
-                </div>
+
+    <footer class="footer m-auto" style="height: 15vh;">
+        <div class="d-flex justify-content-evenly pt-5 m-auto">
+            <div class="m-auto">
+                <p class="text-white">©Estenouest</p>
             </div>
-        </footer>
+            <div class="m-auto">
+                <p class="text-white">Qui sommes-nous?</p>
+            </div>
+            <div class="m-auto">
+                <p class="text-white">Mentions Légales</p>
+            </div>
+        </div>
+    </footer>
     </div>
 
 

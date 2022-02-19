@@ -6,7 +6,9 @@ require_once('../models/database.php');
 require_once('../models/destination.php');
 
 
-$uploaddir = "C:\Users\burki\OneDrive\Bureau\Projet\assets\img\img_destinations/";
+$uploaddir = "..\assets\img\img_destinations/";
+
+var_dump($_POST);
 
 if (isset($_FILES['picture'])) {
     $fileName = $_FILES['picture']['tmp_name'];
@@ -25,7 +27,10 @@ if (!empty($_FILES)) {
 $destinationObj = new Destinations();
 $destinationArray = $destinationObj->getCategories();
 
-if(isset($_POST['addDestination'])){
+$activitiesObj = new Destinations();
+$activitiesArray = $activitiesObj->getAllActivities();
+
+if (isset($_POST['addDestination'])) {
 
 
     $picture = $fileToUpload;
@@ -34,7 +39,19 @@ if(isset($_POST['addDestination'])){
     $cityCode = $_POST['cityCode'];
     $iframe = $_POST['iframe'];
     $category = $_POST['category'];
-    
+
     $addObj = new Destinations();
-    $addArray = $addObj->addDestination($picture,$title,$descr,$cityCode,$iframe,$category);
+    $addArray = $addObj->addDestination($picture, $title, $descr, $cityCode, $iframe, $category);
+
+    
+    foreach ($activitiesArray as $catch) {
+
+        if (isset($_POST[$catch['act_name']])) {
+
+            $activity = $catch['act_name'];
+
+            $selectedObj = new Destinations();
+            $selectedObj->addActivities($activity);
+        }
+    }
 }

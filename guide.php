@@ -34,7 +34,7 @@ require "my-config.php";
             <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="espacePerso.php">Se connecter</a>
         </div>
     <?php } else { ?>
-        <a href="connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['login'] ?></a>
+        <a href="connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
         <div class="text-white d-flex justify-content-end m-0 pe-2">
@@ -51,7 +51,7 @@ require "my-config.php";
 
 
     </header>
-    <div class="global m-auto">
+    <div class="global m-0">
 
         <nav class="navbar navbar-expand-lg m-0">
             <div class="container-fluid m-0">
@@ -85,7 +85,7 @@ require "my-config.php";
                         <li class="d-lg-none nav-item justify-lg-content-end">
                             <?php if (empty($_SESSION)) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
                             <?php } else { ?>
-                                <a href="connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
+                                <a href="connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['name'] ?></a>
                             <?php } ?>
                         </li>
                         <?php if (isset($_SESSION['login'])) { ?>
@@ -99,22 +99,22 @@ require "my-config.php";
                 </div>
             </div>
         </nav>
-
-        <footer class="footer bg-dark" style="height: 15vh;">
-            <div class="d-flex justify-content-evenly pt-5">
-                <div class="">
-                    <p class="text-white">©Estenouest</p>
-                </div>
-                <div class="">
-                    <p class="text-white">Qui sommes-nous?</p>
-                </div>
-                <div class="">
-                    <p class="text-white">Mentions Légales</p>
-                </div>
+    </div>
+    <footer class="footer bg-dark" style="height: 15vh;">
+        <div class="d-flex justify-content-evenly pt-5">
+            <div class="">
+                <p class="text-white">©Estenouest</p>
             </div>
-        </footer>
+            <div class="">
+                <p class="text-white">Qui sommes-nous?</p>
+            </div>
+            <div class="">
+                <p class="text-white">Mentions Légales</p>
+            </div>
+        </div>
+    </footer>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
 </html>

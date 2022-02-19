@@ -42,6 +42,31 @@ class Destinations extends DataBase
         $resultQuery->execute();
     }
 
+    public function getAllActivities()
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `act_name` FROM pro_activities";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+
+    public function addActivities($activity)
+    {
+        $base = $this->connectDb();
+        $query = "INSERT INTO  `pro_destination_cat`(`des_id`,`act_id`)
+        values ((SELECT `des_id` FROM `pro_destination`
+        ORDER BY `des_id` DESC LIMIT 1)
+        ,(SELECT `act_id` FROM `pro_activities`
+        WHERE `act_name` = :activity))";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':activity', $activity, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
 
     /**
      * Permet d'afficher les destinations en fonction de leur categorie dans la rubrique categories
@@ -60,7 +85,6 @@ class Destinations extends DataBase
         return $resultQuery->fetchAll();
     }
 
-
     /**
      * Permet d'afficher uniquement le nom de la categorie de la categorie séléctionnée
      * @param string $id : id correspondant a la categorie
@@ -76,7 +100,6 @@ class Destinations extends DataBase
         return $resultQuery->fetchAll();
     }
 
-
     /**
      * Permet d'afficher les destinations en fonction de leur categorie dans la rubrique détails
      * @param string $id : id correspondant a la categorie
@@ -84,7 +107,24 @@ class Destinations extends DataBase
     public function getSingleDetails($id)
     {
         $base = $this->connectDb();
-        $query = "SELECT * FROM `pro_destination` WHERE `des_id` = :id";
+        $query = "SELECT `des_id`,`des_title`,`des_description`,`des_picture`,`des_city_code`,`cat_id`,`des_visit`,`des_iframe`,group_concat(act_name) as activities FROM `pro_destination_cat`
+        NATURAL JOIN `pro_destination`
+        NATURAL JOIN `pro_activities`
+         WHERE `des_id` = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+    public function getActivities($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `act_name` FROM `pro_destination`
+        NATURAL JOIN `pro_destination_cat`
+        NATURAL JOIN `pro_activities`
+        WHERE des_id = :id";
 
         $resultQuery = $base->prepare($query);
         $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
@@ -95,7 +135,7 @@ class Destinations extends DataBase
     public function getDestinations()
     {
         $base = $this->connectDb();
-        $query = "SELECT `des_picture`,`des_title`,`des_id`,`des_picture`,`cat_category` FROM `pro_destination`
+        $query = "SELECT `des_picture`,`des_title`,`des_id`,`cat_category` FROM `pro_destination`
         INNER JOIN `pro_categories` ON pro_categories.cat_id = pro_destination.cat_id";
 
         $resultQuery = $base->prepare($query);
@@ -199,10 +239,7 @@ class Destinations extends DataBase
         $resultQuery->bindValue(':category', $category, PDO::PARAM_STR);
         $resultQuery->execute();
         return $resultQuery->fetchAll();
-
-
     }
-
 
     public function deleteDestination($id)
     {
@@ -216,5 +253,146 @@ class Destinations extends DataBase
         $resultQuery->execute();
     }
 
+    //******PARTIE POUR LA PAGINATION
 
+    /**
+     * Permet de compter toutes les destinations
+     */
+    public function countDestination()
+    {
+        $base = $this->connectDb();
+        $query = "SELECT count(*) as total FROM `pro_destination`";
+
+        $stmt = $base->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+
+    /**
+     * Permet d'établir le point de départ(offset) pour les pages et d'afficher les destinations 10/page
+     * @param int $offset : resultat du calcul ($pages * 10) - 10
+     */
+    public function getDestinationOffset(int $offset)
+    {
+        $base = $this->connectDb();
+
+        $query = "SELECT * FROM `pro_destination`
+        INNER JOIN `pro_categories` ON pro_categories.cat_id = pro_destination.cat_id
+        LIMIT 10 OFFSET :offset";
+
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getVisit($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `des_visit` FROM `pro_destination`
+        WHERE `des_id` = :id";
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function incrementVisit($id, $count)
+    {
+        $base = $this->connectDb();
+        $count++;
+        $query = "UPDATE `pro_destination`
+        SET `des_visit` = :increment
+        WHERE `des_id` = :id";
+
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':increment', $count, PDO::PARAM_INT);
+
+        $stmt->execute();
+    }
+
+    public function getStatFirst()
+    {
+        $base = $this->connectDb();
+
+        $query = "SELECT * FROM `pro_destination`
+        ORDER BY `des_visit` DESC LIMIT 1;";
+
+        $stmt = $base->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getStatOther()
+    {
+        $base = $this->connectDb();
+
+        $query = "SELECT * FROM `pro_destination`
+        ORDER BY `des_visit` DESC LIMIT 1,2;";
+
+        $stmt = $base->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+
+    public function getWishlist($userId)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT * FROM `pro_destination`
+        NATURAL JOIN `pro_wishlist`
+        NATURAL JOIN `pro_users`
+        WHERE pro_wishlist.use_id = :userId";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+
+    public function addWishlist($destinationId,$userId)
+    {
+        $base = $this->connectDb();
+        $query = "INSERT INTO  `pro_wishlist`(`des_id`,`use_id`)
+        values ((SELECT `des_id` FROM `pro_destination`
+        WHERE des_id = :destinationId)
+        ,(SELECT `use_id` FROM `pro_users`
+        WHERE `use_id` = :userId))";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':destinationId', $destinationId, PDO::PARAM_INT);
+        $resultQuery->bindValue(':userId', $userId, PDO::PARAM_INT);
+
+        $resultQuery->execute();
+    }
+
+
+    public function addedWishlist($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT * FROM `pro_wishlist` WHERE `des_id` = :id";
+
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+
+    public function deleteWishlist($id)
+    {
+
+        $base = $this->connectDb();
+        $query = "DELETE FROM `pro_wishlist` WHERE `des_id`= :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
 }

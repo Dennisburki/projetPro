@@ -38,13 +38,13 @@ require_once "../my-config.php";
 
 <body>
 
-<header class="header d-lg-block d-none">
+    <header class="header d-lg-block d-none">
 
         <div class="text-white d-flex justify-content-end m-auto">
             <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
         </div>
     <?php } else { ?>
-        <a href="<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['login'] ?></a>
+        <a href="<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
         <div class="text-white d-flex justify-content-end m-auto pe-2">
@@ -61,60 +61,60 @@ require_once "../my-config.php";
 
 
     </header>
+    <div class="global m-0">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
-
-            <div class="collapse navbar-collapse text-start" id="navbarNav">
-                <ul class="navbar-nav container row">
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
-                        <a class="nav-link active" aria-current="page Accueil" href="../index.php">Accueil</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Catégories" href="../categories.php">Catégories</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Guide" href="../guide.php">Guide</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Blog" href="../blog.php">Blog</a>
-                    </li>
-                    <li class="d-lg-none nav-item justify-lg-content-end">
-                        <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
-                        <?php } else { ?>
-                            <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="text-white fs-4"><?= $_SESSION['login'] ?></a>
-                        <?php } ?>
-                    </li>
-                    <?php if (!empty($_SESSION['login'])) { ?>
-                        <li class="d-lg-none nav-item justify-lg-content-end">
-                            <form action="" method="POST">
-                                <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
-                            </form>
+                <div class="collapse navbar-collapse text-start" id="navbarNav">
+                    <ul class="navbar-nav container row">
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
+                            <a class="nav-link active" aria-current="page Accueil" href="../index.php">Accueil</a>
                         </li>
-                    <?php } ?>
-                </ul>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Catégories" href="../categories.php">Catégories</a>
+                        </li>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Guide" href="../guide.php">Guide</a>
+                        </li>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Blog" href="../blog.php">Blog</a>
+                        </li>
+                        <li class="d-lg-none nav-item justify-lg-content-end">
+                            <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
+                            <?php } else { ?>
+                                <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="text-white fs-4"><?= $_SESSION['name'] ?></a>
+                            <?php } ?>
+                        </li>
+                        <?php if (!empty($_SESSION['login'])) { ?>
+                            <li class="d-lg-none nav-item justify-lg-content-end">
+                                <form action="" method="POST">
+                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                                </form>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
 
-    <?php if (isset($_POST['disconnect'])) { ?>
-        <div class="text-center pt-5 pb-5">
-            <div class="fw-bold fs-3 pb-3"> Vous avez bien été déconnecté.</div>
-            <a href="../views/home.php"><button class="btn btn-dark">Retour à l'accueil</button></a>
-        </div>
-    <?php } else { ?>
+        <?php if (isset($_POST['disconnect'])) { ?>
+            <div class="text-center pt-5 pb-5">
+                <div class="fw-bold fs-3 pb-3"> Vous avez bien été déconnecté.</div>
+                <a href="../views/home.php"><button class="btn btn-dark">Retour à l'accueil</button></a>
+            </div>
+        <?php } else { ?>
 
-        <h1 class="text-center pt-5">Bienvenue sur ton espace, <?= $_SESSION['login'] ?></h1>
+            <h1 class="text-center pt-5">Bienvenue sur ton espace, <?= $_SESSION['login'] ?></h1>
 
 
 
-    <?php } ?>
-
+        <?php } ?>
+    </div>
     <footer class="footer bg-dark" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">
             <div class="">

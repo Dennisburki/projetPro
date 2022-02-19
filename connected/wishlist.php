@@ -8,6 +8,7 @@ if (session_status() != PHP_SESSION_ACTIVE) {
 
 require_once "../controllers/admin-controller.php";
 require_once "../my-config.php";
+require_once "../controllers/wishlistController.php";
 
 
 
@@ -44,7 +45,7 @@ require_once "../my-config.php";
             <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
         </div>
     <?php } else { ?>
-        <a href="<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['login'] ?></a>
+        <a href="<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
         <div class="text-white d-flex justify-content-end m-auto pe-2">
@@ -61,126 +62,122 @@ require_once "../my-config.php";
 
 
     </header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
+    <div class="global m-0">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
-            <div class="collapse navbar-collapse text-start" id="navbarNav">
-                <ul class="navbar-nav container row">
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
-                        <a class="nav-link active" aria-current="page Accueil" href="../index.php">Accueil</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Catégories" href="../categories.php">Catégories</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Guide" href="../guide.php">Guide</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Blog" href="../blog.php">Blog</a>
-                    </li>
-                    <li class="d-lg-none nav-item justify-lg-content-end">
-                        <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
-                        <?php } else { ?>
-                            <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="text-white fs-4"><?= $_SESSION['login'] ?></a>
-                        <?php } ?>
-                    </li>
-                    <?php if (!empty($_SESSION['login'])) { ?>
-                        <li class="d-lg-none nav-item justify-lg-content-end">
-                            <form action="" method="POST">
-                                <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
-                            </form>
+                <div class="collapse navbar-collapse text-start" id="navbarNav">
+                    <ul class="navbar-nav container row">
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
+                            <a class="nav-link active" aria-current="page Accueil" href="../index.php">Accueil</a>
                         </li>
-                    <?php } ?>
-                </ul>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Catégories" href="../categories.php">Catégories</a>
+                        </li>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Guide" href="../guide.php">Guide</a>
+                        </li>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Blog" href="../blog.php">Blog</a>
+                        </li>
+                        <li class="d-lg-none nav-item justify-lg-content-end">
+                            <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
+                            <?php } else { ?>
+                                <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="text-white fs-4"><?= $_SESSION['name'] ?></a>
+                            <?php } ?>
+                        </li>
+                        <?php if (!empty($_SESSION['login'])) { ?>
+                            <li class="d-lg-none nav-item justify-lg-content-end">
+                                <form action="" method="POST">
+                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                                </form>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <?php if (isset($_POST['disconnect'])) { ?>
-        <div class="text-center pt-5 pb-5">
-            <div class="fw-bold fs-3 pb-3"> Vous avez bien été déconnecté.</div>
-            <a href="../views/home.php"><button class="btn btn-dark">Retour à l'accueil</button></a>
-        </div>
-    <?php } else { ?>
+        <?php if (isset($_POST['disconnect'])) { ?>
+            <div class="text-center pt-5 pb-5">
+                <div class="fw-bold fs-3 pb-3"> Vous avez bien été déconnecté.</div>
+                <a href="../views/home.php"><button class="btn btn-dark">Retour à l'accueil</button></a>
+            </div>
+        <?php } else { ?>
 
-        <h1 class="text-center pt-5 fw-bold">Wishlist</h1>
+            <h1 class="text-center pt-5 fw-bold detailsTitle">Wishlist</h1>
+            <div class="pb-3">
+                <a href="user.php" class="ms-5 d-lg-block d-none"><button class="btn btn-outline-dark"><i class="bi bi-chevron-left"></i>Retour au Menu</button></a>
+            </div>
 
+            <div class="row text-center justify-content-center">
 
-        <div class="row text-center justify-content-center">
+                <!-- ****************************BOUCLER A PARTIR D'ICI -- CA MARCHE ET C'EST VERIFIE******************************************************* -->
 
-            <!-- ****************************BOUCLER A PARTIR D'ICI -- CA MARCHE ET C'EST VERIFIE******************************************************* -->
+                <?php foreach ($displayArray as $display) { ?>
+                    <div class="card mb-3 col-lg-12" style="max-width: 800px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="../assets/img/img_destinations/<?= $display['des_picture'] ?>" class="img-fluid rounded-start" alt="Image d'illustration">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= $display['des_title'] ?></h5>
+                                    <p class="card-text description"><?= $display['des_description'] ?></p>
 
-            <div class="card mb-3 col-lg-12" style="max-width: 800px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="../assets/img/montagne2.jpg" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    <a href="../views/detailsDestination.php?id=<?= $display['des_id'] ?>"><button class="btn btn-dark">Voir en détails</button></a>
+
+                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $display['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button>
+
+                                    <!-- Modal -->
+
+                                    <div class="modal fade" id="exampleModal<?= $display['des_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Supprimer de la Wishlist</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Etes-vous certain de vouloir supprimer <?= $display['des_title'] ?> de la Wishlist?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                    <form action="wishlist?id=<?= $display['des_id'] ?>" method="POST">
+                                                        <input type="submit" name="delete" value="Supprimer" class="btn btn-danger">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+            <?php }
+            } ?>
             </div>
-
-        <?php } ?>
-
-        <!-- ********************SUPPRIMER A PARTIR D'ICI QUAND BOUCLE************************************ -->
-        <div class="card mb-3 col-lg-12" style="max-width: 800px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="../assets/img/questionmark.jpg" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
+    </div>
+    <footer class="footer bg-dark" style="height: 15vh;">
+        <div class="d-flex justify-content-evenly pt-5">
+            <div class="">
+                <p class="text-white">©Estenouest</p>
+            </div>
+            <div class="">
+                <p class="text-white">Qui sommes-nous?</p>
+            </div>
+            <div class="">
+                <p class="text-white">Mentions Légales</p>
             </div>
         </div>
-        <div class="card mb-3 col-lg-12" style="max-width: 800px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="../assets/img/velo.jpg" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </footer>
 
-        <!-- *****************************************************STOP SUPPRIMER******************************************************************* -->
-
-
-        </div>
-
-        <footer class="footer bg-dark" style="height: 15vh;">
-            <div class="d-flex justify-content-evenly pt-5">
-                <div class="">
-                    <p class="text-white">©Estenouest</p>
-                </div>
-                <div class="">
-                    <p class="text-white">Qui sommes-nous?</p>
-                </div>
-                <div class="">
-                    <p class="text-white">Mentions Légales</p>
-                </div>
-            </div>
-        </footer>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
 </html>

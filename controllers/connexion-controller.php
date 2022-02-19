@@ -1,6 +1,8 @@
 <?php
 
 require_once "my-config.php";
+require_once "models/database.php";
+require_once "models/accounts.php";
 
 if (session_status() == PHP_SESSION_NONE) session_start();
 
@@ -9,28 +11,27 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 
 $errorsConect = [];
 
-if (!empty($_POST['login']) && !empty($_POST['passwordConect'])) {
+$loginObj = new Accounts();
+$passwordObj = new Accounts();
 
-    if(array_key_exists($_POST['login'], $usersArray)) {
 
-        if(password_verify($_POST['passwordConect'], $usersArray[$_POST['login']]['password'])) {
+if (isset($_POST["submit"])) {
 
-        $_SESSION['login'] = $_POST['login'];
 
-        if($_SESSION['login'] == 'admin'){
-            
+    if (!empty($_POST['login']) && !empty($_POST['passwordConect'])) {
 
-        header("Location: connected/admin.php");
+        if ($loginObj->checkLogin($_POST['login']) !== FALSE) {
 
-         } else {
 
-            header("Location: connected/user.php");
+            if (password_verify($_POST['passwordConect'], $passwordObj->checkPassword($_POST['login'])['use_password'])) {
+
+                $_SESSION = $loginObj->getUserConnect($_POST['login']);
+            } else {
+                $errorsConect['invalid'] = "Login ou mot de passe invalide";
+            }
+        } else {
+            $errorsConect['invalid'] = "Login ou mot de passe invalide";
         }
-} else {
-    $errorsConect['invalid'] = "Login ou mot de passe invalide";
-}
-    } else {
-        $errorsConect['invalid'] = "Login ou mot de passe invalide";
     }
 }
 
@@ -39,20 +40,20 @@ if (!empty($_POST['login']) && !empty($_POST['passwordConect'])) {
 
 if (!empty($_POST)) {
 
-    if (isset($_POST['submitButton']) && isset($_POST['email']) && isset($_POST['prenom']) && isset($_POST['password']) && isset($_POST['secondPassword'])) {
+    if (isset($_POST['submitButton']) && isset($_POST['email']) && isset($_POST['prenom']) && isset($_POST['passwordUser']) && isset($_POST['secondPassword'])) {
 
         $regexName = "/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,25}$/u";
         $errors = [];
 
         $email = htmlspecialchars($_POST["email"]); // le specialchars empeche d'ecrire du code dans les input et donc de faire des boucles infinis par ex.
         $firstName = htmlspecialchars($_POST["prenom"]);
-        $password = htmlspecialchars($_POST["password"]);
+        $password = htmlspecialchars($_POST["passwordUser"]);
         $secondPassword = htmlspecialchars($_POST["secondPassword"]);
 
         if (empty($_POST["email"])) {
             $errors["PasEmail"] = "Veuillez saisir un email";
         } else {
-            if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i",$_POST["email"])) {
+            if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i", $_POST["email"])) {
                 $errors["email"] = "Email invalide";
             }
         }
@@ -65,29 +66,41 @@ if (!empty($_POST)) {
             }
         }
 
-        if (empty($_POST["password"])) {
+        if (empty($_POST["passwordUser"])) {
             $errors["password"] = "Veuillez saisir un mot de passe";
         }
         if (empty($_POST["secondPassword"])) {
             $errors["secondPassword"] = "Veuillez confirmer le mot de passe";
-        } elseif  ($_POST["password"] != $_POST["secondPassword"]){
+        } elseif ($_POST["passwordUser"] != $_POST["secondPassword"]) {
             $errors["wrongPassword"] = "Mot de passe différent";
         }
         if (!isset($_POST["checkbox"])) {
             $errors["checkbox"] = "Coche la case";
         }
+
+        if(empty($errors)){
+
+            $userObj = new Accounts();
+
+            $name = $_POST['prenom'];
+            $email = $_POST['email'];
+            $password = password_hash($_POST['passwordUser'], PASSWORD_BCRYPT);
+
+            $userObj->addUser($name, $email, $password);
+        }
+
     } else {
-        if(isset($_POST['submitButton'])){
-        $errors["allEmpty"] = "Veuillez remplir tous les champs";
+        if (isset($_POST['submitButton'])) {
+            $errors["allEmpty"] = "Veuillez remplir tous les champs";
         }
     }
-} 
+}
 
 //********************************Si deja connecté, redirige vers la page compte**************************************************
 
- if (isset($_SESSION['login'])) {
+if (isset($_SESSION['login'])) {
 
-    if($_SESSION['login'] != "admin") {
+    if ($_SESSION['role'] !== "1") {
         header("location: ../connected/user.php");
     } else {
         header("location: ../connected/admin.php");

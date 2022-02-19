@@ -61,7 +61,6 @@ if (isset($_POST['updateDestination'])) {
         $cityCode = $_POST['cityCode'];
         $iframe = $_POST['iframe'];
         $category = $_POST['category'];
-
         $picture = $fileToUpload;
 
         $updateObj = new Destinations();

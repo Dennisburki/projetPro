@@ -12,7 +12,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="../assets/css/style.css">  
+    <link rel="stylesheet" href="../assets/css/style.css">
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +37,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
             <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
         </div>
     <?php } else { ?>
-        <a href="<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['login'] ?></a>
+        <a href="<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
         <div class="text-white d-flex justify-content-end m-auto pe-2">
@@ -54,105 +54,107 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 
 
     </header>
+    <div class="global m-0">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
-
-            <div class="collapse navbar-collapse text-start" id="navbarNav">
-                <ul class="navbar-nav container row">
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
-                        <a class="nav-link active" aria-current="page Accueil" href="../index.php">Accueil</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Catégories" href="../categories.php">Catégories</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Guide" href="../guide.php">Guide</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Blog" href="../blog.php">Blog</a>
-                    </li>
-                    <li class="d-lg-none nav-item justify-lg-content-end">
-                        <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
-                        <?php } else { ?>
-                            <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="text-white fs-4"><?= $_SESSION['login'] ?></a>
-                        <?php } ?>
-                    </li>
-                    <?php if (!empty($_SESSION['login'])) { ?>
-                        <li class="d-lg-none nav-item justify-lg-content-end">
-                            <form action="" method="POST">
-                                <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
-                            </form>
+                <div class="collapse navbar-collapse text-start" id="navbarNav">
+                    <ul class="navbar-nav container row">
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
+                            <a class="nav-link active" aria-current="page Accueil" href="../index.php">Accueil</a>
                         </li>
-                    <?php } ?>
-                </ul>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Catégories" href="../categories.php">Catégories</a>
+                        </li>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Guide" href="../guide.php">Guide</a>
+                        </li>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Blog" href="../blog.php">Blog</a>
+                        </li>
+                        <li class="d-lg-none nav-item justify-lg-content-end">
+                            <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
+                            <?php } else { ?>
+                                <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="text-white fs-4"><?= $_SESSION['name'] ?></a>
+                            <?php } ?>
+                        </li>
+                        <?php if (!empty($_SESSION['login'])) { ?>
+                            <li class="d-lg-none nav-item justify-lg-content-end">
+                                <form action="" method="POST">
+                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                                </form>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <?php if (isset($_POST['disconnect'])) { ?>
-        <div class="text-center pt-5 pb-5">
-            <div class="fw-bold fs-3 pb-3"> Vous avez bien été déconnecté.</div>
-            <a href="../views/home.php"><button class="btn btn-dark">Retour à l'accueil</button></a>
-        </div>
-    <?php } else { ?>
-
-        <?php if (isset($_POST['updateDestination'])) { ?>
-
+        <?php if (isset($_POST['disconnect'])) { ?>
             <div class="text-center pt-5 pb-5">
-            <div class="fw-bold fs-3 pb-3"> La destination a bien été modifiée.</div>
-            <a href="../connected/admin.php"><button class="btn btn-dark">Retour au menu</button></a>
-            <a href="../connected/updateDestination.php"><button class="btn btn-dark">Modifier une autre destination</button></a>
-        </div>
+                <div class="fw-bold fs-3 pb-3"> Vous avez bien été déconnecté.</div>
+                <a href="../views/home.php"><button class="btn btn-dark">Retour à l'accueil</button></a>
+            </div>
         <?php } else { ?>
 
-<?php foreach($getSingleArray as $single){ ?>
+            <?php if (isset($_POST['updateDestination'])) { ?>
+
+                <div class="text-center pt-5 pb-5">
+                    <div class="fw-bold fs-3 pb-3"> La destination a bien été modifiée.</div>
+                    <a href="../connected/admin.php"><button class="btn btn-dark">Retour au menu</button></a>
+                    <a href="../connected/updateDestination.php"><button class="btn btn-dark">Modifier une autre destination</button></a>
+                </div>
+            <?php } else { ?>
+
+                <?php foreach ($getSingleArray as $single) { ?>
 
 
-    <div class="row text-center justify-content-center m-0 pb-3">
+                    <div class="row text-center justify-content-center m-0 pb-3">
 
-    <h1 class="text-center fw-bold pt-4 pb-4">Modifier la destination:<?= $single['des_title'] ?></h1>
-        <form action="" method="POST" enctype="multipart/form-data" class="col-lg-4 row container-fluid border border-dark justify-content-center">
+                        <h1 class="text-center fw-bold pt-4 pb-4">Modifier la destination:<?= $single['des_title'] ?></h1>
+                        <form action="" method="POST" enctype="multipart/form-data" class="col-lg-4 row container-fluid border border-dark justify-content-center">
 
-            <label for="title" class="pt-3 fw-bold">Titre de la destination: </label>
-            <input type="text" name="title" id="title" value="<?= $single['des_title'] ?>" required>
+                            <label for="title" class="pt-3 fw-bold">Titre de la destination: </label>
+                            <input type="text" name="title" id="title" value="<?= $single['des_title'] ?>" required>
 
-            <label for="picture" class="pt-3 fw-bold">Choix d'une photo:</label>
-            <div>Image actuelle :</div>
-            <img src="../assets/img/img_destinations/<?=$single['des_picture'] ?>" alt="" class="updateImage">
-            <div>Cliquez pour charger une nouvelle image</div>
-            <input type="file" name="picture" id="picture" value="<?=$single['des_picture'] ?>">
+                            <label for="picture" class="pt-3 fw-bold">Choix d'une photo:</label>
+                            <div>Image actuelle :</div>
+                            <img src="../assets/img/img_destinations/<?= $single['des_picture'] ?>" alt="" class="updateImage">
+                            <div>Cliquez pour charger une nouvelle image</div>
+                            <input type="file" name="picture" id="picture" value="<?= $single['des_picture'] ?>">
 
-            <label for="category" class="pt-3 fw-bold">Catégorie</label>
-            <select class="form-select" aria-label="category" name="category">
-                <option selected><?= $single['cat_category'] ?></option>
-                <?php foreach ($destinationArray as $destination) { ?>
-                    <option><?= $destination['cat_category'] ?></option>
-                <?php } ?>
-            </select>
+                            <label for="category" class="pt-3 fw-bold">Catégorie</label>
+                            <select class="form-select" aria-label="category" name="category">
+                                <option selected><?= $single['cat_category'] ?></option>
+                                <?php foreach ($destinationArray as $destination) { ?>
+                                    <option><?= $destination['cat_category'] ?></option>
+                                <?php } ?>
+                            </select>
 
-            <label for="content" class="pt-3 fw-bold">Description:</label>
-            <textarea type="text" name="content" id="content" required><?= $single['des_description'] ?></textarea>
+                            <label for="content" class="pt-3 fw-bold">Description:</label>
+                            <textarea type="text" name="content" id="content" required><?= $single['des_description'] ?></textarea>
 
-            <label for="cityCode" class="pt-3 fw-bold">City Code pour la météo: </label>
-            <input type="text" name="cityCode" id="cityCode" value="<?= $single['des_city_code'] ?>" required>
+                            <label for="cityCode" class="pt-3 fw-bold">City Code pour la météo: </label>
+                            <input type="text" name="cityCode" id="cityCode" value="<?= $single['des_city_code'] ?>" required>
 
-            <label for="iframe" class="pt-3 fw-bold">iframe: </label>
-            <textarea type="text" name="iframe" id="iframe" required><?= $single['des_iframe'] ?></textarea>
+                            <label for="iframe" class="pt-3 fw-bold">iframe: </label>
+                            <textarea type="text" name="iframe" id="iframe" required><?= $single['des_iframe'] ?></textarea>
 
-            <div class="pt-3 pb-3">
-                <input name="updateDestination" type="submit" value="Sauvegarder" class="col-lg-3 btn btn-outline-dark" />
-            </div>
+                            <div class="pt-3 pb-3">
+                                <input name="updateDestination" type="submit" value="Sauvegarder" class="col-lg-3 btn btn-outline-dark" />
+                            </div>
 
-        </form>
+                        </form>
+                    </div>
+        <?php }
+            }
+        } ?>
+
     </div>
-    <?php } } }?>
-
-
     <footer class="footer bg-dark m-0" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">
             <div class="">

@@ -15,4 +15,15 @@ if (isset($_GET['id'])) {
 
     $getCategoryTitleObj = new Destinations();
     $getCategoryTitleArray = $getCategoryTitleObj->getCategoryTitle($id);
+
+    if (isset($_POST['wishlist'])) {
+
+
+        $destinationId = $_POST['id'];
+        $userId = $_SESSION['id'];
+
+        $wishlistObj = new Destinations();
+        $wishlistObj->addWishlist($destinationId, $userId);
+    }
+    
 }

@@ -3,8 +3,9 @@
 session_start();
 
 
-require "../my-config.php";
-require "../controllers/admin-controller.php";
+require_once "../my-config.php";
+require_once "../controllers/admin-controller.php";
+require_once "../controllers/homeController.php";
 
 ?>
 
@@ -39,7 +40,7 @@ require "../controllers/admin-controller.php";
             <?php if (empty($_SESSION['login'])) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
         </div>
     <?php } else { ?>
-        <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['login'] ?></a>
+        <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
         <div class="text-white d-flex justify-content-end m-auto pe-2">
@@ -91,7 +92,7 @@ require "../controllers/admin-controller.php";
                         <li class="d-lg-none nav-item justify-lg-content-end">
                             <?php if (empty($_SESSION)) { ?><a class="menu text-white nav-link active" href="../espacePerso.php">Se connecter</a>
                             <?php } else { ?>
-                                <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['login'] ?></a>
+                                <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['name'] ?></a>
                             <?php } ?>
                         </li>
                         <?php if (isset($_SESSION['login'])) { ?>
@@ -151,7 +152,7 @@ require "../controllers/admin-controller.php";
 
         <p class="text-center h4 pt-4">Vous pouvez ensuite préparer votre prochain voyage en ajoutant des destinations à votre Wish List!</p>
 
-        <p class="text-center h3 pt-4 fw-bold pb-4">Destinations les plus prisées ce mois-ci par nos utilisateurs</p>
+        <p class="text-center h3 pt-4 fw-bold pb-4">Destinations les plus prisées par nos utilisateurs</p>
 
         <!-- ****************************************début caroussel************************************************************* -->
 
@@ -162,27 +163,36 @@ require "../controllers/admin-controller.php";
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="../assets/img/questionmark.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>First slide label</h5>
-                        <p>Some representative placeholder content for the first slide.</p>
+
+                <?php foreach ($statArray as $stat) { ?>
+
+                    <div class="carousel-item active">
+                        <a href="detailsDestination.php?id=<?= $stat['des_id'] ?>">
+                            <img src="../assets/img/img_destinations/<?= $stat['des_picture'] ?>" class="d-block w-100" alt="Meilleure Destination">
+                            <div class="pt-4">
+                                <div class="carousel-caption ">
+                                    <div class="h3 bg-dark rounded"><?= $stat['des_title'] ?></div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="../assets/img/questionmark.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Second slide label</h5>
-                        <p>Some representative placeholder content for the second slide.</p>
+
+                <?php } ?>
+
+                <?php foreach ($statOtherArray as $other) { ?>
+
+                    <div class="carousel-item">
+                        <a href="detailsDestination.php?id=<?= $other['des_id'] ?>">
+                            <img src="../assets/img/img_destinations/<?= $other['des_picture'] ?>" class="d-block w-100" alt="...">
+                            <div class="pt-4">
+                                <div class="carousel-caption">
+                                    <div class="h3 bg-dark rounded"><?= $other['des_title'] ?></div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="../assets/img/questionmark.jpg" class="d-block w-100" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Third slide label</h5>
-                        <p>Some representative placeholder content for the third slide.</p>
-                    </div>
-                </div>
+                <?php } ?>
+
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>

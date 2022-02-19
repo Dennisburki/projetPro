@@ -12,6 +12,21 @@ $displayArray = $displayObj->getDestinations();
 $destinationObj = new Destinations();
 $destinationArray = $destinationObj->getCategories();
 
+// Partie pour la pagination***********************
+
+$countObj = new Destinations();
+$countArray = $countObj->countDestination();
+
+$nbDestination = $countObj->countDestination();
+$nbPages = ceil($nbDestination[0][0] / 10);
+
+    $pages = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $offset = ($pages * 10) - 10;
+    $pageObj = new Destinations();
+    $pageArray = $pageObj->getDestinationOffset($offset);
+
+//FIN PARTIE POUR LA PAGINATION******************************
+
 if (!empty($_POST['category'])) {
 
     $category = $_POST['category'];

@@ -5,19 +5,15 @@ session_start();
 if (session_status() != PHP_SESSION_ACTIVE) {
     header("location: ../index.php");
 };
-
-
 require_once "../controllers/admin-controller.php";
+require_once "../controllers/editController.php";
 require_once "../my-config.php";
-
-
-
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 
-<>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -44,102 +40,98 @@ require_once "../my-config.php";
 
 <body>
 
-<header class="header d-lg-block d-none">
+    <header class="header d-lg-block d-none">
 
-<div class="text-white d-flex justify-content-end m-auto">
-    <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
-</div>
-<?php } else { ?>
-<a href="<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['login'] ?></a>
-</div>
-
-<div class="text-white d-flex justify-content-end m-auto pe-2">
-    <form action="../views/home.php" method="POST" class="logout">
-        <div class="fs-5 logout"><i class="bi bi-box-arrow-left"></i><input type="submit" name="disconnect" value="Se déconnecter" class="btn logout text-white fs-6"></div>
-    </form>
-</div>
-<?php } ?>
-
-<a href="../index.php" class="text-decoration-none">
-<h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
-<div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
-</a>
-
-
-</header>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
-
-            <div class="collapse navbar-collapse text-start" id="navbarNav">
-                <ul class="navbar-nav container row">
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
-                        <a class="nav-link active" aria-current="page Accueil" href="../index.php">Accueil</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Catégories" href="../categories.php">Catégories</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Guide" href="../guide.php">Guide</a>
-                    </li>
-                    <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                        <a class="nav-link active" aria-current="page Blog" href="../blog.php">Blog</a>
-                    </li>
-                    <li class="d-lg-none nav-item justify-lg-content-end">
-                        <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
-                        <?php } else { ?>
-                            <a href="../connected/<?php if ($_SESSION['login'] == 'admin') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="text-white fs-4"><?= $_SESSION['login'] ?></a>
-                        <?php } ?>
-                    </li>
-                    <?php if (!empty($_SESSION['login'])) { ?>
-                        <li class="d-lg-none nav-item justify-lg-content-end">
-                            <form action="" method="POST">
-                                <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
-                            </form>
-                        </li>
-                    <?php } ?>
-                </ul>
-            </div>
+        <div class="text-white d-flex justify-content-end m-auto">
+            <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
         </div>
-    </nav>
-
-
-    <?php if (isset($_POST['disconnect'])) { ?>
-        <div class="text-center pt-5 pb-5">
-            <div class="fw-bold fs-3 pb-3"> Vous avez bien été déconnecté.</div>
-            <a href="../views/home.php"><button class="btn btn-dark">Retour à l'accueil</button></a>
-        </div>
-
     <?php } else { ?>
+        <a href="<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
+        </div>
 
-        <h1 class="text-center fw-bold pt-5 pb-5">Rédaction d'articles</h1>
-
-        <form action="edit.php" method="POST" enctype="multipart/form-data">
-
-            <label for="title">Titre de l'article: </label>
-            <input type="text" name="title" id="title" required></br>
-            <div class="pt-5 pb-5">
-                <label for="upload">Choix d'une photo: </label>
-                <input name="upload" type="file" id="upload" />
-            </div>
-            <?php var_dump($_POST); ?>
-            <textarea name="content">
-    Welcome to TinyMCE!
-  </textarea>
-
-
-            <div class="text-center pb-5 pt-2">
-                <input name="submit" type="submit" value="Publier" class="btn btn-dark" />
-            </div>
-            <!--**** Il faudra utiliser cette fct pour upload vers la bdd move_uploaded_file ********************************-->
-        </form>
-
+        <div class="text-white d-flex justify-content-end m-auto pe-2">
+            <form action="../views/home.php" method="POST" class="logout">
+                <div class="fs-5 logout"><i class="bi bi-box-arrow-left"></i><input type="submit" name="disconnect" value="Se déconnecter" class="btn logout text-white fs-6"></div>
+            </form>
+        </div>
     <?php } ?>
 
+    <a href="../index.php" class="text-decoration-none">
+        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
+        <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
+    </a>
+
+
+    </header>
+    <div class="global m-0">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
+
+                <div class="collapse navbar-collapse text-start" id="navbarNav">
+                    <ul class="navbar-nav container row">
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
+                            <a class="nav-link active" aria-current="page Accueil" href="../index.php">Accueil</a>
+                        </li>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Catégories" href="../categories.php">Catégories</a>
+                        </li>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Guide" href="../guide.php">Guide</a>
+                        </li>
+                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
+                            <a class="nav-link active" aria-current="page Blog" href="../blog.php">Blog</a>
+                        </li>
+                        <li class="d-lg-none nav-item justify-lg-content-end">
+                            <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
+                            <?php } else { ?>
+                                <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="text-white fs-4"><?= $_SESSION['name'] ?></a>
+                            <?php } ?>
+                        </li>
+                        <?php if (!empty($_SESSION['login'])) { ?>
+                            <li class="d-lg-none nav-item justify-lg-content-end">
+                                <form action="" method="POST">
+                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                                </form>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <?php if (isset($_POST['disconnect'])) { ?>
+            <div class="text-center pt-5 pb-5">
+                <div class="fw-bold fs-3 pb-3"> Vous avez bien été déconnecté.</div>
+                <a href="../views/home.php"><button class="btn btn-dark">Retour à l'accueil</button></a>
+            </div>
+
+        <?php } else { ?>
+
+            <h1 class="text-center fw-bold pt-5 pb-5">Rédaction d'articles</h1>
+            <div class="row justify-content-center">
+                <form action="edit.php" method="POST" enctype="multipart/form-data" class="col-lg-8">
+
+                    <label for="title">Titre de l'article: </label>
+                    <input type="text" name="title" id="title" required></br>
+                    <div class="pt-5 pb-5">
+                        <label for="upload">Choix d'une photo: </label>
+                        <input name="upload" type="file" id="upload" />
+                    </div>
+
+                    <textarea name="content" class="w-100"> Welcome to TinyMCE!</textarea>
+
+                    <div class="text-center pb-5 pt-2">
+                        <input name="publish" type="submit" value="Publier" class="btn btn-dark" />
+                    </div>
+                </form>
+            </div>
+        <?php } ?>
+    </div>
     <footer class="footer bg-dark" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">
             <div class="">
