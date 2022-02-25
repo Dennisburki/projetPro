@@ -28,27 +28,29 @@ require "my-config.php";
 
 <body>
 
-    <header class="header d-lg-block d-none m-0">
+    <header class="header d-lg-block d-none">
 
-        <div class="text-white d-flex justify-content-end m-0">
-            <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="espacePerso.php">Se connecter</a>
+        <div class=" d-flex justify-content-end m-auto pt-3 pe-3">
+            <?php if (empty($_SESSION['login'])) { ?><a class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded" href="espacePerso.php"><i class="bi bi-person pt-2 pe-2"></i>Se connecter</a>
         </div>
     <?php } else { ?>
-        <a href="connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
+        <a href="connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
-        <div class="text-white d-flex justify-content-end m-0 pe-2">
-            <form action="home.php" method="POST">
-                <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark fs-6"></div>
+        <div class="d-flex justify-content-end m-auto pe-3">
+            <form action="views/home.php" method="POST">
+                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
     <?php } ?>
 
-    <a href="index.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
-        <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
-    </a>
+    <a href="views/home.php" class="text-decoration-none">
+        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+        <div class="justify-content-center  row m-0 ">
+            <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
+        </div>
 
+    </a>
 
     </header>
     <div class="global m-0">
@@ -56,7 +58,7 @@ require "my-config.php";
         <nav class="navbar navbar-expand-lg m-0">
             <div class="container-fluid m-0">
                 <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon text-white pt-1 pe-5">Menu</span>
+                    <span class="navbar-toggler-icon text-white"><i class="bi bi-list fs-2"></i></span>
                 </button>
                 <a href="index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
@@ -100,7 +102,7 @@ require "my-config.php";
             </div>
         </nav>
     </div>
-    <footer class="footer bg-dark" style="height: 15vh;">
+    <footer class="footer" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">
             <div class="">
                 <p class="text-white">©Estenouest</p>

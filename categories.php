@@ -30,27 +30,29 @@ require "my-config.php";
 
 <body>
 
-    <header class="header d-lg-block d-none m-0">
+    <header class="header d-lg-block d-none">
 
-        <div class="text-white d-flex justify-content-end m-0">
-            <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="espacePerso.php">Se connecter</a>
+        <div class=" d-flex justify-content-end m-auto pt-3 pe-3">
+            <?php if (empty($_SESSION['login'])) { ?><a class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded" href="espacePerso.php"><i class="bi bi-person pt-2 pe-2"></i>Se connecter</a>
         </div>
     <?php } else { ?>
-        <a href="connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
+        <a href="connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
-        <div class="text-white d-flex justify-content-end m-0 pe-2">
-            <form action="home.php" method="POST">
-                <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark fs-6"></div>
+        <div class="d-flex justify-content-end m-auto pe-3">
+            <form action="views/home.php" method="POST">
+                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
     <?php } ?>
 
-    <a href="index.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
-        <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
-    </a>
+    <a href="views/home.php" class="text-decoration-none">
+    <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+        <div class="justify-content-center  row m-0 ">
+            <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
+        </div>
 
+    </a>
 
     </header>
     <div class="global m-0">
@@ -58,7 +60,7 @@ require "my-config.php";
         <nav class="navbar navbar-expand-lg m-0">
             <div class="container-fluid m-0">
                 <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon text-white pt-1 pe-5">Menu</span>
+                    <span class="navbar-toggler-icon text-white"><i class="bi bi-list fs-2"></i></span>
                 </button>
                 <a href="index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
@@ -85,7 +87,7 @@ require "my-config.php";
                             </div>
                         </li>
                         <li class="d-lg-none nav-item justify-lg-content-end">
-                        <?php if (empty($_SESSION)) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
+                            <?php if (empty($_SESSION)) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
                             <?php } else { ?>
                                 <a href="connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['name'] ?></a>
                             <?php } ?>
@@ -102,71 +104,46 @@ require "my-config.php";
             </div>
         </nav>
 
-        <div class="categorie-intro text-center m-auto h2 fw-bold pt-5 ">Pour se détendre ou se dépenser, le temps d’un week-end, une semaine ou plus, il y a une destination faite pour vous!</div>
+        <div class="categorie-intro text-center m-auto h3 fw-bold pt-5 ">Pour se détendre ou se dépenser, le temps d’un week-end, ou plus, il y a une destination faite pour vous!</div>
+        <div class="categorie-intro text-center m-auto h3 fw-bold pt-5 ">Commencez à parcourir nos categories ci-dessous !</div>
 
-        
+
         <div class="row pt-5 m-0">
-            <div class="categorie-picture col-lg-6 text-lg-end m-auto">
-                <a href="views/views.php?id=1">
-                    <img src="assets/img/montagne3.jpg" alt="photo de montagne" class="img-categorie rounded">
-                    <div class="categorie-label-left m-0">
-                        <div>Montagne</div>
-                    </div>
+            <div class="col-lg-6 text-lg-end pb-3" >
+                <a href="views/views.php?id=1"><button type="btn" class="btn col-lg-6 fs-2 montagneFirst text-white" onmouseover="mouseOverMontagne()" onmouseout="mouseOutMontagne()" id="montagne">
+                       
+                    </button>
                 </a>
             </div>
 
 
 
-            <div class="categorie-picture col-lg-6 text-lg-start m-0">
-                <a href="views/views.php?id=2">
-                    <img src="assets/img/plage3.jpg" alt="photo de plage" class="img-categorie rounded">
-                    <div class="categorie-label-right m-0">
-                        <div>Plage</div>
-                    </div>
-                </a>
+            <div class="col-lg-6 text-lg-start m-0">
+                <a href="views/views.php?id=2"><button type="submit" class="btn col-lg-6 fs-2 plageFirst text-white" onmouseover="mouseOverPlage()" onmouseout="mouseOutPlage()" id="plage"></button></a>
             </div>
 
         </div>
 
         <div class="row pt-3 m-0">
-            <div class="categorie-picture col-lg-6 text-lg-end m-0">
-                <a href="views/views.php?id=3">
-                    <img src="assets/img/ville2.jpg" alt="photo de montagne" class="img-categorie rounded">
-                    <div class="categorie-label-left m-0">
-                        <div>Ville</div>
-                    </div>
-                </a>
+            <div class="col-lg-6 text-lg-end m-0 pb-3">
+                <a href="views/views.php?id=3"><button type="submit" class="btn col-lg-6 fs-2 villeFirst text-white" onmouseover="mouseOverVille()" onmouseout="mouseOutVille()" id="ville"></button></a>
             </div>
-            <div class="categorie-picture col-lg-6 text-lg-start m-0">
-                <a href="views/views.php?id=4">
-                    <img src="assets/img/sport2.jpg" alt="photo de plage" class="img-categorie rounded">
-                    <div class="categorie-label-right m-0">
-                        <div>Sport</div>
-                    </div>
-                </a>
+
+            <div class="col-lg-6 text-lg-start m-0">
+                <a href="views/views.php?id=4"><button type="submit" class="btn col-lg-6 fs-2 sportFirst text-white" onmouseover="mouseOverSport()" onmouseout="mouseOutSport()" id="sport"></button></a>
             </div>
 
         </div>
 
         <div class="row pt-3 pb-5 m-0">
 
-            <div class="categorie-picture col-lg-6 text-lg-end m-0">
-                <a href="views/views.php?id=5">
-                    <img src="assets/img/petra.jpg" alt="photo de montagne" class="img-categorie rounded">
-                    <div class="categorie-label-left m-0">
-                        <div>Histoire</div>
-                    </div>
-                </a>
+            <div class="col-lg-6 text-lg-end m-0 pb-3">
+                <a href="views/views.php?id=5"><button type="submit" class="btn col-lg-6 fs-2 histoireFirst text-white" onmouseover="mouseOverHistoire()" onmouseout="mouseOutHistoire()" id="histoire"></button></a>
             </div>
 
 
-            <div class="categorie-picture col-lg-6 text-lg-start m-0">
-                <a href="views/views.php?id=6">
-                    <img src="assets/img/gastronomie.jpg" alt="photo de plage" class="img-categorie rounded">
-                    <div class="categorie-label-right m-0">
-                        <div>Gastronomie</div>
-                    </div>
-                </a>
+            <div class="col-lg-6 text-lg-start m-0">
+                <a href="views/views.php?id=6"><button type="submit" class="btn col-lg-6 fs-2 gastronomieFirst text-white" onmouseover="mouseOverGastronomie()" onmouseout="mouseOutGastronomie()" id="gastronomie"></button></a>
             </div>
 
         </div>
@@ -185,6 +162,8 @@ require "my-config.php";
             </div>
         </footer>
     </div>
+
+    <script src="assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 

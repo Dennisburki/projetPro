@@ -41,48 +41,47 @@ require_once "../controllers/wishlistController.php";
 
     <header class="header d-lg-block d-none">
 
-        <div class="text-white d-flex justify-content-end m-auto">
-            <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
-        </div>
-    <?php } else { ?>
-        <a href="<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
+        <div class=" d-flex justify-content-end m-auto pt-3 pe-3">
+            <a href="<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
-        <div class="text-white d-flex justify-content-end m-auto pe-2">
-            <form action="../views/home.php" method="POST" class="logout">
-                <div class="fs-5 logout"><i class="bi bi-box-arrow-left"></i><input type="submit" name="disconnect" value="Se déconnecter" class="btn logout text-white fs-6"></div>
+        <div class="d-flex justify-content-end m-auto pe-3">
+            <form action="../views/home.php" method="POST">
+                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
-    <?php } ?>
 
-    <a href="../index.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
-        <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
-    </a>
 
+        <a href="../views/home.php" class="text-decoration-none">
+        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <div class="justify-content-center  row m-0 ">
+                <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
+            </div>
+
+        </a>
 
     </header>
     <div class="global m-0">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon text-white"><i class="bi bi-list fs-2"></i></span>
                 </button>
                 <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
                 <div class="collapse navbar-collapse text-start" id="navbarNav">
                     <ul class="navbar-nav container row">
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
-                            <a class="nav-link active" aria-current="page Accueil" href="../index.php">Accueil</a>
+                            <a class="nav-link active" aria-current="page Accueil" href="../index.php"><span class="text text-white">Accueil</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <a class="nav-link active" aria-current="page Catégories" href="../categories.php">Catégories</a>
+                            <a class="nav-link active" aria-current="page Catégories" href="../categories.php"><span class="text text-white">Catégories</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <a class="nav-link active" aria-current="page Guide" href="../guide.php">Guide</a>
+                            <a class="nav-link active" aria-current="page Guide" href="../guide.php"><span class="text text-white">Guide</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <a class="nav-link active" aria-current="page Blog" href="../blog.php">Blog</a>
+                            <a class="nav-link active" aria-current="page Blog" href="../blog.php"><span class="text text-white">Blog</span></a>
                         </li>
                         <li class="d-lg-none nav-item justify-lg-content-end">
                             <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
@@ -110,16 +109,16 @@ require_once "../controllers/wishlistController.php";
         <?php } else { ?>
 
             <h1 class="text-center pt-5 fw-bold detailsTitle">Wishlist</h1>
-            <div class="pb-3">
+            <div class="pb-3 col-lg-2">
                 <a href="user.php" class="ms-5 d-lg-block d-none"><button class="btn btn-outline-dark"><i class="bi bi-chevron-left"></i>Retour au Menu</button></a>
             </div>
 
-            <div class="row text-center justify-content-center">
+            <div class="row text-center justify-content-center m-0">
 
                 <!-- ****************************BOUCLER A PARTIR D'ICI -- CA MARCHE ET C'EST VERIFIE******************************************************* -->
 
                 <?php foreach ($displayArray as $display) { ?>
-                    <div class="card mb-3 col-lg-12" style="max-width: 800px;">
+                    <div class="card mb-3 col-lg-12 m-0" style="max-width: 800px;">
                         <div class="row g-0">
                             <div class="col-md-4">
                                 <img src="../assets/img/img_destinations/<?= $display['des_picture'] ?>" class="img-fluid rounded-start" alt="Image d'illustration">
@@ -163,7 +162,7 @@ require_once "../controllers/wishlistController.php";
             } ?>
             </div>
     </div>
-    <footer class="footer bg-dark" style="height: 15vh;">
+    <footer class="footer m-0" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">
             <div class="">
                 <p class="text-white">©Estenouest</p>

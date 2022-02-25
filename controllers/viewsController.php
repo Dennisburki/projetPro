@@ -25,5 +25,18 @@ if (isset($_GET['id'])) {
         $wishlistObj = new Destinations();
         $wishlistObj->addWishlist($destinationId, $userId);
     }
+    if (isset($_POST['carnet'])) {
+
+
+        $destinationId = $_POST['id'];
+        $userId = $_SESSION['id'];
+
+        $wishlistObj = new Destinations();
+        $wishlistObj->addCarnet($destinationId, $userId);
+    }
+
+
+    $showActivitiesObj = new Destinations();
+    
     
 }

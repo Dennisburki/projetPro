@@ -26,56 +26,55 @@ if (session_status() == PHP_SESSION_NONE) session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajout de destinations</title>
+    <title>Liste des Destinations</title>
 </head>
 
 <body>
 
     <header class="header d-lg-block d-none">
 
-        <div class="text-white d-flex justify-content-end m-auto">
-            <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
-        </div>
-    <?php } else { ?>
-        <a href="<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
+        <div class=" d-flex justify-content-end m-auto pt-3 pe-3">
+            <a href="<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
-        <div class="text-white d-flex justify-content-end m-auto pe-2">
-            <form action="../views/home.php" method="POST" class="logout">
-                <div class="fs-5 logout"><i class="bi bi-box-arrow-left"></i><input type="submit" name="disconnect" value="Se déconnecter" class="btn logout text-white fs-6"></div>
+        <div class="d-flex justify-content-end m-auto pe-3">
+            <form action="../views/home.php" method="POST">
+                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
-    <?php } ?>
 
-    <a href="../index.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
-        <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
-    </a>
 
+        <a href="../views/home.php" class="text-decoration-none">
+            <h1 class="mainTitle fw-bold text-white text-center <?php $_SESSION['name'] ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <div class="justify-content-center  row m-0 ">
+                <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
+            </div>
+
+        </a>
 
     </header>
     <div class="global m-0">
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg ">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon text-white"><i class="bi bi-list fs-2"></i></span>
                 </button>
                 <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
                 <div class="collapse navbar-collapse text-start" id="navbarNav">
                     <ul class="navbar-nav container row">
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
-                            <a class="nav-link active" aria-current="page Accueil" href="../index.php">Accueil</a>
+                            <a class="nav-link active" aria-current="page Accueil" href="../index.php"><span class="text text-white">Accueil</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <a class="nav-link active" aria-current="page Catégories" href="../categories.php">Catégories</a>
+                            <a class="nav-link active" aria-current="page Catégories" href="../categories.php"><span class="text text-white">Catégories</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <a class="nav-link active" aria-current="page Guide" href="../guide.php">Guide</a>
+                            <a class="nav-link active" aria-current="page Guide" href="../guide.php"><span class="text text-white">Guide</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <a class="nav-link active" aria-current="page Blog" href="../blog.php">Blog</a>
+                            <a class="nav-link active" aria-current="page Blog" href="../blog.php"><span class="text text-white">Blog</span></a>
                         </li>
                         <li class="d-lg-none nav-item justify-lg-content-end">
                             <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
@@ -110,7 +109,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 
             <h1 class="text-center pt-4 pb-2">Liste de toutes les destinations</h1>
 
-
+            <a href="admin.php" class="ms-5 d-lg-block d-none"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
 
             <div class="row justify-content-center m-0">
                 <form action="updateDestination.php" method="POST" class="col-lg-2 row">
@@ -120,9 +119,10 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                             <option><?= $destination['cat_category'] ?></option>
                         <?php } ?>
                     </select>
-                    <input type="submit" class="btn btn-primary" value="Trier" name="sort">
-                    <a href="updateDestination.php" class="pt-3 text-center pb-3"><button class="btn btn-dark">Voir tout</button></a>
+                    <input type="submit" class="btn sortBtn w-100 text-white" value="Trier" name="sort">
+                    
                 </form>
+                <a href="updateDestination.php" class="pt-3 text-center pb-3"><button class="btn btn-dark ">Voir toutes les destinations</button></a>
 
             </div>
 
@@ -141,6 +141,8 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                     </tr>
                 </thead>
                 <tbody>
+
+
                     <?php if (!empty($_POST['category'])) { ?>
 
                         <?php foreach ($sortedArray as $details) { ?>
@@ -150,8 +152,8 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                                 <th class="changeTable" scope="row"><img src="../assets/img/img_destinations/<?= $details['des_picture'] ?>" alt="miniature d'illustration" class="updateImage"></th>
                                 <td class="changeTable"><?= $details['cat_category'] ?></td>
                                 <td><?= $details['des_title'] ?></td>
-                                <td><a href="modify.php?id=<?= $details['des_id'] ?>"><button class="btn btn-primary"><i class="bi bi-pencil"></i> Modifier</button></a></td>
-                                <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $details['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button></td>
+                                <td><a href="modify.php?id=<?= $details['des_id'] ?>"><button class="btn btn-dark"><i class="bi bi-pencil"></i> Modifier</button></a></td>
+                                <td class="blockBtn"><div class="blockBtn col-lg-5 col-7 rounded"><button class="btn blockBtn text-white" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $details['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button></div></td>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal<?= $details['des_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -166,7 +168,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                                                 <form action="updateDestination.php?id=<?= $details['des_id'] ?>" method="POST" class="pt-3">
-                                                    <input type="submit" name="delete" value="Supprimer" class="btn btn-danger">
+                                                    <input type="submit" name="delete" value="Supprimer" class="btn btn-danger blockBtn text-white">
                                                 </form>
                                             </div>
                                         </div>
@@ -182,8 +184,8 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                                 <th class="changeTable" scope="row"><img src="../assets/img/img_destinations/<?= $details['des_picture'] ?>" alt="miniature d'illustration" class="updateImage"></th>
                                 <td class="changeTable"><?= $details['cat_category'] ?></td>
                                 <td><?= $details['des_title'] ?></td>
-                                <td><a href="modify.php?id=<?= $details['des_id'] ?>"><button class="btn btn-primary"><i class="bi bi-pencil"></i> Modifier</button></a></td>
-                                <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $details['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button></td>
+                                <td><a href="modify.php?id=<?= $details['des_id'] ?>"><button class="btn btn-dark"><i class="bi bi-pencil"></i> Modifier</button></a></td>
+                                <td class="blockBtn"><button class="btn blockBtn text-white" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $details['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button></td>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal<?= $details['des_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -198,7 +200,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                                                 <form action="updateDestination.php?id=<?= $details['des_id'] ?>" method="POST" class="pt-3">
-                                                    <input type="submit" name="delete" value="Supprimer" class="btn btn-danger">
+                                                    <input type="submit" name="delete" value="Supprimer" class="btn blockBtn text-white">
                                                 </form>
                                             </div>
                                         </div>
@@ -209,10 +211,10 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                     }
                 } ?>
 
-                <?php if (!isset($_POST['category'])) { ?>
+                <?php if (!isset($_POST['category']) && !isset($_POST['delete'])) { ?>
                     <?php for ($i = 1; $i <= $nbPages; $i++) { ?>
 
-                        <a href="?page=<?= $i ?>" class="btn <?= $i == $pages ? ' btn-primary' : 'btn-outline-primary' ?> ms-2"><?= $i ?></a>
+                        <a href="?page=<?= $i ?>" class="btn <?= $i == $pages ? ' test' : 'testo' ?> ms-2"><?= $i ?></a>
 
                 <?php }
                 } ?>
@@ -221,7 +223,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
             </table>
 
     </div>
-    <footer class="footer bg-dark m-0" style="height: 15vh;">
+    <footer class="footer m-0" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">
             <div class="">
                 <p class="text-white">©Estenouest</p>

@@ -34,40 +34,41 @@ require_once "../controllers/homeController.php";
 
 <body>
 
-    <header class="header d-lg-block d-none">
+    <header class="header d-lg-block d-none m-0">
 
-        <div class="text-white d-flex justify-content-end m-auto">
-            <?php if (empty($_SESSION['login'])) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
+        <div class=" d-flex justify-content-end m-auto pt-3 pe-3">
+            <?php if (empty($_SESSION['login'])) { ?><a class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded" href="../espacePerso.php"><i class="bi bi-person pt-2 pe-2"></i>Se connecter</a>
         </div>
     <?php } else { ?>
-        <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
+        <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
-        <div class="text-white d-flex justify-content-end m-auto pe-2">
-            <form action="home.php" method="POST" class="logout">
-                <div class="fs-5 logout"><i class="bi bi-box-arrow-left"></i><input type="submit" name="disconnect" value="Se déconnecter" class="btn logout text-white fs-6"></div>
+        <div class="d-flex justify-content-end m-auto pe-3">
+            <form action="home.php" method="POST">
+                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
     <?php } ?>
 
-    <a href="../index.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
-        <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
-
+    <a href="../index.php" class="text-decoration-none m-0 ">
+        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+        <div class="justify-content-center  row m-0 ">
+            <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
+        </div>
     </a>
 
 
     </header>
-    <div class="global">
+    <div class="global m-0">
 
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg m-0">
             <div class="container-fluid m-0">
                 <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon text-white pt-1 pe-5">Menu</span>
+                    <span class="navbar-toggler-icon text-white"><i class="bi bi-list fs-2"></i></span>
                 </button>
                 <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
-                <div class="collapse navbar-collapse text-start" id="navbarNav">
+                <div class="collapse navbar-collapse text-start m-0" id="navbarNav">
                     <ul class="navbar-nav container row">
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
                             <div class="text-start text-lg-center">
@@ -107,7 +108,7 @@ require_once "../controllers/homeController.php";
             </div>
         </nav>
 
-        <figure class="text-center pt-5 pb-3">
+        <figure class="text-center pt-5 pb-3 m-0">
             <blockquote class="blockquote">
                 <p class="quote">« Voyager vous laisse d'abord sans voix, avant de vous transformer en conteur. »</p>
             </blockquote>
@@ -116,33 +117,33 @@ require_once "../controllers/homeController.php";
             </figcaption>
         </figure>
 
-        <h2 class="h2 text-center fw-bold pt-2">Choisissez, partez, revenez, partagez!</h2>
+        <h2 class="h2 text-center fw-bold pt-2 m-0">Choisissez, partez, revenez, partagez!</h2>
 
 
-        <div class="row justify-content-evenly m-auto">
+        <div class="row justify-content-evenly m-0">
             <div class="card border border-white" style="width: 19rem;">
-                <img src="../assets/img/questionmark.jpg" class="card-img-top" alt="photo de papiers avec points d'interrogations">
+                <img src="../assets/img/questionmark.jpg" class="card-img-top pt-3" alt="photo de papiers avec points d'interrogations">
                 <div class="card-body">
                     <p class="card-text">Commencez par choisir une destinations dans <span><a href="../categories.php" class=" fw-bold text-dark">nos categories</a></span> si vous n’en avez pas, ou repondez au <span><a href="../guide.php" class="fw-bold text-dark">questionnaire</a></span>!</p>
                 </div>
             </div>
 
             <div class="card border border-white" style="width: 19rem;">
-                <img src="../assets/img/computer.jpg" class="card-img-top" alt="photo de papiers avec points d'interrogations">
+                <img src="../assets/img/computer.jpg" class="card-img-top pt-3" alt="photo de papiers avec points d'interrogations">
                 <div class="card-body">
                     <p class="card-text">Réservez comme vous voulez! skyscanner, Booking.com, Expedia, directement aupres des compagnies aériennes, hôtels...etc</p>
                 </div>
             </div>
 
             <div class="card border border-white" style="width: 19rem;">
-                <img src="../assets/img/whenreturn.jpg" class="card-img-top" alt="photo de papiers avec points d'interrogations">
+                <img src="../assets/img/whenreturn.jpg" class="card-img-top pt-3" alt="photo de papiers avec points d'interrogations">
                 <div class="card-body">
-                    <p class="card-text">Ajoutez votre voyage dans votre carnet de voyage disponible sur votre <span><a href="../guide.php" class="fw-bold text-dark">espace personnel</a></span>!</p>
+                    <p class="card-text">Ajoutez votre voyage dans votre carnet de voyage disponible sur votre <span><a href="../guide.php" class="fw-bold text-dark">espace personnel</a></span> et créez votre historique de voyage!</p>
                 </div>
             </div>
 
             <div class="card border border-white" style="width: 19rem;">
-                <img src="../assets/img/write.jpg" class="card-img-top" alt="photo de papiers avec points d'interrogations">
+                <img src="../assets/img/write.jpg" class="card-img-top pt-3" alt="photo de papiers avec points d'interrogations">
                 <div class="card-body">
                     <p class="card-text">Partagez votre expérience sur le<span><a href="../blog.php" class="fw-bold text-dark"> blog!</a></span> Une simple photo ou un récit de votre voyage, pour inspirer, donner envies à d’autres!</p>
                 </div>
@@ -156,7 +157,7 @@ require_once "../controllers/homeController.php";
 
         <!-- ****************************************début caroussel************************************************************* -->
 
-        <div id="carouselExampleCaptions" class="carousel slide d-flex m-auto pb-5" data-bs-ride="carousel">
+        <div id="carouselExampleCaptions" class="carousel slide d-flex m-auto pb-5 m-0" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -168,10 +169,10 @@ require_once "../controllers/homeController.php";
 
                     <div class="carousel-item active">
                         <a href="detailsDestination.php?id=<?= $stat['des_id'] ?>">
-                            <img src="../assets/img/img_destinations/<?= $stat['des_picture'] ?>" class="d-block w-100" alt="Meilleure Destination">
+                            <img src="../assets/img/img_destinations/<?= $stat['des_picture'] ?>" class="d-block w-100" alt="Image de <?= $stat['des_title'] ?>">
                             <div class="pt-4">
-                                <div class="carousel-caption ">
-                                    <div class="h3 bg-dark rounded"><?= $stat['des_title'] ?></div>
+                                <div class="carousel-caption row justify-content-center">
+                                    <div class="h3 carouselTitle rounded col-lg-7"><?= $stat['des_title'] ?></div>
                                 </div>
                             </div>
                         </a>
@@ -183,10 +184,10 @@ require_once "../controllers/homeController.php";
 
                     <div class="carousel-item">
                         <a href="detailsDestination.php?id=<?= $other['des_id'] ?>">
-                            <img src="../assets/img/img_destinations/<?= $other['des_picture'] ?>" class="d-block w-100" alt="...">
+                            <img src="../assets/img/img_destinations/<?= $other['des_picture'] ?>" class="d-block w-100" alt="Image de <?= $other['des_title'] ?>">
                             <div class="pt-4">
-                                <div class="carousel-caption">
-                                    <div class="h3 bg-dark rounded"><?= $other['des_title'] ?></div>
+                                <div class="carousel-caption row justify-content-center">
+                                    <div class="h3 carouselTitle rounded col-lg-7"><?= $other['des_title'] ?></div>
                                 </div>
                             </div>
                         </a>
@@ -208,13 +209,8 @@ require_once "../controllers/homeController.php";
         <!-- **********************************************fin caroussel**************************************************** -->
     </div>
 
-
-
-
-
-
-    <footer class="footer" style="height: 15vh;">
-        <div class="d-flex justify-content-evenly pt-5">
+    <footer class="footer m-0" style="height: 15vh;">
+        <div class="d-flex justify-content-evenly pt-5 m-0">
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>

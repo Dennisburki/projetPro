@@ -17,6 +17,7 @@ require_once "../controllers/detailsController.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="../assets/css/style.css">
 
+    <a href="https://icons8.com/icon/undefined/undefined"></a>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,23 +37,26 @@ require_once "../controllers/detailsController.php";
 
     <header class="header d-lg-block d-none">
 
-        <div class="text-white d-flex justify-content-end m-auto">
-            <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
+        <div class=" d-flex justify-content-end m-auto pt-3 pe-3">
+            <?php if (empty($_SESSION['login'])) { ?><a class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded" href="../espacePerso.php"><i class="bi bi-person pt-2 pe-2"></i>Se connecter</a>
         </div>
     <?php } else { ?>
-        <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
+        <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
-        <div class="text-white d-flex justify-content-end m-auto pe-2">
-            <form action="home.php" method="POST" class="logout">
-                <div class="fs-5 logout"><i class="bi bi-box-arrow-left"></i><input type="submit" name="disconnect" value="Se déconnecter" class="btn logout text-white fs-6"></div>
+        <div class="d-flex justify-content-end m-auto pe-3">
+            <form action="home.php" method="POST">
+                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
     <?php } ?>
 
     <a href="../index.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
-        <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
+        <<h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <div class="justify-content-center  row m-0 ">
+                <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
+            </div>
+
     </a>
 
 
@@ -62,7 +66,7 @@ require_once "../controllers/detailsController.php";
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid m-0">
                 <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon text-white pt-1 pe-5">Menu</span>
+                    <span class="navbar-toggler-icon text-white"><i class="bi bi-list fs-2"></i></span>
                 </button>
                 <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
@@ -111,17 +115,22 @@ require_once "../controllers/detailsController.php";
 
             <?php if (!empty($_SESSION)) { ?>
                 <?php $addedObj = new Destinations();
-                if ($addedObj->addedWishlist($details['des_id']) !== FALSE) { ?>
+                if ($addedObj->addedWishlist($details['des_id'], $_SESSION['id']) !== FALSE) { ?>
 
-                    <div class="text-center bg-success text-white pb-2 pt-2" name="wishlist" id="liveToastBtn">Ajouté à ma wishlist</div>
+                    <div class="text-center appBtn pb-2 pt-2 m-0" name="wishlist" id="liveToastBtn">Ajouté à ma wishlist</div>
 
             <?php }
             } ?>
 
             <h1 class="text-center fw-bold pt-5 detailsTitle">Découvrez <?= $details['des_title'] ?> !</h1>
-
-            <div class="text-center fst-italic">Cette page a été visitée <?= $visitObj->getVisit($id)['des_visit'] ?> fois!</div>
-
+            <div class="row justify-content-center m-0">
+                <div class="fw-bold fst-italic col-lg-1 row">
+                    <div class="col-lg-12 border border-dark countBg text-white d-flex pt-2">
+                        <div>Vues:</div>
+                       <img src="../assets/img/views.png" alt="" height="13px" class="mt-2 ms-2"><span class="fs-5"> <?= $visitObj->getVisit($id)['des_visit'] ?></span>
+                    </div>
+                </div>
+            </div>
             <a href="views.php?id=<?= $details['cat_id'] ?>" class="ms-5 d-lg-block d-none"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
 
 
@@ -134,11 +143,19 @@ require_once "../controllers/detailsController.php";
 
 
                 <p class=" fw-bold fs-5 text-center pt-5">Les Principales activités sur place sont : </p>
-                <ul class="d-inline-block d-flex row fs-5"><?php foreach ($activitiesArray as $activities) { ?><li class="col-lg-4"><?= $activities['act_name'] ?></li><?php } ?></ul>
+                <ul class="d-inline-block d-flex row fs-5 listStyle">
+                    <?php foreach ($activitiesArray as $activities) { ?>
+                        <li class="col-lg-4 col-7"><img src="../assets/icons/<?= $activities['act_icon'] ?>" alt=""></br>
+                            <div class="col-lg-2 text-center">
+                                <?= $activities['act_name'] ?>
+                            </div>
+                        </li>
+                    <?php } ?>
+                </ul>
 
             </div>
             <div class="text-center pb-3">
-                <?php if (!empty($_SESSION) && $addedObj->addedWishlist($details['des_id']) == FALSE) { ?>
+                <?php if (!empty($_SESSION) && $addedObj->addedWishlist($details['des_id'], $_SESSION['id']) == FALSE) { ?>
                     <form action="" method="POST">
                         <input type="submit" class="btn btn-dark" value="Ajouter à la wishlist" name="wishlist" id="liveToastBtn">
                         <input type="hidden" name="id" value="<?= $details['des_id'] ?>">

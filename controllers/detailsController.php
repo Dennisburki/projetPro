@@ -9,11 +9,14 @@ require_once('../models/destination.php');
 $visitObj = new Destinations();
 
 
+//
 if (isset($_GET['id']) && ctype_digit($_GET['id'])) {
     $id = $_GET['id'];
 
+    //ici on recupere la valeur du compteur
     $visit = $visitObj->getVisit($id)['des_visit'];
 
+    //on utilise la methode pour l'incrementer
     $visitObj->incrementVisit($id, $visit);
 }
 
@@ -26,7 +29,7 @@ if (isset($_GET['id'])) {
     $detailsArray = $detailsObj->getSingleDetails($id);
 
     $activitiesObj = new Destinations();
-    $activitiesArray = $activitiesObj->getActivities($id);
+    $activitiesArray = $activitiesObj->displayActivities($id);
 
     if (isset($_POST['wishlist'])) {
 

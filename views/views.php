@@ -34,25 +34,28 @@ require_once "../controllers/viewsController.php";
 
 <body>
 
-    <header class="header d-lg-block d-none m-0">
+    <header class="header d-lg-block d-none">
 
-        <div class="text-white d-flex justify-content-end m-auto">
-            <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white " href="../espacePerso.php">Se connecter</a>
+        <div class=" d-flex justify-content-end m-auto pt-3 pe-3">
+            <?php if (empty($_SESSION['login'])) { ?><a class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded" href="../espacePerso.php"><i class="bi bi-person pt-2 pe-2"></i>Se connecter</a>
         </div>
     <?php } else { ?>
-        <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
+        <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
-        <div class="text-white d-flex justify-content-end m-auto pe-2">
-            <form action="home.php" method="POST" class="logout">
-                <div class="fs-5 logout"><i class="bi bi-box-arrow-left"></i><input type="submit" name="disconnect" value="Se déconnecter" class="btn logout text-white fs-6"></div>
+        <div class="d-flex justify-content-end m-auto pe-3">
+            <form action="home.php" method="POST">
+                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
     <?php } ?>
 
     <a href="../index.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
-        <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
+        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+        <div class="justify-content-center  row m-0 ">
+            <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
+        </div>
+
     </a>
 
 
@@ -62,7 +65,7 @@ require_once "../controllers/viewsController.php";
         <nav class="navbar navbar-expand-lg m-0">
             <div class="container-fluid m-0">
                 <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon text-white pt-1 pe-5">Menu</span>
+                    <span class="navbar-toggler-icon text-white"><i class="bi bi-list fs-2"></i></span>
                 </button>
                 <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
@@ -124,27 +127,53 @@ require_once "../controllers/viewsController.php";
                         <div class="card-body">
                             <div class="card-title text-center h3 fw-bold"><?= $details['des_title'] ?></div>
                             <p class="card-text text-center fw-bold description"><?= $details['des_description'] ?></p>
-                            <div class="row text-center">
+                            <?php $showActivitiesArray = $showActivitiesObj->showActivities($details['des_id']) ?>
+                            <div class="row justify-content-center">
+                                <?php foreach ($showActivitiesArray as $activities) { ?>
+                                    <div class="col-lg-1 col-1 my-4" style="background-image: url(../assets/icons/<?= $activities['act_icon'] ?>); height: 20px; background-repeat:no-repeat;"></div>
+
+                                <?php } ?>
+                            </div>
+                            <div class="row text-center mt-2">
                                 <?php if (!empty($_SESSION)) { ?>
 
-                                    <div class="col-lg-6 pb-2"><a href="detailsDestination.php?id=<?= $details['des_id'] ?>" class="btn btn-dark">Détails</a></div>
-                                    <div class="col-lg-6 pb-2">
-                                        <?php $addedObj = new Destinations();
-                                        if ($addedObj->addedWishlist($details['des_id']) !== FALSE) { ?>
 
-                                                <div  class="bg-success text-white pb-2 pt-2 rounded" name="wishlist" id="liveToastBtn">Ajouté à ma wishlist</div>
-                                            
+                                    <div class="col-lg-12 pb-2 row d-flex ps-4">
+                                        <?php $addedObj = new Destinations();
+                                        if ($addedObj->addedWishlist($details['des_id'], $_SESSION['id']) !== FALSE) { ?>
+                                            <div class=" col-lg-6 pb-1">
+                                                <div class="appBtn rounded w-100">Ajouté à ma wishlist</div>
+                                            </div>
                                         <?php } else { ?>
-                                            <form action="" method="POST">
-                                                <input type="submit" class="btn btn-dark" value="Ajouter à la wishlist" name="wishlist" id="liveToastBtn">
+
+
+                                            <form action="" method="POST" class="col-lg-6 pb-1">
+                                                <input type="submit" class="btn btn-dark w-100" value="Ajouter à la wishlist" name="wishlist">
                                                 <input type="hidden" name="id" value="<?= $details['des_id'] ?>">
                                             </form>
-                                        <?php } ?>
 
+                                        <?php }
+                                        $addedCarnetObj = new Destinations();
+
+                                        if ($addedCarnetObj->addedCarnet($details['des_id'], $_SESSION['id']) !== FALSE) { ?>
+                                            <div class=" col-lg-6">
+                                                <div class="appBtn rounded w-100">Dans mon carnet</div>
+                                            </div>
+                                        <?php } else { ?>
+
+                                            <form action="" method="POST" class="col-lg-6">
+                                                <input type="submit" class="btn btn-dark w-100" value="Ajouter au Carnet" name="carnet">
+                                                <input type="hidden" name="id" value="<?= $details['des_id'] ?>">
+                                            </form>
+
+                                        <?php } ?>
+                                    </div>
+                                    <div class="">
+                                        <div class="col-lg-12 pb-2 "><a href="detailsDestination.php?id=<?= $details['des_id'] ?>" class="btn btn-dark w-50">Détails</a></div>
                                     </div>
                                 <?php } else { ?>
                                     <div>
-                                        <div class="col-lg-12 text-center"><a href="detailsDestination.php?id=<?= $details['des_id'] ?>" class="btn btn-dark">Détails</a></div>
+                                        <div class="col-lg-12 text-center"><a href="detailsDestination.php?id=<?= $details['des_id'] ?>" class="btn btn-dark w-50">Détails</a></div>
                                     </div>
                                 <?php } ?>
                             </div>

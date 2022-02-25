@@ -46,67 +46,58 @@ require_once "../my-config.php";
 <body>
     <header class="header d-lg-block d-none">
 
-        <div class="text-white d-flex justify-content-end m-auto">
-            <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
-        </div>
-    <?php } else { ?>
-        <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
+        <div class=" d-flex justify-content-end m-auto pt-3 pe-3">
+            <a href="<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
-        <div class="text-white d-flex justify-content-end m-auto pe-2">
-            <form action="../views/home.php" method="POST" class="logout">
-                <div class="fs-5 logout"><i class="bi bi-box-arrow-left"></i><input type="submit" name="disconnect" value="Se déconnecter" class="btn logout text-white fs-6"></div>
+        <div class="d-flex justify-content-end m-auto pe-3">
+            <form action="../views/home.php" method="POST">
+                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
-    <?php } ?>
 
-    <a href="../index.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
-        <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
-    </a>
 
+        <a href="../views/home.php" class="text-decoration-none">
+        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <div class="justify-content-center  row m-0 ">
+                <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
+            </div>
+
+        </a>
 
     </header>
     <div class="global m-0">
 
         <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid m-0">
-                <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon text-white pt-1 pe-5">Menu</span>
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon text-white"><i class="bi bi-list fs-2"></i></span>
                 </button>
                 <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
                 <div class="collapse navbar-collapse text-start" id="navbarNav">
                     <ul class="navbar-nav container row">
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
-                            <div class="text-start text-lg-center">
-                                <a class="menu nav-link active" aria-current="page" href="../index.php"><span class="text text-white">Accueil</span></a>
-                            </div>
+                            <a class="nav-link active" aria-current="page Accueil" href="../index.php"><span class="text text-white">Accueil</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <div class="text-start text-lg-center">
-                                <a class="menu nav-link active  text-white" aria-current="page" href="../categories.php"><span class="text text-white">Catégories</span></a>
-                            </div>
+                            <a class="nav-link active" aria-current="page Catégories" href="../categories.php"><span class="text text-white">Catégories</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <div class="text-start text-lg-center">
-                                <a class="menu nav-link active  text-white" aria-current="page" href="../guide.php"><span class="text text-white">Guide</span></a>
-                            </div>
+                            <a class="nav-link active" aria-current="page Guide" href="../guide.php"><span class="text text-white">Guide</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <div class="text-start text-lg-center">
-                                <a class="menu nav-link active  text-white" aria-current="page" href="../blog.php"><span class="text text-white">Blog</span></a>
-                            </div>
+                            <a class="nav-link active" aria-current="page Blog" href="../blog.php"><span class="text text-white">Blog</span></a>
                         </li>
                         <li class="d-lg-none nav-item justify-lg-content-end">
-                            <?php if (empty($_SESSION)) { ?><a class="menu text-white nav-link active" href="../espacePerso.php">Se connecter</a>
+                            <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
                             <?php } else { ?>
-                                <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['name'] ?></a>
+                                <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="text-white fs-4"><?= $_SESSION['name'] ?></a>
                             <?php } ?>
                         </li>
-                        <?php if (isset($_SESSION['login'])) { ?>
+                        <?php if (!empty($_SESSION['login'])) { ?>
                             <li class="d-lg-none nav-item justify-lg-content-end">
-                                <form action="../views/home.php" method="POST">
+                                <form action="" method="POST">
                                     <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
                                 </form>
                             </li>
@@ -118,6 +109,8 @@ require_once "../my-config.php";
 
 
         <h1 class="text-center pt-3 pb-3">Modération des Articles</h1>
+
+        <a href="admin.php" class="ms-5 d-lg-block d-none"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
 
         <?php if (isset($_GET['validate'])) { ?>
 
@@ -153,10 +146,10 @@ require_once "../my-config.php";
                             <form action="readPost.php?id=<?= $post['blo_id'] ?>" method="POST"><button type="submit" name="read" class="btn btn-dark"> Voir l'article</button></form>
                         </td>
                         <td>
-                            <form action="moderation.php" method="POST"><button type="submit" name="validate" class="btn btn-success"> Valider</button></form>
+                            <form action="moderation.php" method="POST"><button type="submit" name="validate" class="btn w-50 appBtn"> Valider</button></form>
                         </td>
                         <td>
-                            <form action="moderation.php" method="POST"><button type="submit" name="delete" class="btn btn-danger">Supprimer</button></form>
+                            <form action="moderation.php?id=<?= $post['blo_id'] ?>" method="POST"><button type="submit" name="delete" class="btn blockBtn w-50">Supprimer</button></form>
                         </td>
                     </tr>
                 <?php } ?>
@@ -164,7 +157,7 @@ require_once "../my-config.php";
         </table>
     </div>
 
-    <footer class="footer bg-dark" style="height: 15vh;">
+    <footer class="footer" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">
             <div class="">
                 <p class="text-white">©Estenouest</p>

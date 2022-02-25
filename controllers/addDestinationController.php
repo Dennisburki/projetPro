@@ -32,26 +32,54 @@ $activitiesArray = $activitiesObj->getAllActivities();
 
 if (isset($_POST['addDestination'])) {
 
+    $arrayErrors = [];
 
-    $picture = $fileToUpload;
-    $title = $_POST['title'];
-    $descr = $_POST['content'];
-    $cityCode = $_POST['cityCode'];
-    $iframe = $_POST['iframe'];
-    $category = $_POST['category'];
 
-    $addObj = new Destinations();
-    $addArray = $addObj->addDestination($picture, $title, $descr, $cityCode, $iframe, $category);
+    if (empty($_POST['title'])) {
+        $arrayErrors['noTitle'] = "Veuillez renseigner un titre de destination.";
+    }
 
-    
-    foreach ($activitiesArray as $catch) {
+    if (empty($_POST['content'])) {
+        $arrayErrors['noContent'] = "Veuillez écrire une description.";
+    }
+    if (empty($_POST['cityCode'])) {
+        $arrayErrors['noCode'] = "Veuillez saisir le city code pour la météo.";
+    }
+    if (empty($_POST['iframe'])) {
+        $arrayErrors['noIframe'] = "Veuillez renseigner une iframe.";
+    }
+    if (!isset($_POST['category'])) {
+        $arrayErrors['noCategory'] = "Veuillez sélectionner une catégorie.";
+    }
 
-        if (isset($_POST[$catch['act_name']])) {
+    if (empty($_FILES['picture']['name'])) {
+        $arrayErrors['noPicture'] = "Veuillez ajouter une image.";
+    }
 
-            $activity = $catch['act_name'];
+    if (empty($arrayErrors)) {
+        $picture = $fileToUpload;
+        $title = htmlspecialchars($_POST['title']);
+        $descr = htmlspecialchars($_POST['content']);
+        $cityCode = htmlspecialchars($_POST['cityCode']);
+        $iframe = $_POST['iframe'];
+        $category = $_POST['category'];
 
-            $selectedObj = new Destinations();
-            $selectedObj->addActivities($activity);
+        $addObj = new Destinations();
+        $addArray = $addObj->addDestination($picture, $title, $descr, $cityCode, $iframe, $category);
+
+
+        foreach ($activitiesArray as $catch) {
+
+            if (isset($_POST[$catch['act_name']])) {
+
+                
+
+                    $activity = $catch['act_name'];
+
+                    $selectedObj = new Destinations();
+                    $selectedObj->addActivities($activity);
+                
+            }
         }
     }
 }

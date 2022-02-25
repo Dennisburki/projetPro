@@ -1,13 +1,11 @@
 * {
-font-family: 'Philosopher', sans-serif;
+    font-family: 'Philosopher', sans-serif;
 }
 
 .global {
     background-color: rgb(0, 0, 0, 0.1);
     font-family: 'Philosopher', sans-serif;
 }
-
-
 
 .header {
     background-image: url("../img/cartes.jpg");
@@ -17,16 +15,22 @@ font-family: 'Philosopher', sans-serif;
     background-size: cover;
 }
 
+.buttons {
+    width: 10rem;
+}
+
 .footer {
     background-color: black;
 }
 
 .mainTitle {
     font-family: 'Philosopher', sans-serif;
-    font-size:18vh;
+    font-size: 18vh;
     letter-spacing: -0.05em;
 }
-p,div {
+
+p,
+div {
     font-family: 'Philosopher', sans-serif;
 }
 
@@ -52,32 +56,9 @@ p,div {
     height: 15rem;
 }
 
-.categorie-label-left {
-    position: absolute;
-    top: 50%;
-    left: 75%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 2rem;
-    background-color: rgb(0, 0, 0, 0.6)
-    
-}
 
-.categorie-label-right {
-    position: absolute;
-    top: 50%;
-    left: 25%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 2rem;
-    background-color: rgb(0, 0, 0, 0.6)
-    
-}
-
-.categorie-picture {
-    position: relative;
-    text-align: center;
-    color: red;
+.bgTitle {
+    background-color: black;
 }
 
 .categorie-intro {
@@ -88,8 +69,9 @@ p,div {
     width: 30rem;
     max-width: 30rem;
 }
+
 .mainText {
-    max-width: 50%;
+    max-width: 60%;
 }
 
 .cat-image {
@@ -100,12 +82,18 @@ p,div {
     background: black;
 }
 
+.carouselTitle {
+    background-color: black;
+}
+
+
 #openweathermap-widget-21 {
     margin-left: auto;
     margin-right: auto;
     width: 45%;
     padding-bottom: 3rem;
 }
+
 #openweathermap-widget-24 {
     margin-left: auto;
     margin-right: auto;
@@ -124,45 +112,324 @@ p,div {
 }
 
 .description {
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-    display: -webkit-box; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
 
-.logout:hover{
-    background-color: red;
-}
-
-.adminPicture{
+.adminPicture {
     width: 3rem;
 }
 
 .updateButton {
-    
+
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/plume.jpg);
     height: 15rem;
-    
 }
 
 .addButton {
-    
+
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/avion.jpg);
     height: 15rem;
-    
+
 }
 
 .moderateButton {
-    
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/secu.png);
+
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/douanes.jpg);
     height: 15rem;
-    
+
 }
+
+.carnetFirst {
+
+    background: url(../img/users.jpeg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+
+}
+
+.carnet {
+
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/users.jpeg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+
+}
+
+.wishFirst {
+
+    background: url(../img/wish.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+
+}
+
+.wish {
+
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/wish.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+
+}
+
+.editFirst {
+
+    background: url(../img/edit.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+
+}
+
+.edit {
+
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/edit.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+
+}
+
+.usersButton {
+
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/users.jpeg);
+    height: 15rem;
+}
+
 
 .updateImage {
     max-width: 4rem;
     width: 4rem;
+}
+
+.listStyle {
+    list-style-type: none;
+}
+
+.blockBtn {
+    background-color: rgb(206, 10, 10);
+
+}
+
+div.modal-footer>input.blockBtn {
+    background-color: rgb(206, 10, 10);
+
+}
+
+td>button.blockBtn {
+    background-color: rgb(206, 10, 10);
+}
+
+.appBtn {
+    background-color: rgb(5, 133, 5);
+}
+form > button.appBtn {
+    background-color: rgb(5, 133, 5);
+    color: white;
+}
+
+.countBg {
+    background-color: black;
+}
+
+div.col-lg-6.pb-1 > div.appBtn {
+    background-color: rgb(5, 133, 5);
+    color: white;
+}
+
+div.appBtn {
+    background-color: rgb(5, 133, 5);
+    color: white;
+}
+
+form > button.blockBtn {
+    background-color: rgb(206, 10, 10);
+    color: white;
+}
+
+form > input.sortBtn {
+    background-color: rgb(11, 137, 255);
+    color: white;
+}
+
+body > div > a.btn.test {
+    background-color: rgb(11, 137, 255);
+    color: white;
+}
+
+.testo:hover{
+    background-color: rgb(11, 137, 255);
+    
+}
+
+
+.montagneFirst {
+    background: url(../img/montagne3.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+.montagne {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/montagne3.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+.plageFirst {
+    background: url(../img/plage3.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+.plage {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/plage3.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+.villeFirst {
+    background: url(../img/italie.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+.ville {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/italie.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+.sportFirst {
+    background: url(../img/sport2.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+.sport {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/sport2.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+.histoireFirst {
+    background: url(../img/petra.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+.histoire {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/petra.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+.gastronomieFirst {
+    background: url(../img/gastronomie.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+.gastronomie {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/gastronomie.jpg);
+    height: 15rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+@media screen and (max-width : 600px) {
+    .montagneFirst {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/montagne3.jpg);
+        height: 15rem;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-size: cover;
+    }
+
+    .plageFirst {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/plage3.jpg);
+        height: 15rem;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-size: cover;
+    }
+
+    .villeFirst {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/italie.jpg);
+        height: 15rem;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-size: cover;
+    }
+
+    .sportFirst {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/sport2.jpg);
+        height: 15rem;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-size: cover;
+    }
+
+    .histoireFirst {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/petra.jpg);
+        height: 15rem;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-size: cover;
+    }
+
+    .gastronomieFirst {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/gastronomie.jpg);
+        height: 15rem;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-size: cover;
+    }
+
+    .categorie-intro {
+        max-width: 80%;
+    }
 }
 
 @media screen and (max-width : 600px) {
@@ -181,7 +448,7 @@ p,div {
 @media screen and (max-width : 600px) {
     .navbar {
         background-color: black;
-    
+
     }
 }
 
@@ -194,8 +461,8 @@ p,div {
 @media screen and (max-width : 600px) {
 
     .menu {
-        height: initial; 
-        width: initial; 
+        height: initial;
+        width: initial;
         border-radius: initial;
         font-size: initial;
     }
@@ -205,44 +472,13 @@ p,div {
     .img-categorie {
         height: 14rem;
         padding-top: 1rem;
-    
-    }
-}
 
-@media screen and (max-width : 600px) {
-    .categorie-label-right {
-        position: absolute;
-        top: 55%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 1.5rem;
-        background-color: rgb(0, 0, 0, 0.6);
-        
     }
-    
-}
-
-@media screen and (max-width : 600px) {
-    .categorie-label-left {
-        position: absolute;
-        top: 55%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 1.5rem;
-        background-color: rgb(0, 0, 0, 0.6);
-        
-    }
-    
 }
 
 @media screen and (max-width : 600px) {
     .detailsTitle {
         font-size: 1.5rem;
-    
+
     }
 }
-
-
-

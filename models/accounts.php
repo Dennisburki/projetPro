@@ -62,8 +62,8 @@ class Accounts extends DataBase
     public function addUser($name, $email, $password)
     {
         $base = $this->connectDb();
-        $query = "INSERT INTO pro_users(use_first_name,use_email,use_password,rol_id)
-        VALUES (:prenom,:email,:passwordUser,'2')";
+        $query = "INSERT INTO pro_users(`use_first_name`,`use_email`,`use_password`,`rol_id`,`use_status`)
+        VALUES (:prenom,:email,:passwordUser,'2','2')";
 
         $stmt = $base->prepare($query);
         $stmt->bindValue(':prenom', $name, PDO::PARAM_STR);
@@ -184,5 +184,100 @@ class Accounts extends DataBase
         $stmt->bindValue(':id', $id, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll();
+    }
+
+    public function getUserStatus($email)
+    {
+        $base = $this->connectDB();
+        $query = "SELECT * FROM `pro_users`
+        WHERE use_email = :email";
+
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchall();
+    }
+
+    public function getAllUsers()
+    {
+        $base = $this->connectDB();
+        $query = "SELECT `use_email`,`use_first_name`,`use_status`,`use_id` FROM `pro_users`";
+
+        $stmt = $base->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchall();
+    }
+
+    public function approveUserStatus($id)
+    {
+        $base = $this->connectDb();
+        $query = "UPDATE `pro_users`
+        SET `use_status` = 1
+        WHERE `use_id` = :id";
+
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public function blockUserStatus($id)
+    {
+        $base = $this->connectDb();
+        $query = "UPDATE `pro_users`
+        SET `use_status` = 2
+        WHERE `use_id` = :id";
+
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+
+    public function deleteUser($id)
+    {
+        $base = $this->connectDb();
+        $query = "DELETE FROM `pro_users`
+        WHERE `use_id` = :id";
+
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public function deleteUsersPost($id)
+    {
+        $base = $this->connectDb();
+        $query = "DELETE FROM `pro_blog`
+        WHERE `use_id` = :id";
+
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    public function deleteUsersWishlist($id)
+    {
+
+        $base = $this->connectDb();
+        $query = "DELETE FROM `pro_wishlist` WHERE `use_id`= :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
+
+    public function updateUsersActivities($id)
+    {
+
+        $base = $this->connectDb();
+        $query = "UPDATE pro_destination_cat
+        SET des_id = :id, act_id = (SELECT act_id FROM pro_activities WHERE act_name = :actName)
+        WHERE des_id = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $resultQuery->execute();
     }
 }

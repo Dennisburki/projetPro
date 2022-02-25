@@ -42,48 +42,46 @@ require_once "../my-config.php";
 
     <header class="header d-lg-block d-none">
 
-        <div class="text-white d-flex justify-content-end m-auto">
-            <?php if (empty($_SESSION)) { ?><i class="bi bi-person pt-2"></i><a class="btn text-white" href="../espacePerso.php">Se connecter</a>
-        </div>
-    <?php } else { ?>
-        <a href="<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
+        <div class=" d-flex justify-content-end m-auto pt-3 pe-3">
+            <a href="<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
         </div>
 
-        <div class="text-white d-flex justify-content-end m-auto pe-2">
-            <form action="../views/home.php" method="POST" class="logout">
-                <div class="fs-5 logout"><i class="bi bi-box-arrow-left"></i><input type="submit" name="disconnect" value="Se déconnecter" class="btn logout text-white fs-6"></div>
+        <div class="d-flex justify-content-end m-auto pe-3">
+            <form action="../views/home.php" method="POST">
+                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
-    <?php } ?>
 
-    <a href="../index.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
-        <div class="text-white text-center fs-4 fst-italic">Choisissez votre prochaine destination et partagez vos expériences</div>
-    </a>
 
+        <a href="../views/home.php" class="text-decoration-none">
+        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <div class="justify-content-center  row m-0 ">
+                <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
+            </div>
+        </a>
 
     </header>
     <div class="global m-0">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon text-white"><i class="bi bi-list fs-2"></i></span>
                 </button>
                 <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
                 <div class="collapse navbar-collapse text-start" id="navbarNav">
                     <ul class="navbar-nav container row">
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
-                            <a class="nav-link active" aria-current="page Accueil" href="../index.php">Accueil</a>
+                            <a class="nav-link active" aria-current="page Accueil" href="../index.php"><span class="text text-white">Accueil</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <a class="nav-link active" aria-current="page Catégories" href="../categories.php">Catégories</a>
+                            <a class="nav-link active" aria-current="page Catégories" href="../categories.php"><span class="text text-white">Catégories</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <a class="nav-link active" aria-current="page Guide" href="../guide.php">Guide</a>
+                            <a class="nav-link active" aria-current="page Guide" href="../guide.php"><span class="text text-white">Guide</span></a>
                         </li>
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <a class="nav-link active" aria-current="page Blog" href="../blog.php">Blog</a>
+                            <a class="nav-link active" aria-current="page Blog" href="../blog.php"><span class="text text-white">Blog</span></a>
                         </li>
                         <li class="d-lg-none nav-item justify-lg-content-end">
                             <?php if (session_status() == PHP_SESSION_NONE) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
@@ -103,7 +101,6 @@ require_once "../my-config.php";
             </div>
         </nav>
 
-
         <?php if (isset($_POST['disconnect'])) { ?>
             <div class="text-center pt-5 pb-5">
                 <div class="fw-bold fs-3 pb-3"> Vous avez bien été déconnecté.</div>
@@ -112,27 +109,39 @@ require_once "../my-config.php";
 
         <?php } else { ?>
 
-            <h1 class="text-center fw-bold pt-5 pb-5">Rédaction d'articles</h1>
-            <div class="row justify-content-center">
-                <form action="edit.php" method="POST" enctype="multipart/form-data" class="col-lg-8">
+            <?php if (isset($_POST['publish'])) { ?>
 
-                    <label for="title">Titre de l'article: </label>
-                    <input type="text" name="title" id="title" required></br>
-                    <div class="pt-5 pb-5">
-                        <label for="upload">Choix d'une photo: </label>
-                        <input name="upload" type="file" id="upload" />
-                    </div>
+                <div class="text-success text-center fw-bold fs-4 pt-5">Votre article a bien été enregistré!</div>
+                <div class="text-center fw-bold fs-4 pt-3">Il sera visible dans la partie <span><a href="../blog.php" class="text-dark">blog</a></span> après validation par l'équipe de modération!</div>
+                <div class="pt-4 text-center pb-5">
+                    <a href="user.php"><button class="btn btn-dark">Retour au Menu</button></a>
+                    <a href="edit.php"><button class="btn btn-dark">Rédiger un autre article</button></a>
+                </div>
+            <?php } else { ?>
+                <h1 class="text-center fw-bold pt-5 detailsTitle">Rédaction d'articles</h1>
 
-                    <textarea name="content" class="w-100"> Welcome to TinyMCE!</textarea>
+                <a href="user.php" class="ms-5 d-lg-block d-none pb-5"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
+                <div class="row justify-content-center pb-3">
+                    <form action="edit.php" method="POST" enctype="multipart/form-data" class="col-lg-8 border border-dark pt-2 pb-2 text-center">
 
-                    <div class="text-center pb-5 pt-2">
-                        <input name="publish" type="submit" value="Publier" class="btn btn-dark" />
-                    </div>
-                </form>
-            </div>
-        <?php } ?>
+                        <label for="title" class="fw-bold pb-3">Titre de l'article: </label></br>
+                        <input type="text" name="title" id="title" class="w-75" required></br>
+                        <div class="pt-5 pb-5">
+                            <label for="upload" class="fw-bold pb-3">Choix d'une photo: </label></br>
+                            <input name="upload" type="file" id="upload" />
+                        </div>
+
+                        <textarea name="content" class="w-100">Commence à rédiger ton article ici!</textarea>
+
+                        <div class="text-center pb-5 pt-2">
+                            <input name="publish" type="submit" value="Publier" class="btn btn-dark" />
+                        </div>
+                    </form>
+                </div>
+        <?php }
+        } ?>
     </div>
-    <footer class="footer bg-dark" style="height: 15vh;">
+    <footer class="footer" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">
             <div class="">
                 <p class="text-white">©Estenouest</p>

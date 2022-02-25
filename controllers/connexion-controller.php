@@ -13,6 +13,8 @@ $errorsConect = [];
 
 $loginObj = new Accounts();
 $passwordObj = new Accounts();
+$userStatusObj = new Accounts();
+
 
 
 if (isset($_POST["submit"])) {
@@ -22,10 +24,21 @@ if (isset($_POST["submit"])) {
 
         if ($loginObj->checkLogin($_POST['login']) !== FALSE) {
 
+            $userStatusArray = $userStatusObj->getUserStatus($_POST['login']);
+
+            foreach($userStatusArray as $status){
+
+                $userStatus = $status['use_status'];
+
+            if ($userStatus == 2) {
+                $errorsConect['notApproved'] = "Votre compte n'est pas encore approuvé par l'administrateur";
+            }}
+
 
             if (password_verify($_POST['passwordConect'], $passwordObj->checkPassword($_POST['login'])['use_password'])) {
-
+                if(empty($errorsConect)){
                 $_SESSION = $loginObj->getUserConnect($_POST['login']);
+                }
             } else {
                 $errorsConect['invalid'] = "Login ou mot de passe invalide";
             }
@@ -78,7 +91,7 @@ if (!empty($_POST)) {
             $errors["checkbox"] = "Coche la case";
         }
 
-        if(empty($errors)){
+        if (empty($errors)) {
 
             $userObj = new Accounts();
 
@@ -88,7 +101,6 @@ if (!empty($_POST)) {
 
             $userObj->addUser($name, $email, $password);
         }
-
     } else {
         if (isset($_POST['submitButton'])) {
             $errors["allEmpty"] = "Veuillez remplir tous les champs";
@@ -96,9 +108,11 @@ if (!empty($_POST)) {
     }
 }
 
+
+
 //********************************Si deja connecté, redirige vers la page compte**************************************************
 
-if (isset($_SESSION['login'])) {
+if (isset($_SESSION['login']) && empty($errorsConect)) {
 
     if ($_SESSION['role'] !== "1") {
         header("location: ../connected/user.php");

@@ -42,6 +42,9 @@ class Destinations extends DataBase
         $resultQuery->execute();
     }
 
+    /**
+     * Permet d'afficher toutes les activités
+     */
     public function getAllActivities()
     {
         $base = $this->connectDb();
@@ -49,11 +52,15 @@ class Destinations extends DataBase
 
         $resultQuery = $base->prepare($query);
         $resultQuery->execute();
-        return $resultQuery->fetchAll();
+        return $resultQuery->fetchAll(PDO::FETCH_ASSOC);
     }
 
 
-    public function addActivities($activity)
+    /**
+     * Permet d'inserer une activité de la liste d'activités dans la bdd et de la rattacher a une destiantion
+     * @param string $activity : activité séléctionnée
+     */
+    public function addActivities($activity): void
     {
         $base = $this->connectDb();
         $query = "INSERT INTO  `pro_destination_cat`(`des_id`,`act_id`)
@@ -67,6 +74,41 @@ class Destinations extends DataBase
 
         $resultQuery->execute();
     }
+
+
+    /**
+     * Permet d'ajouter les activités au moment de l'update
+     * @param $activity : activité selectionné
+     * @param $id : id de la destination (dans le GET)
+     */
+    public function UpdateActivities($activity, $id): void
+    {
+        $base = $this->connectDb();
+        $query = "INSERT INTO  `pro_destination_cat`(`des_id`,`act_id`)
+        values ((SELECT `des_id` FROM `pro_destination`
+        WHERE des_id = :id)
+        ,(SELECT `act_id` FROM `pro_activities`
+        WHERE `act_name` = :activity))";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':activity', $activity, PDO::PARAM_STR);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
+
+    public function deleteDestinationActivities($id)
+    {
+        $base = $this->connectDb();
+        $query = "DELETE FROM pro_destination_cat
+        WHERE des_id = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
+
 
     /**
      * Permet d'afficher les destinations en fonction de leur categorie dans la rubrique categories
@@ -118,10 +160,34 @@ class Destinations extends DataBase
         return $resultQuery->fetchAll();
     }
 
+    /**
+     * Permet d'afficher les noms des activités selectionées par destination au moment de l'update
+     * @param string $id : id de la destination
+     */
     public function getActivities($id)
     {
         $base = $this->connectDb();
-        $query = "SELECT `act_name` FROM `pro_destination`
+        $query = "SELECT group_concat(`act_name`) FROM `pro_destination`
+        NATURAL JOIN `pro_destination_cat`
+        NATURAL JOIN `pro_activities`
+        WHERE des_id = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+        $resultQuery->execute();
+        return explode(",", $resultQuery->fetchAll()[0][0]);
+    }
+
+
+
+    /**
+     * Permet d'afficher les activités d'une destination
+     * @param string $id : id de la destination
+     */
+    public function displayActivities($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `act_name`,`act_icon` FROM `pro_destination`
         NATURAL JOIN `pro_destination_cat`
         NATURAL JOIN `pro_activities`
         WHERE des_id = :id";
@@ -132,6 +198,28 @@ class Destinations extends DataBase
         return $resultQuery->fetchAll();
     }
 
+
+    /**
+     * Permet d'afficher les activités d'une destination
+     * @param $idAct : id de la destination
+     */
+    public function showActivities($idAct)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `act_icon` FROM `pro_activities`
+        natural join `pro_destination_cat`
+        natural join `pro_destination`
+        where `des_id` = :idAct";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':idAct', $idAct, PDO::PARAM_STR);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+    /**
+     * Permet d'afficher toutes les destinations avec leur catégorie
+     */
     public function getDestinations()
     {
         $base = $this->connectDb();
@@ -144,6 +232,10 @@ class Destinations extends DataBase
     }
 
 
+    /**
+     * Permet d'afficher tous les details d'une destination
+     * @param string $id : id de la destination
+     */
     public function getSelectedDestination($id)
     {
         $base = $this->connectDb();
@@ -228,6 +320,10 @@ class Destinations extends DataBase
         return $resultQuery->fetchAll();
     }
 
+    /**
+     * Permet d'afficher les destinations triées par catégorie
+     * @param string $category : categorie choisie pour le tri
+     */
     public function getSortedDestinations($category)
     {
         $base = $this->connectDb();
@@ -253,7 +349,31 @@ class Destinations extends DataBase
         $resultQuery->execute();
     }
 
-    //******PARTIE POUR LA PAGINATION
+    public function deleteActivities($id)
+    {
+
+        $base = $this->connectDb();
+        $query = "DELETE FROM `pro_destination_cat` WHERE `des_id`= :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
+
+    public function deleteWishlistDestination($id)
+    {
+
+        $base = $this->connectDb();
+        $query = "DELETE FROM `pro_wishlist` WHERE `des_id`= :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
+
+    //*******************************PARTIE POUR LA PAGINATION*************************************
 
     /**
      * Permet de compter toutes les destinations
@@ -287,6 +407,12 @@ class Destinations extends DataBase
         return $stmt->fetchAll();
     }
 
+    //***********************Fin partie pour la pagination***************************
+
+    /**
+     * Permet d'afficher le nombre de fois que la page a été visitée
+     * @param string $id : id de la destination
+     */
     public function getVisit($id)
     {
         $base = $this->connectDb();
@@ -299,6 +425,11 @@ class Destinations extends DataBase
         return $stmt->fetch();
     }
 
+    /**
+     * Permet d'incrementer le compteur a chaque visite/chaque fois que la page est chargée et de mettre a jour le compteur dans la bdd
+     * @param string $id : id de la destination
+     * @param $count : Valeur du compteur
+     */
     public function incrementVisit($id, $count)
     {
         $base = $this->connectDb();
@@ -314,6 +445,10 @@ class Destinations extends DataBase
         $stmt->execute();
     }
 
+
+    /**
+     * Permet d'afficher la premiere slide du caroussel
+     */
     public function getStatFirst()
     {
         $base = $this->connectDb();
@@ -326,6 +461,9 @@ class Destinations extends DataBase
         return $stmt->fetchAll();
     }
 
+    /**
+     * Permet d'afficher les slides autre que la premiere du caroussel
+     */
     public function getStatOther()
     {
         $base = $this->connectDb();
@@ -338,7 +476,10 @@ class Destinations extends DataBase
         return $stmt->fetchAll();
     }
 
-
+    /**
+     * Permet d'afficher la wishlist d'un utilisateur
+     * @param string $userId : id de l'utilisateur
+     */
     public function getWishlist($userId)
     {
         $base = $this->connectDb();
@@ -354,7 +495,12 @@ class Destinations extends DataBase
     }
 
 
-    public function addWishlist($destinationId,$userId)
+    /**
+     * Permet de rajouter a la wishlist d'un utilisateur la destination qu'il selectionne
+     * @param string $destinationId : id de la destination
+     * @param string $userId : id de l'utilisateur
+     */
+    public function addWishlist($destinationId, $userId)
     {
         $base = $this->connectDb();
         $query = "INSERT INTO  `pro_wishlist`(`des_id`,`use_id`)
@@ -371,19 +517,27 @@ class Destinations extends DataBase
     }
 
 
-    public function addedWishlist($id)
+    /**
+     * Permet d'afficher la wishlist d'un utilisateur
+     * @param string $id : id de l'utilisateur
+     */
+    public function addedWishlist($id, $userId)
     {
         $base = $this->connectDb();
-        $query = "SELECT * FROM `pro_wishlist` WHERE `des_id` = :id";
+        $query = "SELECT * FROM `pro_wishlist` WHERE `des_id` = :id AND `use_id` = :userId";
 
         $stmt = $base->prepare($query);
         $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
 
         $stmt->execute();
         return $stmt->fetch();
     }
 
-
+    /**
+     * Permet de supprimer une destination de la wishlist d'un utilisateur
+     * @param string $id : id de l'utilisateur
+     */
     public function deleteWishlist($id)
     {
 
@@ -395,4 +549,71 @@ class Destinations extends DataBase
 
         $resultQuery->execute();
     }
+
+    public function getCarnet($userId)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT * FROM `pro_destination`
+        NATURAL JOIN `pro_passed_trips`
+        NATURAL JOIN `pro_users`
+        WHERE pro_passed_trips.use_id = :userId";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
+    public function deleteCarnet($id)
+    {
+
+        $base = $this->connectDb();
+        $query = "DELETE FROM `pro_passed_trips` WHERE `des_id`= :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
+
+    public function addedCarnet($id, $userId)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT * FROM `pro_passed_trips` WHERE `des_id` = :id AND `use_id` = :userId";
+
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function addCarnet($destinationId, $userId)
+    {
+        $base = $this->connectDb();
+        $query = "INSERT INTO  `pro_passed_trips`(`des_id`,`use_id`)
+        values ((SELECT `des_id` FROM `pro_destination`
+        WHERE des_id = :destinationId)
+        ,(SELECT `use_id` FROM `pro_users`
+        WHERE `use_id` = :userId))";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':destinationId', $destinationId, PDO::PARAM_INT);
+        $resultQuery->bindValue(':userId', $userId, PDO::PARAM_INT);
+
+        $resultQuery->execute();
+    }
+
+    public function getBlogPictureName($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `blo_picture` FROM `pro_blog` WHERE `blo_id` = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+
 }

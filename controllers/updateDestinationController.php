@@ -20,10 +20,10 @@ $countArray = $countObj->countDestination();
 $nbDestination = $countObj->countDestination();
 $nbPages = ceil($nbDestination[0][0] / 10);
 
-    $pages = isset($_GET['page']) ? intval($_GET['page']) : 1;
-    $offset = ($pages * 10) - 10;
-    $pageObj = new Destinations();
-    $pageArray = $pageObj->getDestinationOffset($offset);
+$pages = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$offset = ($pages * 10) - 10;
+$pageObj = new Destinations();
+$pageArray = $pageObj->getDestinationOffset($offset);
 
 //FIN PARTIE POUR LA PAGINATION******************************
 
@@ -45,6 +45,11 @@ if (isset($_POST['delete'])) {
         unlink("..\assets\img\img_destinations/" . $picture['des_picture']);
     }
 
+    
+    $deleteActivitiesObj = new Destinations();
+    $deleteActivitiesObj->deleteActivities($id);
+    $deleteWishlistDestinationObj = new Destinations();
+    $deleteWishlistDestinationObj->deleteWishlistDestination($id);
     $deleteObj = new Destinations();
     $deleteObj->deleteDestination($id);
 }
