@@ -127,7 +127,7 @@ require_once "../my-config.php";
 
                                     <a href="../views/detailsDestination.php?id=<?= $display['des_id'] ?>"><button class="btn btn-dark">Voir en détails</button></a>
 
-                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $display['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button>
+                                    <button class="btn blockBtn" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $display['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button>
 
                                     <!-- Modal -->
 
@@ -144,7 +144,7 @@ require_once "../my-config.php";
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                                                     <form action="carnet?id=<?= $display['des_id'] ?>" method="POST">
-                                                        <input type="submit" name="delete" value="Supprimer" class="btn btn-danger">
+                                                        <input type="submit" name="delete" value="Supprimer" class="btn blockBtn">
                                                     </form>
                                                 </div>
                                             </div>
@@ -169,9 +169,9 @@ require_once "../my-config.php";
             <div class="">
                 <p class="text-white">Qui sommes-nous?</p>
             </div>
-            <div class="">
+            <a href="../views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
-            </div>
+            </a>
         </div>
     </footer>
 

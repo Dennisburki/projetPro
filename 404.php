@@ -30,7 +30,7 @@ require_once "my-config.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
+    <title>Oups! Mauvaise direction</title>
 </head>
 
 <body>
@@ -109,26 +109,35 @@ require_once "my-config.php";
                 </div>
             </div>
         </nav>
-    </div>
+        <div class="global m-0">
 
-    <div class="text-center">
-        <img src="assets/img/build.png" alt="">
-    </div>
-    <footer class="footer m-0" style="height: 15vh;">
-        <div class="d-flex justify-content-evenly pt-5">
-            <div class="">
-                <p class="text-white">©Estenouest</p>
+            <div class="text-center fw-bold fs-1 pt-3 pb-3">Oups! Vous vous êtes perdu et vous voila sur la route 404!</div>
+            <div class="text-center fw-bold fs-3 pt-3 pb-3">Pas de panique, tout le monde peut se perdre! Retournez sur le bon chemin en suivant les panneaux de la barre de navigation.</div>
+
+            <div class="text-center pb-3">
+                <img src="../assets/img/perdu.jpg" alt="Homme perdu regarde carte" class="rounded col-10 col-lg-5">
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
-            <a href="views/mentions.php" class="text-white">
-                <p class="text-white">Mentions Légales</p>
-            </a>
+
+
+
+
         </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <footer class="footer m-0" style="height: 15vh;">
+            <div class="d-flex justify-content-evenly pt-5 m-0">
+                <div class="">
+                    <p class="text-white">©Estenouest</p>
+                </div>
+                <div class="">
+                    <p class="text-white">Qui sommes-nous?</p>
+                </div>
+                <a href="views/mentions.php" class="text-white">
+                    <p class="text-white">Mentions Légales</p>
+                </a>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
 </html>

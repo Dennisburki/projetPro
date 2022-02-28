@@ -53,7 +53,7 @@ require_once "../controllers/wishlistController.php";
 
 
         <a href="../views/home.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
             <div class="justify-content-center  row m-0 ">
                 <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
             </div>
@@ -113,12 +113,12 @@ require_once "../controllers/wishlistController.php";
                 <a href="user.php" class="ms-5 d-lg-block d-none"><button class="btn btn-outline-dark"><i class="bi bi-chevron-left"></i>Retour au Menu</button></a>
             </div>
 
-            <div class="row text-center justify-content-center m-0">
+            <div class="row text-center justify-content-evenly m-0">
 
                 <!-- ****************************BOUCLER A PARTIR D'ICI -- CA MARCHE ET C'EST VERIFIE******************************************************* -->
 
                 <?php foreach ($displayArray as $display) { ?>
-                    <div class="card mb-3 col-lg-12 m-0" style="max-width: 800px;">
+                    <div class="card mb-3 col-lg-5 m-0" style="max-width: 800px;">
                         <div class="row g-0">
                             <div class="col-md-4">
                                 <img src="../assets/img/img_destinations/<?= $display['des_picture'] ?>" class="img-fluid rounded-start" alt="Image d'illustration">
@@ -130,7 +130,7 @@ require_once "../controllers/wishlistController.php";
 
                                     <a href="../views/detailsDestination.php?id=<?= $display['des_id'] ?>"><button class="btn btn-dark">Voir en détails</button></a>
 
-                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $display['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button>
+                                    <button class="btn blockBtn" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $display['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button>
 
                                     <!-- Modal -->
 
@@ -147,7 +147,7 @@ require_once "../controllers/wishlistController.php";
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                                                     <form action="wishlist?id=<?= $display['des_id'] ?>" method="POST">
-                                                        <input type="submit" name="delete" value="Supprimer" class="btn btn-danger">
+                                                        <input type="submit" name="delete" value="Supprimer" class="btn blockBtn">
                                                     </form>
                                                 </div>
                                             </div>
@@ -170,9 +170,9 @@ require_once "../controllers/wishlistController.php";
             <div class="">
                 <p class="text-white">Qui sommes-nous?</p>
             </div>
-            <div class="">
+            <a href="../views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
-            </div>
+            </a>
         </div>
     </footer>
 

@@ -241,6 +241,16 @@ form > button.appBtn {
     color: white;
 }
 
+div.col-md-8 > div > button.blockBtn {
+    background-color: rgb(206, 10, 10);
+    color: white;
+}
+
+div.modal-footer > form > input.blockBtn {
+    background-color: rgb(206, 10, 10);
+    color: white;
+}
+
 .countBg {
     background-color: black;
 }

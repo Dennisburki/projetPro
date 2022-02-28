@@ -47,7 +47,7 @@ require "my-config.php";
     <?php } ?>
 
     <a href="views/home.php" class="text-decoration-none">
-    <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
         <div class="justify-content-center  row m-0 ">
             <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
         </div>
@@ -109,9 +109,9 @@ require "my-config.php";
 
 
         <div class="row pt-5 m-0">
-            <div class="col-lg-6 text-lg-end pb-3" >
+            <div class="col-lg-6 text-lg-end pb-3">
                 <a href="views/views.php?id=1"><button type="btn" class="btn col-lg-6 fs-2 montagneFirst text-white" onmouseover="mouseOverMontagne()" onmouseout="mouseOutMontagne()" id="montagne">
-                       
+
                     </button>
                 </a>
             </div>
@@ -156,9 +156,9 @@ require "my-config.php";
                 <div class="m-0">
                     <p class="text-white">Qui sommes-nous?</p>
                 </div>
-                <div class="m-0">
+                <a href="views/mentions.php" class="text-white">
                     <p class="text-white">Mentions Légales</p>
-                </div>
+                </a>
             </div>
         </footer>
     </div>

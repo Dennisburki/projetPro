@@ -38,7 +38,7 @@ require_once "my-config.php";
             <a class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded" href="espacePerso.php"><i class="bi bi-person pt-2 pe-2"></i>Se connecter</a>
         </div>
         <a href="views/home.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
             <div class="justify-content-center  row m-0 ">
                 <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
             </div>
@@ -82,7 +82,7 @@ require_once "my-config.php";
 
                 <div class="text-center fw-bold pb-2 pt-5 fs-3 text-success">
                     <p>Votre inscription a été prise en compte, et votre compte sera activé dans les 24h</p>
-                    
+
                 </div>
 
         <?php }
@@ -161,10 +161,9 @@ require_once "my-config.php";
                             <input class="form-check-input" type="checkbox" value="" id="checkbox" name="checkbox">
                             <label class="form-check-label" for="checkbox">
                                 Accepter les CGU
-                            </label><span class="fw-bold text-danger">
-                                <?= $errors['checkbox'] ?? '' ?></span>
+                            </label>
+                            <span class="fw-bold text-danger"><?= $errors['checkbox'] ?? '' ?></span>
                         </div>
-
                         <!-- -----------------------------/\GARDER LES CGU OU PAS?/\------------------------------- -->
                     </fieldset>
 
@@ -184,9 +183,9 @@ require_once "my-config.php";
             <div class="">
                 <p class="text-white">Qui sommes-nous?</p>
             </div>
-            <div class="">
+            <a href="views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
-            </div>
+            </a>
         </div>
     </footer>
 

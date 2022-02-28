@@ -127,7 +127,7 @@ require_once "../controllers/detailsController.php";
                 <div class="fw-bold fst-italic col-lg-1 row">
                     <div class="col-lg-12 border border-dark countBg text-white d-flex pt-2">
                         <div>Vues:</div>
-                       <img src="../assets/img/views.png" alt="" height="13px" class="mt-2 ms-2"><span class="fs-5"> <?= $visitObj->getVisit($id)['des_visit'] ?></span>
+                        <img src="../assets/img/views.png" alt="" height="13px" class="mt-2 ms-2"><span class="fs-5"> <?= $visitObj->getVisit($id)['des_visit'] ?></span>
                     </div>
                 </div>
             </div>
@@ -167,7 +167,7 @@ require_once "../controllers/detailsController.php";
 
 
             <div class="text-center fw-bold fs-3 pt-2">Où se trouve <?= $details['des_title'] ?> ?</div>
-            <div class="container">
+            <div class="container-fluid">
                 <div class="text-center responsive-iframe"><?= $details['des_iframe'] ?></div>
             </div>
 
@@ -187,9 +187,9 @@ require_once "../controllers/detailsController.php";
             <div class="m-auto">
                 <p class="text-white">Qui sommes-nous?</p>
             </div>
-            <div class="m-auto">
+            <a href="mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
-            </div>
+            </a>
         </div>
     </footer>
     </div>

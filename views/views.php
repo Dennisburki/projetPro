@@ -192,9 +192,9 @@ require_once "../controllers/viewsController.php";
                     <div class="">
                         <p class="text-white">Qui sommes-nous?</p>
                     </div>
-                    <div class="">
+                    <a href="mentions.php" class="text-white">
                         <p class="text-white">Mentions Légales</p>
-                    </div>
+                    </a>
                 </div>
             </footer>
 
