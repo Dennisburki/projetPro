@@ -114,7 +114,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 
                     <label for="title" class="pt-3 fw-bold">Titre de la destination: </label>
                     <input type="text" name="title" id="title" placeholder="Ex: Madrid" value="<?= $_POST['title'] ?? '' ?>" required>
-                    <div class="text-danger fw-bold"><?= $arrayErrors['noTitle'] ?? '' ?></div>
+                    <div class="text-danger fw-bold"><?= $arrayErrors['noTitle'] ?? '' ?> <?= $arrayErrors['titleExists'] ?? '' ?></div>
 
                     <label for="picture" class="pt-3 fw-bold">Choix d'une photo:</label>
                     <input type="file" name="picture" id="picture" required>
@@ -131,7 +131,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 
 
                     <label for="content" class="pt-3 fw-bold">Description:</label>
-                    <textarea type="text" name="content" id="content" value="<?= $_POST['content'] ?? '' ?>" required></textarea>
+                    <textarea type="text" name="content" id="content" required><?= $_POST['content'] ?? '' ?></textarea>
                     <div class="text-danger fw-bold"><?= $arrayErrors['noContent'] ?? '' ?></div>
                     <div class="text-danger fw-bold"><?= $arrayErrors['noActivity'] ?? '' ?></div>
 
@@ -154,12 +154,12 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 
                     <label for="iframe" class="pt-3 fw-bold">iframe: </label>
                     <input type="text" name="iframe" id="iframe" value="<?= $_POST['iframe'] ?? '' ?>" required>
-                    <div class="text-danger fw-bold"><?= $arrayErrors['noIframe'] ?? '' ?></div>
+                    <div class="text-danger fw-bold"><?= $arrayErrors['noIframe'] ?? '' ?> <span><?= $arrayErrors['wrongIframe'] ?? '' ?></span></div>
 
                     <div class="pt-3 pb-3">
                         <input name="addDestination" type="submit" value="Ajouter" class="col-lg-2 btn btn-outline-dark" />
                     </div>
-                    <div class="g-recaptcha" data-sitekey="6LfX4WIeAAAAAPRdoEK_zY_adUmkdscRNt-znykP"></div><span class="fw-bold text-danger"><?= $arrayErrors["captcha"] ?? "" ?></span>
+                   
 
                 </form>
             </div>

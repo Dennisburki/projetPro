@@ -184,7 +184,7 @@ require_once "../controllers/viewsController.php";
             <?php } ?>
 
 
-            <footer class="footer m-0" style="height: 15vh;">
+            <footer class="footer m-0">
                 <div class="d-flex justify-content-evenly pt-5">
                     <div class="">
                         <p class="text-white">©Estenouest</p>

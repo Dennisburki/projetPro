@@ -21,6 +21,7 @@
 
 .footer {
     background-color: black;
+    height: 15vh;
 }
 
 .mainTitle {
@@ -163,6 +164,19 @@ div {
 
 }
 
+@media screen and (max-width : 600px) {
+    .carnetFirst {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(../img/users.jpeg);
+        height: 15rem;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-size: cover;
+    }
+}
+
+
+
 .wishFirst {
 
     background: url(../img/wish.jpg);
@@ -181,6 +195,16 @@ div {
     background-size: contain;
     background-size: cover;
 
+}
+@media screen and (max-width : 600px) {
+    .wishFirst {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(../img/wish.jpg);
+        height: 15rem;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-size: cover;
+    }
 }
 
 .editFirst {
@@ -203,12 +227,22 @@ div {
 
 }
 
+@media screen and (max-width : 600px) {
+    .editFirst {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(../img/edit.jpg);
+        height: 15rem;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-size: cover;
+    }
+}
+
 .usersButton {
 
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/users.jpeg);
     height: 15rem;
 }
-
 
 .updateImage {
     max-width: 4rem;
@@ -236,17 +270,18 @@ td>button.blockBtn {
 .appBtn {
     background-color: rgb(5, 133, 5);
 }
-form > button.appBtn {
+
+form>button.appBtn {
     background-color: rgb(5, 133, 5);
     color: white;
 }
 
-div.col-md-8 > div > button.blockBtn {
+div.col-md-8>div>button.blockBtn {
     background-color: rgb(206, 10, 10);
     color: white;
 }
 
-div.modal-footer > form > input.blockBtn {
+div.modal-footer>form>input.blockBtn {
     background-color: rgb(206, 10, 10);
     color: white;
 }
@@ -255,7 +290,7 @@ div.modal-footer > form > input.blockBtn {
     background-color: black;
 }
 
-div.col-lg-6.pb-1 > div.appBtn {
+div.col-lg-6.pb-1>div.appBtn {
     background-color: rgb(5, 133, 5);
     color: white;
 }
@@ -265,24 +300,24 @@ div.appBtn {
     color: white;
 }
 
-form > button.blockBtn {
+form>button.blockBtn {
     background-color: rgb(206, 10, 10);
     color: white;
 }
 
-form > input.sortBtn {
+form>input.sortBtn {
     background-color: rgb(11, 137, 255);
     color: white;
 }
 
-body > div > a.btn.test {
+body>div>a.btn.test {
     background-color: rgb(11, 137, 255);
     color: white;
 }
 
-.testo:hover{
+.testo:hover {
     background-color: rgb(11, 137, 255);
-    
+
 }
 
 
@@ -482,8 +517,8 @@ body > div > a.btn.test {
     .img-categorie {
         height: 14rem;
         padding-top: 1rem;
-
     }
+
 }
 
 @media screen and (max-width : 600px) {

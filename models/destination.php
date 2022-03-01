@@ -18,7 +18,7 @@ class Destinations extends DataBase
 
 
     /**
-     * Permet de rajouter des destinations dans la rubrique categories mais aussi destination(detaillé)
+     * Permet de rajouter des destinations 
      * @param string $picture : photo d'illustration
      * @param string $title : Nom de la destination
      * @param string $descr : rapide descriptif des activités
@@ -127,6 +127,17 @@ class Destinations extends DataBase
         return $resultQuery->fetchAll();
     }
 
+    public function getDestinationTitle($title)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `des_title` FROM `pro_destination` WHERE `des_title` = :title";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':title', $title, PDO::PARAM_STR);
+        $resultQuery->execute();
+        return $resultQuery->fetch();
+    }
+
     /**
      * Permet d'afficher uniquement le nom de la categorie de la categorie séléctionnée
      * @param string $id : id correspondant a la categorie
@@ -144,15 +155,16 @@ class Destinations extends DataBase
 
     /**
      * Permet d'afficher les destinations en fonction de leur categorie dans la rubrique détails
-     * @param string $id : id correspondant a la categorie
+     * @param string $id : id correspondant a la destination
      */
     public function getSingleDetails($id)
     {
         $base = $this->connectDb();
-        $query = "SELECT `des_id`,`des_title`,`des_description`,`des_picture`,`des_city_code`,`cat_id`,`des_visit`,`des_iframe`,group_concat(act_name) as activities FROM `pro_destination_cat`
+        $query = "SELECT `des_id`,`des_title`,`des_description`,`des_picture`,`des_city_code`,`cat_id`,`des_visit`,`des_iframe`,group_concat(act_name) as activities
+        FROM `pro_destination_cat`
         NATURAL JOIN `pro_destination`
         NATURAL JOIN `pro_activities`
-         WHERE `des_id` = :id";
+        WHERE `des_id` = :id";
 
         $resultQuery = $base->prepare($query);
         $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
@@ -291,7 +303,8 @@ class Destinations extends DataBase
     {
         $base = $this->connectDb();
         $query = "UPDATE `pro_destination`
-        SET `des_picture` = :picture, `des_title` = :title, `des_description`= :descr,`des_city_code` = :cityCode, `des_iframe` = :iframe, `cat_id` = (SELECT `cat_id` FROM `pro_categories` WHERE `cat_category` = :category) WHERE `des_id` = :id";
+        SET `des_picture` = :picture, `des_title` = :title, `des_description`= :descr,`des_city_code` = :cityCode, `des_iframe` = :iframe, `cat_id` = (SELECT `cat_id` FROM `pro_categories` WHERE `cat_category` = :category)
+        WHERE `des_id` = :id";
 
         $resultQuery = $base->prepare($query);
         $resultQuery->bindValue(':title', $title, PDO::PARAM_STR);
@@ -337,6 +350,11 @@ class Destinations extends DataBase
         return $resultQuery->fetchAll();
     }
 
+
+    /**
+     * Permet de supprimer une destination
+     * @param $id : id de la destination
+     */
     public function deleteDestination($id)
     {
 
@@ -349,6 +367,10 @@ class Destinations extends DataBase
         $resultQuery->execute();
     }
 
+    /**
+     * Permet de supprimer les activités de la table reliant les destinations aux activités associées
+     * @param $id : id de la destination
+     */
     public function deleteActivities($id)
     {
 
@@ -361,11 +383,31 @@ class Destinations extends DataBase
         $resultQuery->execute();
     }
 
+    /**
+     * Permet de supprimer la destination de la wishlist d'un user si la destination est supprimée
+     * @param $id : id de la destination
+     */
     public function deleteWishlistDestination($id)
     {
 
         $base = $this->connectDb();
         $query = "DELETE FROM `pro_wishlist` WHERE `des_id`= :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
+
+        $resultQuery->execute();
+    }
+
+    /**
+     * Permet de supprimer une destination du carnet de voyage d'un user
+     * @param $id : id de la destination
+     */
+    public function deleteCarnet($id)
+    {
+
+        $base = $this->connectDb();
+        $query = "DELETE FROM `pro_passed_trips` WHERE `des_id`= :id";
 
         $resultQuery = $base->prepare($query);
         $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
@@ -564,17 +606,7 @@ class Destinations extends DataBase
         return $resultQuery->fetchAll();
     }
 
-    public function deleteCarnet($id)
-    {
-
-        $base = $this->connectDb();
-        $query = "DELETE FROM `pro_passed_trips` WHERE `des_id`= :id";
-
-        $resultQuery = $base->prepare($query);
-        $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
-
-        $resultQuery->execute();
-    }
+    
 
     public function addedCarnet($id, $userId)
     {

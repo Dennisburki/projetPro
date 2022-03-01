@@ -1,16 +1,19 @@
 let largeur = window.innerWidth;
-if(largeur <= 600){
-document.getElementById("montagne").innerHTML = "Montagne";
-document.getElementById("plage").innerHTML = "Plage";
-document.getElementById("ville").innerHTML = "Ville";
-document.getElementById("sport").innerHTML = "Sport";
-document.getElementById("histoire").innerHTML = "Histoire";
-document.getElementById("gastronomie").innerHTML = "Gastronomie";
+if (largeur <= 600) {
+
+  document.getElementById("montagne").innerHTML = "Montagne";
+  document.getElementById("plage").innerHTML = "Plage";
+  document.getElementById("ville").innerHTML = "Ville";
+  document.getElementById("sport").innerHTML = "Sport";
+  document.getElementById("histoire").innerHTML = "Histoire";
+  document.getElementById("gastronomie").innerHTML = "Gastronomie";
+
+
 }
 
 if (largeur >= 600) {
 
-  
+
 
   //POUR LA MONTAGNE************************************************
   function mouseOverMontagne() {
@@ -81,36 +84,4 @@ if (largeur >= 600) {
     document.getElementById("gastronomie").classList = "btn col-lg-6 fs-2 gastronomieFirst text-white";
   }
 
-  //POUR LE CARNET DANS LE COMPTE USER**********************************************
-  function mouseOverCarnet() {
-    document.getElementById("carnet").innerHTML = "Carnet de Voyage";
-    document.getElementById("carnet").classList = "btn col-lg-8 fs-4 carnet text-white ";
-  }
-
-  function mouseOutCarnet() {
-    document.getElementById("carnet").innerHTML = "";
-    document.getElementById("carnet").classList = "btn col-lg-8 fs-4 carnetFirst text-white ";
-  }
-
-  //POUR LE CARNET DANS LA WISHLIST**********************************************
-  function mouseOverWishlist() {
-    document.getElementById("wishlist").innerHTML = "Wishlist";
-    document.getElementById("wishlist").classList = "btn col-lg-8 fs-4 wish text-white ";
-  }
-
-  function mouseOutWishlist() {
-    document.getElementById("wishlist").innerHTML = "";
-    document.getElementById("wishlist").classList = "btn col-lg-8 fs-4 wishFirst text-white ";
-  }
-
-  //POUR LE CARNET DANS LA REDATION D'ARTICLES**********************************************
-  function mouseOverEdit() {
-    document.getElementById("edit").innerHTML = "Rédiger un article";
-    document.getElementById("edit").classList = "btn col-lg-8 fs-4 edit text-white ";
-  }
-
-  function mouseOutEdit() {
-    document.getElementById("edit").innerHTML = "";
-    document.getElementById("edit").classList = "btn col-lg-8 fs-4 editFirst text-white ";
-  }
 }

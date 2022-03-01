@@ -5,12 +5,11 @@ require_once('../models/database.php');
 require_once('../models/destination.php');
 
 $uploaddir = "..\assets\img\img_destinations/";
-var_dump($_FILES);
 
 if (!empty($_FILES['picture']['name'])) {
     $fileName = $_FILES['picture']['tmp_name'];
-    $extension = explode('.', $_FILES['picture']['name']); // utiliser le mime type plutot que l'explode
-    $uploadfile = $uploaddir . uniqid() . '.' . end($extension); // faudra changer ici aussi
+    $extension = explode('.', $_FILES['picture']['name']); 
+    $uploadfile = $uploaddir . uniqid() . '.' . end($extension); 
 
     $fileToUpload = explode('/', $uploadfile);
     $fileToUpload = end($fileToUpload);
@@ -34,8 +33,6 @@ if (isset($_GET['id'])) {
 
     $allActivitiesObj = new Destinations();
     $allActivitiesArray = $allActivitiesObj->getAllActivities();
-
-    var_dump($activitiesArray);
 }
 
 if (isset($_POST['updateDestination'])) {

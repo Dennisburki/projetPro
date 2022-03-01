@@ -52,10 +52,10 @@ require_once "../controllers/detailsController.php";
     <?php } ?>
 
     <a href="../index.php" class="text-decoration-none">
-        <<h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
-            <div class="justify-content-center  row m-0 ">
-                <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
-            </div>
+        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+        <div class="justify-content-center  row m-0 ">
+            <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
+        </div>
 
     </a>
 
@@ -179,12 +179,12 @@ require_once "../controllers/detailsController.php";
     </div>
 
 
-    <footer class="footer m-auto" style="height: 15vh;">
-        <div class="d-flex justify-content-evenly pt-5 m-auto">
-            <div class="m-auto">
+    <footer class="footer m-0">
+        <div class="d-flex justify-content-evenly pt-5">
+            <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="m-auto">
+            <div class="">
                 <p class="text-white">Qui sommes-nous?</p>
             </div>
             <a href="mentions.php" class="text-white">
@@ -192,7 +192,7 @@ require_once "../controllers/detailsController.php";
             </a>
         </div>
     </footer>
-    </div>
+
 
 
 

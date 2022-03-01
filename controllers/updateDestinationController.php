@@ -48,6 +48,8 @@ if (isset($_POST['delete'])) {
     
     $deleteActivitiesObj = new Destinations();
     $deleteActivitiesObj->deleteActivities($id);
+    $deleteCarnetObj = new Destinations();
+    $deleteCarnetObj->deleteCarnet($id);
     $deleteWishlistDestinationObj = new Destinations();
     $deleteWishlistDestinationObj->deleteWishlistDestination($id);
     $deleteObj = new Destinations();

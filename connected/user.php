@@ -111,22 +111,19 @@ require_once "../my-config.php";
 
             <div class="text-center pb-5 pt-3 m-0">
                 <div class="row m-0">
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 pt-3">
                         <a href="carnet.php"><button type="btn" class="btn col-lg-8 fs-4 text-white carnetFirst" onmouseover="mouseOverCarnet()" onmouseout="mouseOutCarnet()" id="carnet"></button></a>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 pt-3">
                         <a href="wishlist.php"><button type="submit" class="btn col-lg-8 fs-4 text-white wishFirst" onmouseover="mouseOverWishlist()" onmouseout="mouseOutWishlist()" id="wishlist"></button></a>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 pt-3">
                         <a href="edit.php"><button type="submit" class="btn col-lg-8 fs-4 editFirst text-white" onmouseover="mouseOverEdit()" onmouseout="mouseOutEdit()" id="edit"></button></a>
                     </div>
                 </div>
             </div>
-
-
-
 
 
         <?php } ?>
@@ -144,7 +141,7 @@ require_once "../my-config.php";
             </a>
         </div>
     </footer>
-            <script src="../assets/js/script.js"></script>
+            <script src="../assets/js/script-user.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 
