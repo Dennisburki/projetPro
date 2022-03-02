@@ -12,7 +12,7 @@ $displayArray = $displayObj->getDestinations();
 $destinationObj = new Destinations();
 $destinationArray = $destinationObj->getCategories();
 
-// Partie pour la pagination***********************
+// Partie pour la pagination********************************
 
 $countObj = new Destinations();
 $countArray = $countObj->countDestination();

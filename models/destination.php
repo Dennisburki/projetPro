@@ -218,7 +218,7 @@ class Destinations extends DataBase
     public function showActivities($idAct)
     {
         $base = $this->connectDb();
-        $query = "SELECT `act_icon` FROM `pro_activities`
+        $query = "SELECT `act_icon`,`act_name` FROM `pro_activities`
         natural join `pro_destination_cat`
         natural join `pro_destination`
         where `des_id` = :idAct";

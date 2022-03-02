@@ -130,8 +130,9 @@ require_once "../controllers/viewsController.php";
                             <?php $showActivitiesArray = $showActivitiesObj->showActivities($details['des_id']) ?>
                             <div class="row justify-content-center">
                                 <?php foreach ($showActivitiesArray as $activities) { ?>
-                                    <div class="col-lg-1 col-1 my-4" style="background-image: url(../assets/icons/<?= $activities['act_icon'] ?>); height: 20px; background-repeat:no-repeat;"></div>
-
+                                    <span title="<?= $activities['act_name']?>" class="col-lg-1 col-2 my-4">
+                                        <div class="" style="background-image: url(../assets/icons/<?= $activities['act_icon'] ?>); height: 20px; background-repeat:no-repeat;"></div>
+                                    </span>
                                 <?php } ?>
                             </div>
                             <div class="row text-center mt-2">
@@ -142,13 +143,13 @@ require_once "../controllers/viewsController.php";
                                         <?php $addedObj = new Destinations();
                                         if ($addedObj->addedWishlist($details['des_id'], $_SESSION['id']) !== FALSE) { ?>
                                             <div class=" col-lg-6 pb-1">
-                                                <div class="appBtn rounded w-100">Ajouté à ma wishlist</div>
+                                                <div class="appBtn rounded w-100 pt-1" style="height: 2rem;">Ajouté à ma wishlist</div>
                                             </div>
                                         <?php } else { ?>
 
 
                                             <form action="" method="POST" class="col-lg-6 pb-1">
-                                                <input type="submit" class="btn btn-dark w-100" value="Ajouter à la wishlist" name="wishlist">
+                                                <input type="submit" class=" btn-dark w-100 rounded" value="Ajouter à la wishlist" name="wishlist" style="height: 2rem;">
                                                 <input type="hidden" name="id" value="<?= $details['des_id'] ?>">
                                             </form>
 
@@ -156,13 +157,13 @@ require_once "../controllers/viewsController.php";
                                         $addedCarnetObj = new Destinations();
 
                                         if ($addedCarnetObj->addedCarnet($details['des_id'], $_SESSION['id']) !== FALSE) { ?>
-                                            <div class=" col-lg-6">
-                                                <div class="appBtn rounded w-100">Dans mon carnet</div>
+                                            <div class="col-lg-6">
+                                                <div class="appBtn rounded w-100 pt-1" style="height: 2rem;">Dans mon carnet</div>
                                             </div>
                                         <?php } else { ?>
 
                                             <form action="" method="POST" class="col-lg-6">
-                                                <input type="submit" class="btn btn-dark w-100" value="Ajouter au Carnet" name="carnet">
+                                                <input type="submit" class="rounded btn-dark w-100" value="Ajouter au Carnet" name="carnet" style="height: 2rem;">
                                                 <input type="hidden" name="id" value="<?= $details['des_id'] ?>">
                                             </form>
 

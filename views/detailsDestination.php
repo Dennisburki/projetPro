@@ -123,13 +123,8 @@ require_once "../controllers/detailsController.php";
             } ?>
 
             <h1 class="text-center fw-bold pt-5 detailsTitle">Découvrez <?= $details['des_title'] ?> !</h1>
-            <div class="row justify-content-center m-0">
-                <div class="fw-bold fst-italic col-lg-1 row">
-                    <div class="col-lg-12 border border-dark countBg text-white d-flex pt-2">
-                        <div>Vues:</div>
-                        <img src="../assets/img/views.png" alt="" height="13px" class="mt-2 ms-2"><span class="fs-5"> <?= $visitObj->getVisit($id)['des_visit'] ?></span>
-                    </div>
-                </div>
+            <div class="text-center m-0">
+                <div class="fw-bold fst-italic">Cette destination a été consultée <?= $visitObj->getVisit($id)['des_visit'] ?> fois !</div>
             </div>
             <a href="views.php?id=<?= $details['cat_id'] ?>" class="ms-5 d-lg-block d-none"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
 

@@ -106,7 +106,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 
             <a href="admin.php" class="ms-5 d-lg-block d-none"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
 
-            <?php if (isset($_POST['addDestination']) && empty($arrayErrors)) { ?><div class="text-center text-success fs-5">Destination ajoutée avec Succès!</div><?php } ?>
+            <?php if (isset($_POST['addDestination']) && empty($arrayErrors)) { ?><div class="text-center text-success fs-3 fw-bold pb-5">Destination ajoutée avec Succès!</div><?php } else { ?>
 
 
             <div class="row text-center justify-content-center m-0 pb-3">
@@ -128,7 +128,6 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                         <?php } ?>
                     </select>
                     <div class="text-danger fw-bold"><?= $arrayErrors['noCategory'] ?? '' ?></div>
-
 
                     <label for="content" class="pt-3 fw-bold">Description:</label>
                     <textarea type="text" name="content" id="content" required><?= $_POST['content'] ?? '' ?></textarea>
@@ -164,8 +163,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                 </form>
             </div>
 
-
-        <?php } ?>
+        <?php } }?>
     </div>
     <footer class="footer m-0" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">

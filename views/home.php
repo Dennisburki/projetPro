@@ -121,28 +121,28 @@ require_once "../controllers/homeController.php";
 
 
         <div class="row justify-content-evenly m-0">
-            <div class="card border border-white" style="width: 19rem;">
+            <div class="card border border-white homeCard">
                 <img src="../assets/img/questionmark.jpg" class="card-img-top pt-3" alt="photo de papiers avec points d'interrogations">
                 <div class="card-body">
                     <p class="card-text">Commencez par choisir une destinations dans <span><a href="../categories.php" class=" fw-bold text-dark">nos categories</a></span> si vous n’en avez pas, ou repondez au <span><a href="../guide.php" class="fw-bold text-dark">questionnaire</a></span>!</p>
                 </div>
             </div>
 
-            <div class="card border border-white" style="width: 19rem;">
+            <div class="card border border-white homeCard">
                 <img src="../assets/img/computer.jpg" class="card-img-top pt-3" alt="photo de papiers avec points d'interrogations">
                 <div class="card-body">
                     <p class="card-text">Réservez comme vous voulez! skyscanner, Booking.com, Expedia, directement aupres des compagnies aériennes, hôtels...etc</p>
                 </div>
             </div>
 
-            <div class="card border border-white" style="width: 19rem;">
+            <div class="card border border-white homeCard">
                 <img src="../assets/img/whenreturn.jpg" class="card-img-top pt-3" alt="photo de papiers avec points d'interrogations">
                 <div class="card-body">
                     <p class="card-text">Ajoutez votre voyage dans votre carnet de voyage disponible sur votre <span><a href="../guide.php" class="fw-bold text-dark">espace personnel</a></span> et créez votre historique de voyage!</p>
                 </div>
             </div>
 
-            <div class="card border border-white" style="width: 19rem;">
+            <div class="card border border-white homeCard">
                 <img src="../assets/img/write.jpg" class="card-img-top pt-3" alt="photo de papiers avec points d'interrogations">
                 <div class="card-body">
                     <p class="card-text">Partagez votre expérience sur le<span><a href="../blog.php" class="fw-bold text-dark"> blog!</a></span> Une simple photo ou un récit de votre voyage, pour inspirer, donner envies à d’autres!</p>
@@ -151,9 +151,9 @@ require_once "../controllers/homeController.php";
 
         </div>
 
-        <p class="text-center h4 pt-4">Vous pouvez ensuite préparer votre prochain voyage en ajoutant des destinations à votre Wish List!</p>
+        <p class="text-center h4 pt-4 m-0">Vous pouvez ensuite préparer votre prochain voyage en ajoutant des destinations à votre Wish List!</p>
 
-        <p class="text-center h3 pt-4 fw-bold pb-4">Destinations les plus prisées par nos utilisateurs</p>
+        <p class="text-center h3 pt-4 fw-bold pb-4 m-0">Destinations les plus prisées par nos utilisateurs</p>
 
         <!-- ****************************************début caroussel************************************************************* -->
 

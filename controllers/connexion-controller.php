@@ -26,18 +26,19 @@ if (isset($_POST["submit"])) {
 
             $userStatusArray = $userStatusObj->getUserStatus($_POST['login']);
 
-            foreach($userStatusArray as $status){
+            foreach ($userStatusArray as $status) {
 
                 $userStatus = $status['use_status'];
 
-            if ($userStatus == 2) {
-                $errorsConect['notApproved'] = "Votre compte n'est pas encore approuvé par l'administrateur";
-            }}
+                if ($userStatus == 2) {
+                    $errorsConect['notApproved'] = "Votre compte n'est pas encore approuvé par l'administrateur";
+                }
+            }
 
 
             if (password_verify($_POST['passwordConect'], $passwordObj->checkPassword($_POST['login'])['use_password'])) {
-                if(empty($errorsConect)){
-                $_SESSION = $loginObj->getUserConnect($_POST['login']);
+                if (empty($errorsConect)) {
+                    $_SESSION = $loginObj->getUserConnect($_POST['login']);
                 }
             } else {
                 $errorsConect['invalid'] = "Login ou mot de passe invalide";
@@ -88,7 +89,7 @@ if (!empty($_POST)) {
             $errors["wrongPassword"] = "Mot de passe différent";
         }
         if (!isset($_POST["checkbox"])) {
-            $errors["checkbox"] = "Coche la case";
+            $errors["checkbox"] = "Veuillez cocher la case";
         }
 
         if (empty($errors)) {
@@ -101,14 +102,36 @@ if (!empty($_POST)) {
 
             $userObj->addUser($name, $email, $password);
         }
+
+        //*********************************************VERIF DU CAPTCHA ********************************************************************
+
+        if (isset($_POST['g-recaptcha-response'])) {
+            $captcha = $_POST['g-recaptcha-response'];
+
+            if (isset($_POST['g-recaptcha-response']) && empty($_POST['g-recaptcha-response'])) {
+
+                $errors['captcha'] = "Veuillez prouver que vous n'êtes pas un robot";
+            }
+        }
+
+        $secretKey = "6Ld1spQeAAAAABlNbNRqFZl_U76bqNRDwrWtCeQK";
+        $ip = $_SERVER['REMOTE_ADDR'];
+        
+        $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha ?? "");
+        $response = file_get_contents($url);
+        $responseKeys = json_decode($response, true);
+       
+        if ($responseKeys["success"]) {
+        } elseif (isset($_POST['g-recaptcha-response']) && empty($_POST['g-recaptcha-response'])) {
+            $errors['captcha'] = "Veuillez prouver que vous n'êtes pas un robot";
+        }
+
     } else {
         if (isset($_POST['submitButton'])) {
             $errors["allEmpty"] = "Veuillez remplir tous les champs";
         }
     }
 }
-
-
 
 //********************************Si deja connecté, redirige vers la page compte**************************************************
 

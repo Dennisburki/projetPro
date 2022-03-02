@@ -166,7 +166,7 @@ div {
 
 @media screen and (max-width : 600px) {
     .carnetFirst {
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(../img/users.jpeg);
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/users.jpeg);
         height: 15rem;
         width: 100%;
         background-repeat: no-repeat;
@@ -196,9 +196,10 @@ div {
     background-size: cover;
 
 }
+
 @media screen and (max-width : 600px) {
     .wishFirst {
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(../img/wish.jpg);
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/wish.jpg);
         height: 15rem;
         width: 100%;
         background-repeat: no-repeat;
@@ -229,7 +230,7 @@ div {
 
 @media screen and (max-width : 600px) {
     .editFirst {
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(../img/edit.jpg);
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/edit.jpg);
         height: 15rem;
         width: 100%;
         background-repeat: no-repeat;
@@ -477,9 +478,20 @@ body>div>a.btn.test {
     }
 }
 
+
+div.row.justify-content-evenly.m-0>div.homeCard {
+    width: 19rem;
+}
+
 @media screen and (max-width : 600px) {
     .changeTable {
         display: none;
+    }
+}
+
+@media screen and (max-width : 600px) {
+    div.row.justify-content-evenly.m-0>div.homeCard {
+        width: 23rem;
     }
 }
 

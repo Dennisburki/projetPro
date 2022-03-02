@@ -16,11 +16,9 @@ require_once "my-config.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="../assets/css/style.css">
 
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Philosopher&display=swap" rel="stylesheet">
-
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,6 +26,7 @@ require_once "my-config.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
     <title>Connexion</title>
 </head>
 
@@ -121,7 +120,7 @@ require_once "my-config.php";
 
         <?php
 
-        if (isset($_POST['submitButton'])) {
+        if (isset($_POST['submitButton']) && empty($errors)) {
         } else { ?>
             <div class="row text-center justify-content-center pt-5 pb-5 m-0">
 
@@ -168,7 +167,8 @@ require_once "my-config.php";
                     </fieldset>
 
                     <input class="fw-bold btn btn-dark rounded" type="submit" value="Inscription" name="submitButton" />
-
+                    <div class="g-recaptcha" data-sitekey="6Ld1spQeAAAAAGZqtuTHlJQG4INz50QEmgPo5aj8"></div><span class="fw-bold text-danger"><?= $arrayErrors["captcha"] ?? "" ?></span>
+                    <span class="fw-bold text-danger"><?= $errors['captcha'] ?? '' ?></span>
                 </form>
             </div>
         <?php } ?>

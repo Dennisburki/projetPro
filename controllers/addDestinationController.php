@@ -81,12 +81,14 @@ if (isset($_POST['addDestination'])) {
 
             if (isset($_POST[$catch['act_name']])) {
 
-                    $activity = $catch['act_name'];
+                $activity = $catch['act_name'];
 
-                    $selectedObj = new Destinations();
-                    $selectedObj->addActivities($activity);
-                
+                $selectedObj = new Destinations();
+                $selectedObj->addActivities($activity);
             }
         }
+        $page = $_SERVER['PHP_SELF'];
+        $sec = "3";
+        header("Refresh: $sec; url=$page");
     }
 }
