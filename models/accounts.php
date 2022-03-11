@@ -133,6 +133,20 @@ class Accounts extends DataBase
     }
 
     /**
+     * Permet d'afficher toutes les publications du blog en attente de moderation
+     */
+    public function getAllPosts()
+    {
+        $base = $this->connectDB();
+        $query = "SELECT * FROM `pro_blog`
+        INNER JOIN `pro_users` ON pro_users.use_id = pro_blog.use_id";
+
+        $stmt = $base->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    /**
      * Permet d'afficher les publications du blog validées
      */
     public function getApprouvedPost()
@@ -147,6 +161,11 @@ class Accounts extends DataBase
         return $stmt->fetchAll();
     }
 
+
+    /**
+     * Permet de valider un article de blog
+     * @param string $id: id de l'article
+     */
     public function switchModeration($id)
     {
         $base = $this->connectDb();
@@ -159,6 +178,26 @@ class Accounts extends DataBase
         $stmt->execute();
     }
 
+     /**
+     * Permet de valider un article de blog
+     * @param string $id: id de l'article
+     */
+    public function switchModerationBlock($id)
+    {
+        $base = $this->connectDb();
+        $query = "UPDATE `pro_blog`
+        SET `blo_moderation` = 0
+        WHERE `blo_id` = :id";
+
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    /**
+     * Permet de supprimer un article de blog
+     * @param string $id: id de l'article de blog
+     */
     public function deletePost($id)
     {
         $base = $this->connectDb();
@@ -186,6 +225,10 @@ class Accounts extends DataBase
         return $stmt->fetchAll();
     }
 
+    /**
+     * Permet d'afficher le status du compte de l'utilisateur
+     * @param string $email: email de l'utilisateur
+     */
     public function getUserStatus($email)
     {
         $base = $this->connectDB();
@@ -198,6 +241,9 @@ class Accounts extends DataBase
         return $stmt->fetchall();
     }
 
+    /**
+     * Permet d'afficher tous les utilisateurs sauf le mdp
+     */
     public function getAllUsers()
     {
         $base = $this->connectDB();
@@ -208,6 +254,10 @@ class Accounts extends DataBase
         return $stmt->fetchall();
     }
 
+    /**
+     * Permet d'approuver le compte d'un utilisateur
+     * @param $id: id de l'utilisateur
+     */
     public function approveUserStatus($id)
     {
         $base = $this->connectDb();
@@ -220,6 +270,10 @@ class Accounts extends DataBase
         $stmt->execute();
     }
 
+    /**
+     * Permet de descativer le compte d'un utilisateur
+     * @param string $id: id de l'utilisateur
+     */
     public function blockUserStatus($id)
     {
         $base = $this->connectDb();
@@ -233,6 +287,10 @@ class Accounts extends DataBase
     }
 
 
+    /**
+     * Permet de supprimer le compte d'un utilisateur
+     * @param string $id: id de l'utilisateur
+     */
     public function deleteUser($id)
     {
         $base = $this->connectDb();
@@ -244,6 +302,10 @@ class Accounts extends DataBase
         $stmt->execute();
     }
 
+    /**
+     * Permet de supprimer un article du blog d'un user-necessaire quand on supprimer un user
+     * @param string $id: id de l'utilisateur qui a rédigé l'article
+     */
     public function deleteUsersPost($id)
     {
         $base = $this->connectDb();
@@ -255,6 +317,10 @@ class Accounts extends DataBase
         $stmt->execute();
     }
 
+    /**
+     * Permet de supprimer la wishlist d'un utilisateur-necessaire quand on supprimer un user
+     * @param string $id: id de l'utilisateur
+     */
     public function deleteUsersWishlist($id)
     {
 
@@ -267,6 +333,10 @@ class Accounts extends DataBase
         $resultQuery->execute();
     }
 
+    /**
+     * Permet de mettre a jour les activités d'une destination
+     * @param string $id: id de la destination
+     */
     public function updateUsersActivities($id)
     {
 

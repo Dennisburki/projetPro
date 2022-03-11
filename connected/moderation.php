@@ -11,7 +11,9 @@ require_once "../controllers/admin-controller.php";
 require_once "../controllers/moderationController.php";
 require_once "../my-config.php";
 
-
+if ($_SESSION['name'] != 'Admin') {
+    header('Location: ../index.php');
+}
 
 ?>
 
@@ -58,7 +60,7 @@ require_once "../my-config.php";
 
 
         <a href="../views/home.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
             <div class="justify-content-center  row m-0 ">
                 <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
             </div>
@@ -130,8 +132,9 @@ require_once "../my-config.php";
                     <th scope="col" class="changeTable">Image</th>
                     <th scope="col">Title</th>
                     <th scope="col" class="changeTable">Author</th>
+                    <th scope="col" class="changeTable">Statut</th>
                     <th scope="col">Lire l'article</th>
-                    <th scope="col">Approuver</th>
+                    <th scope="col">Approuver / Bloquer</th>
                     <th scope="col">Supprimer</th>
 
                 </tr>
@@ -142,14 +145,26 @@ require_once "../my-config.php";
                         <th class="changeTable" scope="row"><img src="../assets/img/img_blog/<?= $post['blo_picture'] ?>" alt="miniature d'illustration" class="updateImage"></th>
                         <td><?= $post['blo_title'] ?></td>
                         <td class="changeTable"><?= $post['use_first_name'] ?></td>
+                        <?php if ($post['blo_moderation'] == 0) { ?>
+                            <td class="text-danger fw-bold changeTable"> En attente de modération</td>
+                        <?php } else { ?>
+                            <td class="text-success fw-bold changeTable"> Publié</td>
+                        <?php } ?>
                         <td>
                             <form action="readPost.php?id=<?= $post['blo_id'] ?>" method="POST"><button type="submit" name="read" class="btn btn-dark"> Voir l'article</button></form>
                         </td>
-                        <td>
-                            <form action="moderation.php" method="POST"><button type="submit" name="validate" class="btn w-50 appBtn"> Valider</button></form>
-                        </td>
-                        <td>
-                            <form action="moderation.php?id=<?= $post['blo_id'] ?>" method="POST"><button type="submit" name="delete" class="btn blockBtn w-50">Supprimer</button></form>
+
+                        <?php if ($post['blo_moderation'] == 0) { ?>
+                            <td>
+                                <form action="moderation.php?id=<?= $post['blo_id'] ?>" method="POST"><button type="submit" name="validate" class="btn appBtn"> Valider</button></form>
+                            </td>
+                        <?php } else { ?>
+                            <td>
+                                <form action="moderation.php?id=<?= $post['blo_id'] ?>" method="POST"><button type="submit" name="block" class="btn blockBtn"> Bloquer</button></form>
+                            </td>
+                        <?php } ?>
+                        <td class="col-lg-2">
+                            <form action="moderation.php?id=<?= $post['blo_id'] ?>" method="POST" ><button type="submit" name="delete" class="btn blockBtn">Supprimer</button></form>
                         </td>
                     </tr>
                 <?php } ?>
@@ -162,9 +177,9 @@ require_once "../my-config.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="../cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="../views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

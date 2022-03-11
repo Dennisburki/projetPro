@@ -4,6 +4,8 @@ require_once "../my-config.php";
 require_once "../models/database.php";
 require_once "../models/accounts.php";
 
+$validType = ['image/jpeg', 'image/jpg', 'image/png'];
+$arrayErrors = [];
 
 $uploaddir = "..\assets\img\img_blog/";
 
@@ -21,20 +23,25 @@ if (!empty($_FILES)) {
     move_uploaded_file($fileName, $uploadfile);
 }
 
-
-
 if (isset($_POST['publish'])) {
 
     if (!empty($_FILES['upload']['name'])) {
 
-        $title = $_POST['title'];
-        $content = $_POST['content'];
-        $pictureName = $fileToUpload;
-        $id = $_SESSION['id'];
+        $fileName = $_FILES['upload']['type'];
 
-        $publishObj = new Accounts();
-        $publishObj->addPost($title, $content, $pictureName, $id);
+        if (!in_array($fileName, $validType)) {
 
+            $arrayErrors["mime"] = "Votre téléchargement n'est pas une image";
+        } else {
+
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $pictureName = $fileToUpload;
+            $id = $_SESSION['id'];
+
+            $publishObj = new Accounts();
+            $publishObj->addPost($title, $content, $pictureName, $id);
+        }
     } else {
 
         $title = $_POST['title'];
@@ -42,7 +49,6 @@ if (isset($_POST['publish'])) {
         $id = $_SESSION['id'];
 
         $publishObj = new Accounts();
-        $publishObj->addPost($title, $content, $pictureName, $id);
-        
+        $publishObj->addPostWithoutPicture($title, $content, $id);
     }
 }

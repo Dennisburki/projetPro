@@ -90,89 +90,98 @@ require_once "my-config.php";
 
         <!-- **************************PARTIE POUR SE CONNECTER SI COMPTE DEJA CREE *******************************-->
 
-        <div class="row text-center justify-content-center pt-5 pb-5 m-0">
+        <div class="row m-0">
+            <div class="col-lg-6 m-0">
 
-            <p class="h3 fw-bold">Se Connecter</p>
-            <form action="espacePerso.php" method="POST" class="row col-lg-5 pb-2 fw-bold border border-dark rounded">
-                <input type="hidden" name="helper">
-                <label for="login" class="col-lg-12 required">Email</label>
-                <input type="text" class="col-lg-12" name="login">
-                <label for="passwordConect" class="col-lg-12">Mot de Passe</label>
-                <input type="password" class="col-lg-12" name="passwordConect">
-                <div class="pt-3">
 
-                    <button name="submit" type="submit" class="btn btn-dark col-lg-4 rounded">Connexion</button>
+                <div class="row text-center justify-content-center pt-5 pb-5 m-0">
+
+                    <p class="h3 fw-bold">Se Connecter</p>
+                    <form action="espacePerso.php" method="POST" class="row col-lg-9 bg-white fw-bold borderConnect rounded">
+                        <input type="hidden" name="helper">
+                        <div class="px-3 py-2">
+                            <label for="login" class="col-lg-12 required">Email</label>
+                            <input type="text" class="col-lg-12" name="login">
+                        </div>
+                        <div class="px-3 py-2">
+                            <label for="passwordConect" class="col-lg-12">Mot de Passe</label>
+                            <input type="password" class="col-lg-12" name="passwordConect">
+                        </div>
+                        <div class="pt-3">
+
+                            <button name="submit" type="submit" class="btn btn-dark col-lg-4 rounded">Connexion</button>
+
+                        </div>
+                    </form>
+
+                    <div class="text-danger fw-bold"><?= $errorsConect['invalid'] ?? '' ?></div>
+                    <div class="text-danger fw-bold"><?= $errorsConect['notApproved'] ?? '' ?></div>
 
                 </div>
-            </form>
 
-            <div class="text-danger fw-bold"><?= $errorsConect['invalid'] ?? '' ?></div>
-            <div class="text-danger fw-bold"><?= $errorsConect['notApproved'] ?? '' ?></div>
-
-        </div>
-
-        <!-- **************************FIN PARTIE POUR SE CONNECTER SI COMPTE DEJA CREE *******************************-->
-
-
-
-        <!-- **************************PARTIE POUR CREER UN COMPTE *******************************-->
-
-
-        <?php
-
-        if (isset($_POST['submitButton']) && empty($errors)) {
-        } else { ?>
-            <div class="row text-center justify-content-center pt-5 pb-5 m-0">
-
-                <p class="h3 fw-bold">Inscription</p>
-                <form method="POST" action="espacePerso.php" class="text-center border border-dark col-lg-5 p-5 m-0 rounded" name="inscription" id="inscription">
-                    <p> <?= $errors['allEmpty'] ?? '' ?></p>
-
-                    <fieldset class="pb-3">
-
-                        <div class="row">
-                            <label for="nom" class="col-12 pb-1 fw-bold">Prénom</label>
-                            <input type="text" name="prenom" id="prenom" placeholder="Ex: Guy" value="<?= isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : "" ?>" /><span class="fw-bold text-danger">
-                                <?= $errors['pasPrenom'] ?? "" ?><?= $errors['prenom'] ?? "" ?></span>
-                        </div>
-
-                        <div class="row">
-                            <label class="col-lg-12 pb-1 fw-bold" for="prenom">Email</label>
-                            <input type="email" name="email" id="email" placeholder="Ex: Dupond@orange.fr" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : "" ?>" /><span class="fw-bold text-danger">
-                                <?= $errors['pasEmail'] ?? '' ?><?= $errors['email'] ?? '' ?></span>
-
-                        </div>
-
-                        <div class="row">
-                            <label class="col-lg-12 pb-1 fw-bold" for="passwordUser">Mot de passe</label>
-                            <input type="password" name="passwordUser" id="passwordUser" placeholder="Ex: MotdepaSSE" /><span class="fw-bold text-danger">
-                                <?= $errors['password'] ?? '' ?></span>
-                        </div>
-
-                        <div class="row">
-                            <label class="col-lg-12 pb-1 fw-bold" for="secondPassword">Confirmation de Mot de passe</label>
-                            <input type="password" name="secondPassword" id="secondPassword" placeholder="Ex: MotdepaSSE" /><span class="fw-bold text-danger">
-                                <?= $errors['secondPassword'] ?? '' ?><?= $errors['wrongPassword'] ?? '' ?></span>
-                        </div>
-
-                        <!-- -----------------------------\/GARDER LES CGU OU PAS?\/------------------------------- -->
-                        <div class="form-check text-start pt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="checkbox" name="checkbox">
-                            <label class="form-check-label" for="checkbox">
-                                Accepter les CGU
-                            </label>
-                            <span class="fw-bold text-danger"><?= $errors['checkbox'] ?? '' ?></span>
-                        </div>
-                        <!-- -----------------------------/\GARDER LES CGU OU PAS?/\------------------------------- -->
-                    </fieldset>
-
-                    <input class="fw-bold btn btn-dark rounded" type="submit" value="Inscription" name="submitButton" />
-                    <div class="g-recaptcha" data-sitekey="6Ld1spQeAAAAAGZqtuTHlJQG4INz50QEmgPo5aj8"></div><span class="fw-bold text-danger"><?= $arrayErrors["captcha"] ?? "" ?></span>
-                    <span class="fw-bold text-danger"><?= $errors['captcha'] ?? '' ?></span>
-                </form>
+                <!-- **************************FIN PARTIE POUR SE CONNECTER SI COMPTE DEJA CREE *******************************-->
             </div>
-        <?php } ?>
 
+
+            <!-- **************************PARTIE POUR CREER UN COMPTE *******************************-->
+
+            <div class="col-lg-6 m-0">
+                
+
+               
+                    <div class="row text-center justify-content-center pt-5 pb-5 m-0">
+
+                        <p class="h3 fw-bold">Inscription</p>
+                        <form method="POST" action="espacePerso.php" class="text-center bg-white borderConnect col-lg-9  m-0 rounded" name="inscription" id="inscription">
+                            <p> <?= $errors['allEmpty'] ?? '' ?></p>
+
+                            <fieldset class="pb-3">
+
+                                <div class="row px-3  pb-2">
+                                    <label for="nom" class="col-12 pb-1 fw-bold">Prénom <span class="text-danger">*</span></label>
+                                    <input type="text" name="prenom" id="prenom" placeholder="Ex: Guy" value="<?= isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : "" ?>" /><span class="fw-bold text-danger">
+                                        <?= $errors['pasPrenom'] ?? "" ?><?= $errors['prenom'] ?? "" ?></span>
+                                </div>
+
+                                <div class="row px-3  py-2">
+                                    <label class="col-lg-12 pb-1 fw-bold" for="prenom">Email<span class="text-danger">*</span></label>
+                                    <input type="email" name="email" id="email" placeholder="Ex: Dupond@orange.fr" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : "" ?>" /><span class="fw-bold text-danger">
+                                        <?= $errors['pasEmail'] ?? '' ?><?= $errors['email'] ?? '' ?></span>
+
+                                </div>
+
+                                <div class="row px-3  py-2">
+                                    <label class="col-lg-12 pb-1 fw-bold" for="passwordUser">Mot de passe<span class="text-danger">*</span></label>
+                                    <input type="password" name="passwordUser" id="passwordUser" placeholder="Ex: MotdepaSSE" /><span class="fw-bold text-danger">
+                                        <?= $errors['password'] ?? '' ?></span>
+                                </div>
+
+                                <div class="row px-3  py-2">
+                                    <label class="col-lg-12 pb-1 fw-bold" for="secondPassword">Confirmation de Mot de passe<span class="text-danger">*</span></label>
+                                    <input type="password" name="secondPassword" id="secondPassword" placeholder="Ex: MotdepaSSE" /><span class="fw-bold text-danger">
+                                        <?= $errors['secondPassword'] ?? '' ?><?= $errors['wrongPassword'] ?? '' ?></span>
+                                </div>
+
+                                <!-- -----------------------------\/GARDER LES CGU OU PAS?\/------------------------------- -->
+                                <div class="form-check text-start pt-3">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkbox" name="checkbox">
+                                    <label class="form-check-label" for="checkbox">
+                                        <a href="cgu.php" class="text-dark">Accepter les CGU<span class="text-danger">*</span></a>
+                                    </label>
+                                    <span class="fw-bold text-danger"><?= $errors['checkbox'] ?? '' ?></span>
+                                </div>
+                                <!-- -----------------------------/\GARDER LES CGU OU PAS?/\------------------------------- -->
+                            </fieldset>
+
+                            <input class="fw-bold btn btn-dark rounded" type="submit" value="Inscription" name="submitButton" />
+                            <div class="g-recaptcha" data-sitekey="6Ld1spQeAAAAAGZqtuTHlJQG4INz50QEmgPo5aj8"></div><span class="fw-bold text-danger"><?= $arrayErrors["captcha"] ?? "" ?></span>
+                            <span class="fw-bold text-danger"><?= $errors['captcha'] ?? '' ?></span>
+                            <div class="text-danger text-start">*Champs Obligatoires</div>
+                        </form>
+                    </div>
+                <?php  ?>
+            </div>
+        </div>
         <!-- **************************FIN PARTIE POUR CREER UN COMPTE *******************************-->
     </div>
     <footer class="footer m-0" style="height: 15vh;">
@@ -180,9 +189,9 @@ require_once "my-config.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

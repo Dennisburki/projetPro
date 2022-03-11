@@ -592,6 +592,10 @@ class Destinations extends DataBase
         $resultQuery->execute();
     }
 
+    /**
+     * Permet d'afficher le carnet de voyage d'un user
+     * @param string $userId: id de l'utilisateur
+     */
     public function getCarnet($userId)
     {
         $base = $this->connectDb();
@@ -607,7 +611,11 @@ class Destinations extends DataBase
     }
 
     
-
+    /**
+     * Permet de verifier si la destination est dans le carnet de l'utilisateur
+     * @param string $id: id de la destination
+     * @param string $id: id de l'utilisateur
+     */
     public function addedCarnet($id, $userId)
     {
         $base = $this->connectDb();
@@ -621,6 +629,11 @@ class Destinations extends DataBase
         return $stmt->fetch();
     }
 
+    /**
+     * Permet d'ajouter une destination au carnet d'un utilisateur
+     * @param string $destinationId: id de la destination
+     * @param string $userId: id de l'utilisateur
+     */
     public function addCarnet($destinationId, $userId)
     {
         $base = $this->connectDb();
@@ -637,6 +650,10 @@ class Destinations extends DataBase
         $resultQuery->execute();
     }
 
+    /**
+     * Permet d'afficher le nom de l'image d'un article
+     * @param string $id: id de l'article de blog
+     */
     public function getBlogPictureName($id)
     {
         $base = $this->connectDb();

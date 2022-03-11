@@ -6,7 +6,9 @@ require_once "controllers/admin-controller.php";
 require_once "controllers/blogController.php";
 require_once "my-config.php";
 
-
+$delai = 5;
+$url = 'http://projet.net/';
+header("Refresh: $delai;url=$url");
 ?>
 
 
@@ -37,82 +39,23 @@ require_once "my-config.php";
 
     <header class="header d-lg-block d-none">
 
-        <div class=" d-flex justify-content-end m-auto pt-3 pe-3">
-            <?php if (empty($_SESSION['login'])) { ?><a class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded" href="espacePerso.php"><i class="bi bi-person pt-2 pe-2"></i>Se connecter</a>
-        </div>
-    <?php } else { ?>
-        <a href="connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="buttons btn btn-dark btn-outline-light pe-3 text-decoration-none rounded"><i class="bi bi-person pt-2 pe-2"></i><?= $_SESSION['name'] ?></a>
-        </div>
 
-        <div class="d-flex justify-content-end m-auto pe-3">
-            <form action="views/home.php" method="POST">
-                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
-            </form>
-        </div>
-    <?php } ?>
-
-    <a href="views/home.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+        <h1 class="mainTitle fw-bold text-white text-center pt-5">Estenouest</h1>
         <div class="justify-content-center  row m-0 ">
             <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
         </div>
 
-    </a>
+
 
     </header>
 
     <div class="global m-0">
 
-        <nav class="navbar navbar-expand-lg m-0">
-            <div class="container-fluid m-0">
-                <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon text-white"><i class="bi bi-list fs-2"></i></span>
-                </button>
-                <a href="index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
-
-                <div class="collapse navbar-collapse text-start" id="navbarNav">
-                    <ul class="navbar-nav container row">
-                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
-                            <div class="text-start text-lg-center">
-                                <a class="menu nav-link active" aria-current="page" href="index.php"><span class="text text-white">Accueil</span></a>
-                            </div>
-                        </li>
-                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <div class="text-start text-lg-center">
-                                <a class="menu nav-link active  text-white" aria-current="page" href="categories.php"><span class="text text-white">Catégories</span></a>
-                            </div>
-                        </li>
-                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <div class="text-start text-lg-center">
-                                <a class="menu nav-link active  text-white" aria-current="page" href="guide.php"><span class="text text-white">Guide</span></a>
-                            </div>
-                        </li>
-                        <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end">
-                            <div class="text-start text-lg-center">
-                                <a class="menu nav-link active  text-white" aria-current="page" href="blog.php"><span class="text text-white">Blog</span></a>
-                            </div>
-                        </li>
-                        <li class="d-lg-none nav-item justify-lg-content-end">
-                            <?php if (empty($_SESSION)) { ?><a class="menu text-white nav-link active" href="espacePerso.php">Se connecter</a>
-                            <?php } else { ?>
-                                <a href="connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['name'] ?></a>
-                            <?php } ?>
-                        </li>
-                        <?php if (isset($_SESSION['login'])) { ?>
-                            <li class="d-lg-none nav-item justify-lg-content-end">
-                                <form action="#" method="POST">
-                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
-                                </form>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                </div>
-            </div>
-        </nav>
         <div class="global m-0">
 
             <div class="text-center fw-bold fs-1 pt-3 pb-3">Oups! Vous vous êtes perdu et vous voila sur la route 404!</div>
-            <div class="text-center fw-bold fs-3 pt-3 pb-3">Pas de panique, tout le monde peut se perdre! Retournez sur le bon chemin en suivant les panneaux de la barre de navigation.</div>
+            <div class="text-center fw-bold fs-3 pt-3 pb-3">Pas de panique, tout le monde peut se perdre!</div>
+            <div class="text-center fw-bold fs-3 pt-3 pb-3">Un peu de patience, vous allez être redirigé vers la page d'accueil</div>
 
             <div class="text-center pb-3">
                 <img src="../assets/img/perdu.jpg" alt="Homme perdu regarde carte" class="rounded col-10 col-lg-5">
@@ -128,9 +71,9 @@ require_once "my-config.php";
                 <div class="">
                     <p class="text-white">©Estenouest</p>
                 </div>
-                <div class="">
-                    <p class="text-white">Qui sommes-nous?</p>
-                </div>
+                <a href="cgu.php" class="text-white text-center">
+                    <p class="text-white">Conditions Générales d'Utilisation</p>
+                </a>
                 <a href="views/mentions.php" class="text-white">
                     <p class="text-white">Mentions Légales</p>
                 </a>

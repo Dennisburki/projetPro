@@ -167,9 +167,9 @@ require_once "../controllers/wishlistController.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="../cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="../views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

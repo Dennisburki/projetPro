@@ -54,7 +54,7 @@ require_once "../my-config.php";
 
 
         <a href="../views/home.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
             <div class="justify-content-center  row m-0 ">
                 <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
             </div>
@@ -109,7 +109,7 @@ require_once "../my-config.php";
 
         <?php } else { ?>
 
-            <?php if (isset($_POST['publish'])) { ?>
+            <?php if (isset($_POST['publish']) && empty($arrayErrors)) { ?>
 
                 <div class="text-success text-center fw-bold fs-4 pt-5">Votre article a bien été enregistré!</div>
                 <div class="text-center fw-bold fs-4 pt-3">Il sera visible dans la partie <span><a href="../blog.php" class="text-dark">blog</a></span> après validation par l'équipe de modération!</div>
@@ -118,21 +118,22 @@ require_once "../my-config.php";
                     <a href="edit.php"><button class="btn btn-dark">Rédiger un autre article</button></a>
                 </div>
             <?php } else { ?>
-                <h1 class="text-center fw-bold pt-5 detailsTitle">Rédaction d'articles</h1>
+                <h1 class="text-center fw-bold pt-5 detailsTitle m-0">Rédaction d'articles</h1>
 
                 <a href="user.php" class="ms-5 d-lg-block d-none pb-5"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
-                <div class="row justify-content-center pb-3">
-                    <form action="edit.php" method="POST" enctype="multipart/form-data" class="col-lg-8 border border-dark pt-2 pb-2 text-center">
+                <div class="row justify-content-center pb-3 m-0">
+                    
+                    <form action="edit.php" method="POST" enctype="multipart/form-data" class="col-lg-8 border border-dark bg-white pt-2 pb-2 text-center rounded">
 
-                        <label for="title" class="fw-bold pb-3">Titre de l'article: </label></br>
+                        <label for="title" class="fw-bold pb-3 pt-3">Titre de l'article:<span class="text-danger">*</span> </label></br>
                         <input type="text" name="title" id="title" class="w-75" required></br>
                         <div class="pt-5 pb-5">
                             <label for="upload" class="fw-bold pb-3">Choix d'une photo: </label></br>
-                            <input name="upload" type="file" id="upload" />
+                            <input name="upload" type="file" id="upload" /> <span class="text-danger fw-bold m-0"><?= $arrayErrors["mime"] ?? "" ?></span>
                         </div>
 
                         <textarea name="content" class="w-100">Commence à rédiger ton article ici!</textarea>
-
+                        <div class="text-danger text-start">*Champs Obligatoires</div>
                         <div class="text-center pb-5 pt-2">
                             <input name="publish" type="submit" value="Publier" class="btn btn-dark" />
                         </div>
@@ -146,9 +147,9 @@ require_once "../my-config.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="../cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="../views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

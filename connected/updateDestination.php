@@ -4,6 +4,12 @@ require_once "../controllers/updateDestinationController.php";
 require_once "../controllers/admin-controller.php";
 
 if (session_status() == PHP_SESSION_NONE) session_start();
+
+if($_SESSION['name'] != 'Admin') {
+    header('Location: ../index.php');
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -120,7 +126,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                         <?php } ?>
                     </select>
                     <input type="submit" class="btn sortBtn w-100 text-white" value="Trier" name="sort">
-                    
+
                 </form>
                 <a href="updateDestination.php" class="pt-3 text-center pb-3"><button class="btn btn-dark ">Voir toutes les destinations</button></a>
 
@@ -153,7 +159,9 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                                 <td class="changeTable"><?= $details['cat_category'] ?></td>
                                 <td><?= $details['des_title'] ?></td>
                                 <td><a href="modify.php?id=<?= $details['des_id'] ?>"><button class="btn btn-dark"><i class="bi bi-pencil"></i> Modifier</button></a></td>
-                                <td class="blockBtn"><div class="blockBtn col-lg-5 col-7 rounded"><button class="btn blockBtn text-white" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $details['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button></div></td>
+                                <td class="blockBtn">
+                                    <div class="blockBtn col-lg-5 rounded"><button class="btn blockBtn text-white" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $details['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button></div>
+                                </td>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal<?= $details['des_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -185,7 +193,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                                 <td class="changeTable"><?= $details['cat_category'] ?></td>
                                 <td><?= $details['des_title'] ?></td>
                                 <td><a href="modify.php?id=<?= $details['des_id'] ?>"><button class="btn btn-dark"><i class="bi bi-pencil"></i> Modifier</button></a></td>
-                                <td class="blockBtn"><button class="btn blockBtn text-white" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $details['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button></td>
+                                <td class="blockBtn "><button class="btn blockBtn text-white " data-bs-toggle="modal" data-bs-target="#exampleModal<?= $details['des_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button></td>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal<?= $details['des_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -228,9 +236,9 @@ if (session_status() == PHP_SESSION_NONE) session_start();
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="../cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="../views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

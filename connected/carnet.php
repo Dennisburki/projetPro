@@ -53,7 +53,7 @@ require_once "../my-config.php";
 
 
         <a href="../views/home.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
             <div class="justify-content-center  row m-0 ">
                 <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
             </div>
@@ -110,7 +110,7 @@ require_once "../my-config.php";
 
             <h1 class="text-center pt-5">Ton carnet de voyage</h1>
             <a href="user.php" class="ms-5 d-lg-block d-none"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
-            
+
 
             <div class="row text-center justify-content-center m-0">
 
@@ -166,9 +166,9 @@ require_once "../my-config.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="../cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="../views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

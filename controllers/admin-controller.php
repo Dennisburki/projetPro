@@ -7,6 +7,8 @@ if(isset($_POST['disconnect'])) {
         session_destroy();
     }
     $_SESSION['login'] = "";
+    $_SESSION['name'] = "";
+    $_SESSION['role'] = "";
 }
 
 

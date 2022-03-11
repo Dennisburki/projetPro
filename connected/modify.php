@@ -4,6 +4,11 @@ require_once "../controllers/modifyController.php";
 require_once "../controllers/admin-controller.php";
 
 if (session_status() == PHP_SESSION_NONE) session_start();
+
+if($_SESSION['name'] != 'Admin') {
+    header('Location: ../index.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +50,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
 
 
         <a href="../views/home.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
             <div class="justify-content-center  row m-0 ">
                 <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
             </div>
@@ -117,7 +122,7 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                         <h1 class="text-center fw-bold pt-4 pb-4">Modifier la destination:<?= $single['des_title'] ?></h1>
 
                         <a href="admin.php" class="ms-5 d-lg-block d-none text-start"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
-                        <form action="" method="POST" enctype="multipart/form-data" class="col-lg-4 row container-fluid border border-dark justify-content-center">
+                        <form action="" method="POST" enctype="multipart/form-data" class="col-lg-4 bg-white row container-fluid border border-dark justify-content-center">
 
                             <label for="title" class="pt-3 fw-bold">Titre de la destination: </label>
                             <input type="text" name="title" id="title" value="<?= $single['des_title'] ?>" required>
@@ -143,13 +148,13 @@ if (session_status() == PHP_SESSION_NONE) session_start();
                             <div class="row">
                                 <?php foreach ($allActivitiesArray as $activity) { ?>
 
-                                   
+
 
                                     <div class="form-check text-start d-inline-block col-lg-4">
                                         <input class="form-check-input" type="checkbox" id="<?= $activity['act_name'] ?>" name="<?= $activity['act_name'] ?>" <?php if (in_array($activity['act_name'], $activitiesArray)) { ?> checked<?php } ?>>
-                                    <label class="form-check-label" for="<?= $activity['act_name'] ?>">
-                                        <?= $activity['act_name'] ?>
-                                    </label>
+                                        <label class="form-check-label" for="<?= $activity['act_name'] ?>">
+                                            <?= $activity['act_name'] ?>
+                                        </label>
                                     </div>
                                 <?php } ?>
                             </div>
@@ -178,9 +183,9 @@ if (session_status() == PHP_SESSION_NONE) session_start();
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="../cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="../views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

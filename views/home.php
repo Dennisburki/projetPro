@@ -91,12 +91,12 @@ require_once "../controllers/homeController.php";
                             </div>
                         </li>
                         <li class="d-lg-none nav-item justify-lg-content-end">
-                            <?php if (empty($_SESSION)) { ?><a class="menu text-white nav-link active" href="../espacePerso.php">Se connecter</a>
+                            <?php if (empty($_SESSION['name'])) { ?><a class="menu text-white nav-link active" href="../espacePerso.php">Se connecter</a>
                             <?php } else { ?>
                                 <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['name'] ?></a>
                             <?php } ?>
                         </li>
-                        <?php if (isset($_SESSION['login'])) { ?>
+                        <?php if (!empty($_SESSION['login'])) { ?>
                             <li class="d-lg-none nav-item justify-lg-content-end">
                                 <form action="home.php" method="POST">
                                     <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
@@ -214,9 +214,9 @@ require_once "../controllers/homeController.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="../cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

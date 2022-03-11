@@ -113,8 +113,8 @@ require_once "my-config.php";
         <div class="text-center fw-bold pt-3 detailsTitle m-0">Articles des voyageurs</div>
 
         <?php foreach ($displayArray as $post) { ?>
-            <div class="row justify-content-center m-0">
-                <div class="col-lg-8 border border-dark mb-5">
+            <div class="row justify-content-center m-0 text-center m-auto">
+                <div class="col-lg-8 borderBlog bg-white rounded m-5 text-center">
                     <h2 class="text-center pt-3 pb-1"><?= $post['blo_title'] ?></h2>
                     <div class="text-center fst-italic pb-3">Par <?= $post['use_first_name'] ?></div>
 
@@ -123,9 +123,11 @@ require_once "my-config.php";
                             <img src="assets/img/img_blog/<?= $post['blo_picture'] ?>" alt="Image d'illustration" class="w-75">
                         </div>
                     <?php } ?>
-
-                    <p class="fs-5 text-center"><?= $post['blo_content'] ?></p>
-
+                    <div class="d-flex justify-content-center">
+                        <div class="mainText2">
+                            <p class="fs-5 text-center"><?= $post['blo_content'] ?></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         <?php } ?>
@@ -136,9 +138,9 @@ require_once "my-config.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

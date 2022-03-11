@@ -4,6 +4,10 @@ require_once "../controllers/addDestinationController.php";
 require_once "../controllers/admin-controller.php";
 
 if (session_status() == PHP_SESSION_NONE) session_start();
+
+if($_SESSION['name'] != 'Admin') {
+    header('Location: ../index.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -109,70 +113,71 @@ if (session_status() == PHP_SESSION_NONE) session_start();
             <?php if (isset($_POST['addDestination']) && empty($arrayErrors)) { ?><div class="text-center text-success fs-3 fw-bold pb-5">Destination ajoutée avec Succès!</div><?php } else { ?>
 
 
-            <div class="row text-center justify-content-center m-0 pb-3">
-                <form action="" method="POST" enctype="multipart/form-data" class="col-lg-4 row container-fluid border border-dark justify-content-center" novalidate>
+                <div class="row text-center justify-content-center m-0 pb-3">
+                    <form action="" method="POST" enctype="multipart/form-data" class="col-lg-4 bg-white rounded row container-fluid border border-dark justify-content-center" novalidate>
 
-                    <label for="title" class="pt-3 fw-bold">Titre de la destination: </label>
-                    <input type="text" name="title" id="title" placeholder="Ex: Madrid" value="<?= $_POST['title'] ?? '' ?>" required>
-                    <div class="text-danger fw-bold"><?= $arrayErrors['noTitle'] ?? '' ?> <?= $arrayErrors['titleExists'] ?? '' ?></div>
+                        <label for="title" class="pt-3 fw-bold">Titre de la destination: </label>
+                        <input type="text" name="title" id="title" placeholder="Ex: Madrid" value="<?= $_POST['title'] ?? '' ?>" required>
+                        <div class="text-danger fw-bold"><?= $arrayErrors['noTitle'] ?? '' ?> <?= $arrayErrors['titleExists'] ?? '' ?></div>
 
-                    <label for="picture" class="pt-3 fw-bold">Choix d'une photo:</label>
-                    <input type="file" name="picture" id="picture" required>
-                    <div class="text-danger fw-bold"><?= $arrayErrors['noPicture'] ?? '' ?></div>
+                        <label for="picture" class="pt-3 fw-bold">Choix d'une photo:</label>
+                        <input type="file" name="picture" id="picture" required>
+                        <div class="text-danger fw-bold"><?= $arrayErrors['noPicture'] ?? '' ?></div>
 
-                    <label for="category" class="pt-3 fw-bold">Catégorie</label>
-                    <select class="form-select" aria-label="category" name="category">
-                        <option selected disabled><?= $_POST['category'] ?? 'Choisissez une catégorie' ?></option>
-                        <?php foreach ($destinationArray as $destination) { ?>
-                            <option><?= $destination['cat_category'] ?></option>
-                        <?php } ?>
-                    </select>
-                    <div class="text-danger fw-bold"><?= $arrayErrors['noCategory'] ?? '' ?></div>
+                        <label for="category" class="pt-3 fw-bold">Catégorie</label>
+                        <select class="form-select" aria-label="category" name="category">
+                            <option selected disabled><?= $_POST['category'] ?? 'Choisissez une catégorie' ?></option>
+                            <?php foreach ($destinationArray as $destination) { ?>
+                                <option><?= $destination['cat_category'] ?></option>
+                            <?php } ?>
+                        </select>
+                        <div class="text-danger fw-bold"><?= $arrayErrors['noCategory'] ?? '' ?></div>
 
-                    <label for="content" class="pt-3 fw-bold">Description:</label>
-                    <textarea type="text" name="content" id="content" required><?= $_POST['content'] ?? '' ?></textarea>
-                    <div class="text-danger fw-bold"><?= $arrayErrors['noContent'] ?? '' ?></div>
-                    <div class="text-danger fw-bold"><?= $arrayErrors['noActivity'] ?? '' ?></div>
+                        <label for="content" class="pt-3 fw-bold">Description:</label>
+                        <textarea type="text" name="content" id="content" required><?= $_POST['content'] ?? '' ?></textarea>
+                        <div class="text-danger fw-bold"><?= $arrayErrors['noContent'] ?? '' ?></div>
+                        <div class="text-danger fw-bold"><?= $arrayErrors['noActivity'] ?? '' ?></div>
 
-                    <div class="row">
+                        <div class="row">
 
-                        <?php foreach ($activitiesArray as $activity) { ?>
-                            <div class="form-check text-start d-inline-block col-lg-4">
-                                <input class="form-check-input" type="checkbox" id="<?= $activity['act_name'] ?>" name="<?= $activity['act_name'] ?>">
-                                <label class="form-check-label" for="<?= $activity['act_name'] ?>">
-                                    <?= $activity['act_name'] ?>
-                                </label>
-                            </div>
-                        <?php } ?>
+                            <?php foreach ($activitiesArray as $activity) { ?>
+                                <div class="form-check text-start d-inline-block col-lg-4">
+                                    <input class="form-check-input" type="checkbox" id="<?= $activity['act_name'] ?>" name="<?= $activity['act_name'] ?>">
+                                    <label class="form-check-label" for="<?= $activity['act_name'] ?>">
+                                        <?= $activity['act_name'] ?>
+                                    </label>
+                                </div>
+                            <?php } ?>
 
-                    </div>
+                        </div>
 
-                    <label for="cityCode" class="pt-3 fw-bold">City Code pour la météo: </label>
-                    <input type="text" name="cityCode" id="cityCode" value="<?= $_POST['cityCode'] ?? '' ?>" required>
-                    <div class="text-danger fw-bold"><?= $arrayErrors['noCode'] ?? '' ?></div>
+                        <label for="cityCode" class="pt-3 fw-bold">City Code pour la météo: </label>
+                        <input type="text" name="cityCode" id="cityCode" value="<?= $_POST['cityCode'] ?? '' ?>" required>
+                        <div class="text-danger fw-bold"><?= $arrayErrors['noCode'] ?? '' ?></div>
 
-                    <label for="iframe" class="pt-3 fw-bold">iframe: </label>
-                    <input type="text" name="iframe" id="iframe" value="<?= $_POST['iframe'] ?? '' ?>" required>
-                    <div class="text-danger fw-bold"><?= $arrayErrors['noIframe'] ?? '' ?> <span><?= $arrayErrors['wrongIframe'] ?? '' ?></span></div>
+                        <label for="iframe" class="pt-3 fw-bold">iframe: </label>
+                        <input type="text" name="iframe" id="iframe" value="<?= $_POST['iframe'] ?? '' ?>" required>
+                        <div class="text-danger fw-bold"><?= $arrayErrors['noIframe'] ?? '' ?> <span><?= $arrayErrors['wrongIframe'] ?? '' ?></span></div>
 
-                    <div class="pt-3 pb-3">
-                        <input name="addDestination" type="submit" value="Ajouter" class="col-lg-2 btn btn-outline-dark" />
-                    </div>
-                   
+                        <div class="pt-3 pb-3">
+                            <input name="addDestination" type="submit" value="Ajouter" class="col-lg-2 btn btn-outline-dark" />
+                        </div>
 
-                </form>
-            </div>
 
-        <?php } }?>
+                    </form>
+                </div>
+
+        <?php }
+                                                                                                                                                                        } ?>
     </div>
     <footer class="footer m-0" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="../cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="../views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

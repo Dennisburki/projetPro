@@ -112,16 +112,17 @@ require_once "my-config.php";
     </div>
 
     <div class="text-center">
-        <img src="assets/img/build.png" alt="">
+        <img src="assets/img/build.png" alt="" class="img-fluid">
     </div>
+
     <footer class="footer m-0" style="height: 15vh;">
         <div class="d-flex justify-content-evenly pt-5">
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

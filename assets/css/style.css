@@ -75,6 +75,10 @@ div {
     max-width: 60%;
 }
 
+.mainText2 {
+    max-width: 80%;
+}
+
 .cat-image {
     max-width: 80%;
 }
@@ -476,6 +480,17 @@ body>div>a.btn.test {
     .categorie-intro {
         max-width: 80%;
     }
+}
+
+.borderConnect {
+    border: solid black 2px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.borderBlog {
+    border: solid black 1px;
+
 }
 
 

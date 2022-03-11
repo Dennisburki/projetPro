@@ -130,7 +130,7 @@ require_once "../controllers/viewsController.php";
                             <?php $showActivitiesArray = $showActivitiesObj->showActivities($details['des_id']) ?>
                             <div class="row justify-content-center">
                                 <?php foreach ($showActivitiesArray as $activities) { ?>
-                                    <span title="<?= $activities['act_name']?>" class="col-lg-1 col-2 my-4">
+                                    <span title="<?= $activities['act_name'] ?>" class="col-lg-1 col-2 my-4">
                                         <div class="" style="background-image: url(../assets/icons/<?= $activities['act_icon'] ?>); height: 20px; background-repeat:no-repeat;"></div>
                                     </span>
                                 <?php } ?>
@@ -190,9 +190,9 @@ require_once "../controllers/viewsController.php";
                     <div class="">
                         <p class="text-white">©Estenouest</p>
                     </div>
-                    <div class="">
-                        <p class="text-white">Qui sommes-nous?</p>
-                    </div>
+                    <a href="../cgu.php" class="text-white text-center">
+                        <p class="text-white">Conditions Générales d'Utilisation</p>
+                    </a>
                     <a href="mentions.php" class="text-white">
                         <p class="text-white">Mentions Légales</p>
                     </a>

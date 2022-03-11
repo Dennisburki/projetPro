@@ -5,19 +5,38 @@ require_once "../models/database.php";
 require_once "../models/accounts.php";
 require_once "../models/destination.php";
 
+// $displayPostObj = new Accounts();
+// $displayPostArray = $displayPostObj->getPost();
+
 $displayPostObj = new Accounts();
-$displayPostArray = $displayPostObj->getPost();
+$displayPostArray = $displayPostObj->getAllPosts();
+
+// if (isset($_POST['validate'])) {
+
+//     $switchObj = new Accounts();
+
+//     foreach ($displayPostArray as $post) {
+//         $id = $post['blo_id'];
+//     }
+//     $switchObj->switchModeration($id);
+
+//     header("Location: moderation.php?validate=ok");
+// }
 
 if (isset($_POST['validate'])) {
 
-    $switchObj = new Accounts();
-
-    foreach ($displayPostArray as $post) {
-        $id = $post['blo_id'];
-    }
-    $switchObj->switchModeration($id);
-
+    $id = $_GET['id'];
+    $approveObj = new Accounts();
+    $approveObj->switchModeration($id);
     header("Location: moderation.php?validate=ok");
+}
+
+if (isset($_POST['block'])) {
+
+    $id = $_GET['id'];
+    $blockObj = new Accounts();
+    $blockObj->switchModerationBlock($id);
+    header("Location: moderation.php?block=ok");
 }
 
 if (isset($_POST['delete'])) {

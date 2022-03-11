@@ -11,6 +11,10 @@ require_once "../controllers/admin-controller.php";
 require_once "../controllers/readPostController.php";
 require_once "../my-config.php";
 
+if($_SESSION['name'] != 'Admin') {
+    header('Location: ../index.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +60,7 @@ require_once "../my-config.php";
 
 
         <a href="../views/home.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
             <div class="justify-content-center  row m-0 ">
                 <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
             </div>
@@ -118,7 +122,7 @@ require_once "../my-config.php";
         </div>
         <?php foreach ($readArray as $post) { ?>
             <div class="row justify-content-center">
-                <div class="col-lg-8 border border-dark m-5">
+                <div class="col-lg-8 border border-dark bg-white m-5">
                     <h1 class="text-center pt-3 pb-1"><?= $post['blo_title'] ?></h1>
                     <div class="text-center fst-italic pb-3">Par <?= $post['use_first_name'] ?></div>
 
@@ -141,9 +145,9 @@ require_once "../my-config.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="../cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="../views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>

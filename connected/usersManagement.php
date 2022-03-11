@@ -5,6 +5,9 @@ require_once "../controllers/admin-controller.php";
 require_once "../my-config.php";
 require_once "../controllers/usersManagementController.php";
 
+if($_SESSION['name'] != 'Admin') {
+    header('Location: ../index.php');
+}
 
 ?>
 
@@ -47,7 +50,7 @@ require_once "../controllers/usersManagementController.php";
 
 
         <a href="../views/home.php" class="text-decoration-none">
-        <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
+            <h1 class="mainTitle fw-bold text-white text-center <?php isset($_SESSION['name']) ? 'pt-2' : 'pt-5' ?>">Estenouest</h1>
             <div class="justify-content-center  row m-0 ">
                 <div class="text-dark bg-white rounded  text-center fs-5 fst-italic col-lg-5">Choisissez votre prochaine destination et partagez vos expériences</div>
             </div>
@@ -129,7 +132,7 @@ require_once "../controllers/usersManagementController.php";
                         <?php if ($users['use_status'] == 2) { ?>
                             <td>
 
-                                <form action="usersManagement.php?id=<?= $users['use_id'] ?>" method="POST" class="appBtn col-lg-5 col-7 rounded">
+                                <form action="usersManagement.php?id=<?= $users['use_id'] ?>" method="POST" class="appBtn col-lg-5 rounded">
                                     <input type="submit" name="approve" value="Approuver" class="btn text-white">
                                 </form>
 
@@ -138,7 +141,7 @@ require_once "../controllers/usersManagementController.php";
 
 
                             <td>
-                                <form action="usersManagement.php?id=<?= $users['use_id'] ?>" method="POST" class="blockBtn col-lg-5 col-7 rounded">
+                                <form action="usersManagement.php?id=<?= $users['use_id'] ?>" method="POST" class="blockBtn col-lg-5 rounded">
                                     <input type="submit" name="block" value="Bloquer" class="btn text-white">
                                 </form>
 
@@ -149,7 +152,7 @@ require_once "../controllers/usersManagementController.php";
 
 
                         <td class="blockBtn">
-                            <div class="blockBtn col-lg-5 col-7 rounded"><button class="btn text-white" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $users['use_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button></div>
+                            <div class="blockBtn col-lg-5 rounded"><button class="btn text-white" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $users['use_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button></div>
                         </td>
 
                         <!-- Modal -->
@@ -168,9 +171,9 @@ require_once "../controllers/usersManagementController.php";
 
 
                                         <form action="usersManagement.php?id=<?= $users['use_id'] ?>" method="POST" class="pt-3">
-                                            
-                                                <input type="submit" name="delete" value="Supprimer" class="btn blockBtn col-lg-4 col-7 text-white rounded">
-                                            
+
+                                            <input type="submit" name="delete" value="Supprimer" class="btn blockBtn col-lg-4 col-7 text-white rounded">
+
                                         </form>
 
 
@@ -191,9 +194,9 @@ require_once "../controllers/usersManagementController.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <div class="">
-                <p class="text-white">Qui sommes-nous?</p>
-            </div>
+            <a href="../cgu.php" class="text-white text-center">
+                <p class="text-white">Conditions Générales d'Utilisation</p>
+            </a>
             <a href="../views/mentions.php" class="text-white">
                 <p class="text-white">Mentions Légales</p>
             </a>
