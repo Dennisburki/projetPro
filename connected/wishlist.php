@@ -47,7 +47,7 @@ require_once "../controllers/wishlistController.php";
 
         <div class="d-flex justify-content-end m-auto pe-3">
             <form action="../views/home.php" method="POST">
-                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
+                <div class="pt-2"><input class="btn btn-dark outBtn buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
 
@@ -120,7 +120,7 @@ require_once "../controllers/wishlistController.php";
                 <?php foreach ($displayArray as $display) { ?>
                     <div class="card mb-3 col-lg-5 m-0" style="max-width: 800px;">
                         <div class="row g-0">
-                            <div class="col-md-4">
+                            <div class="col-md-4 d-flex align-items-center">
                                 <img src="../assets/img/img_destinations/<?= $display['des_picture'] ?>" class="img-fluid rounded-start" alt="Image d'illustration">
                             </div>
                             <div class="col-md-8">
@@ -167,10 +167,10 @@ require_once "../controllers/wishlistController.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <a href="../cgu.php" class="text-white text-center">
+            <a href="../cgu.php" class="text-white text-center text-decoration-none">
                 <p class="text-white">Conditions Générales d'Utilisation</p>
             </a>
-            <a href="../views/mentions.php" class="text-white">
+            <a href="../views/mentions.php" class="text-white text-decoration-none">
                 <p class="text-white">Mentions Légales</p>
             </a>
         </div>

@@ -43,7 +43,7 @@ if($_SESSION['name'] != 'Admin') {
 
         <div class="d-flex justify-content-end m-auto pe-3">
             <form action="../views/home.php" method="POST">
-                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
+                <div class="pt-2"><input class="btn btn-dark outBtn buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
 
@@ -175,15 +175,16 @@ if($_SESSION['name'] != 'Admin') {
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <a href="../cgu.php" class="text-white text-center">
+            <a href="../cgu.php" class="text-white text-center text-decoration-none">
                 <p class="text-white">Conditions Générales d'Utilisation</p>
             </a>
-            <a href="../views/mentions.php" class="text-white">
+            <a href="../views/mentions.php" class="text-white text-decoration-none">
                 <p class="text-white">Mentions Légales</p>
             </a>
         </div>
     </footer>
 
+    <script src="../assets/js/script-api.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 

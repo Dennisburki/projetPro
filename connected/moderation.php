@@ -42,7 +42,7 @@ if ($_SESSION['name'] != 'Admin') {
     <script src="https://cdn.tiny.cloud/1/9omz2kptnx5l2bso2564l98rmspvfdnsjtbeepm1xwy3tejf/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 
-    <title>Rédaction d'articles</title>
+    <title>Modération d'articles</title>
 </head>
 
 <body>
@@ -54,7 +54,7 @@ if ($_SESSION['name'] != 'Admin') {
 
         <div class="d-flex justify-content-end m-auto pe-3">
             <form action="../views/home.php" method="POST">
-                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
+                <div class="pt-2"><input class="btn btn-dark outBtn buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
 
@@ -163,9 +163,30 @@ if ($_SESSION['name'] != 'Admin') {
                                 <form action="moderation.php?id=<?= $post['blo_id'] ?>" method="POST"><button type="submit" name="block" class="btn blockBtn"> Bloquer</button></form>
                             </td>
                         <?php } ?>
-                        <td class="col-lg-2">
-                            <form action="moderation.php?id=<?= $post['blo_id'] ?>" method="POST" ><button type="submit" name="delete" class="btn blockBtn">Supprimer</button></form>
-                        </td>
+
+
+                        <td class="blockBtn "><button class="btn blockBtn text-white " data-bs-toggle="modal" data-bs-target="#exampleModal<?= $post['blo_id'] ?>"><i class="bi bi-trash"></i> Supprimer</button></td>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal<?= $post['blo_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Supprimer l'article</h5>
+                                        <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Etes-vous certain de vouloir supprimer l'article?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                        <form action="moderation.php?id=<?= $post['blo_id'] ?>" method="POST" class="pt-3">
+                                            <input type="submit" name="delete" value="Supprimer" class="btn blockBtn text-white">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </tr>
                 <?php } ?>
             </tbody>
@@ -177,10 +198,10 @@ if ($_SESSION['name'] != 'Admin') {
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <a href="../cgu.php" class="text-white text-center">
+            <a href="../cgu.php" class="text-white text-center text-decoration-none">
                 <p class="text-white">Conditions Générales d'Utilisation</p>
             </a>
-            <a href="../views/mentions.php" class="text-white">
+            <a href="../views/mentions.php" class="text-white text-decoration-none">
                 <p class="text-white">Mentions Légales</p>
             </a>
         </div>

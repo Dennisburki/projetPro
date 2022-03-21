@@ -248,7 +248,7 @@ class Destinations extends DataBase
      * Permet d'afficher tous les details d'une destination
      * @param string $id : id de la destination
      */
-    public function getSelectedDestination($id)
+    public function getSelectedDestination($id) : array
     {
         $base = $this->connectDb();
         $query = "SELECT * FROM `pro_destination`
@@ -387,7 +387,7 @@ class Destinations extends DataBase
      * Permet de supprimer la destination de la wishlist d'un user si la destination est supprimée
      * @param $id : id de la destination
      */
-    public function deleteWishlistDestination($id)
+    public function deleteWishlistDestination($id) :void
     {
 
         $base = $this->connectDb();

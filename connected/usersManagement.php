@@ -44,7 +44,7 @@ if($_SESSION['name'] != 'Admin') {
 
         <div class="d-flex justify-content-end m-auto pe-3">
             <form action="../views/home.php" method="POST">
-                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
+                <div class="pt-2"><input class="btn btn-dark outbtn buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
 
@@ -99,7 +99,8 @@ if($_SESSION['name'] != 'Admin') {
             </div>
         </nav>
 
-        <h1 class="text-center pt-3 pb-3">Gestion des utilisateurs</h1>
+        <h1 class="text-center pt-3">Gestion des utilisateurs</h1>
+        <div class="text-center fw-bold">Il y a <?php foreach ($countArray as $count){ ?> <?= $count['Total'] ?> <?php } ?> utilisateurs enregistrés sur le site!</div>
 
         <a href="admin.php" class="ms-5 d-lg-block d-none"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
 
@@ -160,7 +161,7 @@ if($_SESSION['name'] != 'Admin') {
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Supprimer la destination</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Supprimer l'utilisateur</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -194,10 +195,10 @@ if($_SESSION['name'] != 'Admin') {
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <a href="../cgu.php" class="text-white text-center">
+            <a href="../cgu.php" class="text-white text-center text-decoration-none">
                 <p class="text-white">Conditions Générales d'Utilisation</p>
             </a>
-            <a href="../views/mentions.php" class="text-white">
+            <a href="../views/mentions.php" class="text-white text-decoration-none">
                 <p class="text-white">Mentions Légales</p>
             </a>
         </div>

@@ -42,7 +42,7 @@ require_once "../my-config.php";
 
         <div class="d-flex justify-content-end m-auto pe-3">
             <form action="../views/home.php" method="POST">
-                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
+                <div class="pt-2"><input class="btn btn-dark outBtn buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
 
@@ -133,10 +133,10 @@ require_once "../my-config.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <a href="../cgu.php" class="text-white text-center">
+            <a href="../cgu.php" class="text-white text-center text-decoration-none">
                 <p class="text-white">Conditions Générales d'Utilisation</p>
             </a>
-            <a href="../views/mentions.php" class="text-white">
+            <a href="../views/mentions.php" class="text-white text-decoration-none">
                 <p class="text-white">Mentions Légales</p>
             </a>
         </div>

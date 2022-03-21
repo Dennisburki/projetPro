@@ -100,12 +100,12 @@ require_once "my-config.php";
                     <form action="espacePerso.php" method="POST" class="row col-lg-9 bg-white fw-bold borderConnect rounded">
                         <input type="hidden" name="helper">
                         <div class="px-3 py-2">
-                            <label for="login" class="col-lg-12 required">Email</label>
-                            <input type="text" class="col-lg-12" name="login">
+                            <label for="login" class="col-lg-12 col-12 required">Email</label>
+                            <input type="text" class="col-lg-12 col-12" name="login">
                         </div>
                         <div class="px-3 py-2">
-                            <label for="passwordConect" class="col-lg-12">Mot de Passe</label>
-                            <input type="password" class="col-lg-12" name="passwordConect">
+                            <label for="passwordConect" class="col-lg-12 col-12">Mot de Passe</label>
+                            <input type="password" class="col-lg-12 col-12" name="passwordConect">
                         </div>
                         <div class="pt-3">
 
@@ -189,10 +189,10 @@ require_once "my-config.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <a href="cgu.php" class="text-white text-center">
+            <a href="cgu.php" class="text-white text-center text-decoration-none">
                 <p class="text-white">Conditions Générales d'Utilisation</p>
             </a>
-            <a href="views/mentions.php" class="text-white">
+            <a href="views/mentions.php" class="text-white text-decoration-none">
                 <p class="text-white">Mentions Légales</p>
             </a>
         </div>

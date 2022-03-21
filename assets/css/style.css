@@ -263,6 +263,10 @@ div {
 
 }
 
+body > header > div:nth-child(2) > form > div > input.outBtn:hover {
+    background-color: rgb(206, 10, 10);
+}
+
 div.modal-footer>input.blockBtn {
     background-color: rgb(206, 10, 10);
 

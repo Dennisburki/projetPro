@@ -48,7 +48,7 @@ require_once "../my-config.php";
 
         <div class="d-flex justify-content-end m-auto pe-3">
             <form action="../views/home.php" method="POST">
-                <div class="pt-2"><input class="btn btn-dark btn-outline-danger buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
+                <div class="pt-2"><input class="btn btn-dark outBtn buttons text-white border border-none" type="submit" name="disconnect" value="Se déconnecter"></div>
             </form>
         </div>
 
@@ -132,7 +132,7 @@ require_once "../my-config.php";
                             <input name="upload" type="file" id="upload" /> <span class="text-danger fw-bold m-0"><?= $arrayErrors["mime"] ?? "" ?></span>
                         </div>
 
-                        <textarea name="content" class="w-100">Commence à rédiger ton article ici!</textarea>
+                        <textarea name="content" class="w-100" style="height: 20em;">Commence à rédiger ton article ici!</textarea>
                         <div class="text-danger text-start">*Champs Obligatoires</div>
                         <div class="text-center pb-5 pt-2">
                             <input name="publish" type="submit" value="Publier" class="btn btn-dark" />
@@ -147,10 +147,10 @@ require_once "../my-config.php";
             <div class="">
                 <p class="text-white">©Estenouest</p>
             </div>
-            <a href="../cgu.php" class="text-white text-center">
+            <a href="../cgu.php" class="text-white text-center text-decoration-none">
                 <p class="text-white">Conditions Générales d'Utilisation</p>
             </a>
-            <a href="../views/mentions.php" class="text-white">
+            <a href="../views/mentions.php" class="text-white text-decoration-none">
                 <p class="text-white">Mentions Légales</p>
             </a>
         </div>
@@ -160,8 +160,8 @@ require_once "../my-config.php";
     <script>
         tinymce.init({
             selector: 'textarea',
-            plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-            toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter pageembed permanentpen table',
+            plugins: 'image a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+            toolbar: 'image a11ycheck addcomment showcomments casechange checklist code export formatpainter pageembed permanentpen table',
             toolbar_mode: 'floating',
             tinycomments_mode: 'embedded',
             tinycomments_author: 'Author name',

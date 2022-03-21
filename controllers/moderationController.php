@@ -52,7 +52,7 @@ if (isset($_POST['delete'])) {
         $id = $post['blo_id'];
     }
     foreach ($getPictureArray as $picture) {
-        unlink("..\assets\img\img_blog/".$picture['blo_picture']);
+        unlink("..\assets\img\img_blog/" . $picture['blo_picture']);
     }
     $deleteObj->deletePost($id);
     header("Location: moderation.php?delete=ok");

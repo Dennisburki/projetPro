@@ -9,6 +9,9 @@ require_once('../models/destination.php');
 $allUsersObj = new Accounts();
 $allUsersArray = $allUsersObj->getAllUsers();
 
+$countUsersObj = new Accounts();
+$countArray = $countUsersObj->getUsersQuantity();
+
 if (isset($_POST['approve'])) {
 
     $id = $_GET['id'];
@@ -27,8 +30,13 @@ if (isset($_POST['delete'])) {
 
     $id = $_GET['id'];
 
+
+
     $deleteWishlistObj = new Accounts();
     $deleteWishlistObj->deleteUsersWishlist($id);
+
+    $deleteCarnetObj = new Accounts();
+    $deleteCarnetObj->deleteUsersCarnet($id);
 
 
     $deleteBlogObj = new Accounts();

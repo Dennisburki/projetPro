@@ -318,6 +318,21 @@ class Accounts extends DataBase
     }
 
     /**
+     * Permet de supprimer un article du blog d'un user-necessaire quand on supprimer un user
+     * @param string $id: id de l'utilisateur qui a rédigé l'article
+     */
+    public function deleteUsersCarnet($id)
+    {
+        $base = $this->connectDb();
+        $query = "DELETE FROM `pro_passed_trips`
+        WHERE `use_id` = :id";
+
+        $stmt = $base->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
+    /**
      * Permet de supprimer la wishlist d'un utilisateur-necessaire quand on supprimer un user
      * @param string $id: id de l'utilisateur
      */
@@ -349,5 +364,15 @@ class Accounts extends DataBase
         $resultQuery->bindValue(':id', $id, PDO::PARAM_STR);
 
         $resultQuery->execute();
+    }
+
+    public function getUsersQuantity()
+    {
+        $base = $this->connectDb();
+        $query = "SELECT count(*) as `Total` FROM `pro_users`;";
+
+        $stmt = $base->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchall();
     }
 }
