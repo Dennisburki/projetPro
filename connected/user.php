@@ -64,7 +64,7 @@ require_once "../my-config.php";
                 </button>
                 <a href="../index.php" class="navbar-toggler text-white border border-dark d-flex d-lg-none text-decoration-none">Estenouest</a>
 
-                <div class="collapse navbar-collapse text-start" id="navbarNav">
+                <div class="collapse navbar-collapse text-start m-0" id="navbarNav">
                     <ul class="navbar-nav container row">
                         <li class="nav-item col-lg-3 d-lg-flex justify-content-lg-end ">
                             <a class="nav-link active" aria-current="page Accueil" href="../index.php"><span class="text text-white">Accueil</span></a>
@@ -87,7 +87,7 @@ require_once "../my-config.php";
                         <?php if (!empty($_SESSION['login'])) { ?>
                             <li class="d-lg-none nav-item justify-lg-content-end">
                                 <form action="" method="POST">
-                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="logout border border-white rounded"></div>
                                 </form>
                             </li>
                         <?php } ?>

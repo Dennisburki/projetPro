@@ -4,6 +4,11 @@ require_once('../my-config.php');
 require_once('../models/database.php');
 require_once('../models/destination.php');
 
+$idObj = new Destinations();
+if ($idObj->checkId($_GET['id']) == FALSE) {
+    header("Location: ../404.php");
+}
+
 $uploaddir = "..\assets\img\img_destinations/";
 
 if (!empty($_FILES['picture']['name'])) {
@@ -55,7 +60,9 @@ if (isset($_POST['updateDestination'])) {
 
         foreach ($allActivitiesArray as $catch) {
 
-            if (isset($_POST[$catch['act_name']])) {
+            if (isset($_POST[$catch['act_id']])) {
+
+                
 
                 $activity = $catch['act_name'];
                 $id = $_GET['id'];
@@ -89,7 +96,7 @@ if (isset($_POST['updateDestination'])) {
 
         foreach ($allActivitiesArray as $catch) {
 
-            if (isset($_POST[$catch['act_name']])) {
+            if (isset($_POST[$catch['act_id']])) {
 
                 $activity = $catch['act_name'];
 

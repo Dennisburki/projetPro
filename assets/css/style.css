@@ -502,6 +502,11 @@ div.row.justify-content-evenly.m-0>div.homeCard {
     width: 19rem;
 }
 
+.logout {
+    background-color: black;
+    color: white;
+}
+
 @media screen and (max-width : 600px) {
     .changeTable {
         display: none;

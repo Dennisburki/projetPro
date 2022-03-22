@@ -146,7 +146,7 @@ require_once "my-config.php";
                                 <div class="row px-3  py-2">
                                     <label class="col-lg-12 pb-1 fw-bold" for="prenom">Email<span class="text-danger">*</span></label>
                                     <input type="email" name="email" id="email" placeholder="Ex: Dupond@orange.fr" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : "" ?>" /><span class="fw-bold text-danger">
-                                        <?= $errors['pasEmail'] ?? '' ?><?= $errors['email'] ?? '' ?></span>
+                                        <?= $errors['PasEmail'] ?? '' ?><?= $errors['email'] ?? '' ?></span>
 
                                 </div>
 

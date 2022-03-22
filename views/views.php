@@ -94,13 +94,13 @@ require_once "../controllers/viewsController.php";
                         <li class="d-lg-none nav-item">
                             <?php if (empty($_SESSION)) { ?><a class="menu text-white nav-link active" href="../espacePerso.php">Se connecter</a>
                             <?php } else { ?>
-                                <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="btn text-white fs-4"><?= $_SESSION['name'] ?></a>
+                                <a href="../connected/<?php if ($_SESSION['role'] == '1') { ?>admin.php<?php } else { ?>user.php<?php } ?>" class="text-white fs-4"><?= $_SESSION['name'] ?></a>
                             <?php } ?>
                         </li>
                         <?php if (isset($_SESSION['login'])) { ?>
                             <li class="d-lg-none nav-item">
                                 <form action="home.php" method="POST">
-                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn text-white"></div>
+                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="logout border border-white rounded"></div>
                                 </form>
                             </li>
                         <?php } ?>

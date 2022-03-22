@@ -48,7 +48,7 @@ class Destinations extends DataBase
     public function getAllActivities()
     {
         $base = $this->connectDb();
-        $query = "SELECT `act_name` FROM pro_activities";
+        $query = "SELECT `act_name`,`act_id` FROM pro_activities";
 
         $resultQuery = $base->prepare($query);
         $resultQuery->execute();
@@ -665,4 +665,24 @@ class Destinations extends DataBase
         return $resultQuery->fetchAll();
     }
 
+    public function checkId($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `des_id` FROM `pro_destination` WHERE `des_id` = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_INT);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
+    public function checkBlogId($id)
+    {
+        $base = $this->connectDb();
+        $query = "SELECT `blo_id` FROM `pro_blog` WHERE `blo_id` = :id";
+
+        $resultQuery = $base->prepare($query);
+        $resultQuery->bindValue(':id', $id, PDO::PARAM_INT);
+        $resultQuery->execute();
+        return $resultQuery->fetchAll();
+    }
 }

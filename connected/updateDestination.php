@@ -91,7 +91,7 @@ if($_SESSION['name'] != 'Admin') {
                         <?php if (!empty($_SESSION['login'])) { ?>
                             <li class="d-lg-none nav-item justify-lg-content-end">
                                 <form action="" method="POST">
-                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="logout border border-white rounded"></div>
                                 </form>
                             </li>
                         <?php } ?>

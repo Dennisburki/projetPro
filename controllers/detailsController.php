@@ -8,6 +8,13 @@ require_once('../models/destination.php');
 
 $visitObj = new Destinations();
 
+$idObj = new Destinations();
+
+if ($idObj->checkId($_GET['id']) == FALSE) {
+    header("Location: ../404.php");
+}
+
+
 
 //
 if (isset($_GET['id']) && ctype_digit($_GET['id'])) {
@@ -41,3 +48,4 @@ if (isset($_GET['id'])) {
         $wishlistObj->addWishlist($destinationId, $userId);
     }
 }
+

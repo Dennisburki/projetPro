@@ -92,7 +92,7 @@ require_once "../controllers/wishlistController.php";
                         <?php if (!empty($_SESSION['login'])) { ?>
                             <li class="d-lg-none nav-item justify-lg-content-end">
                                 <form action="" method="POST">
-                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="logout border border-white rounded"></div>
                                 </form>
                             </li>
                         <?php } ?>
@@ -146,7 +146,7 @@ require_once "../controllers/wishlistController.php";
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                    <form action="wishlist?id=<?= $display['des_id'] ?>" method="POST">
+                                                    <form action="wishlist.php?id=<?= $display['des_id'] ?>" method="POST">
                                                         <input type="submit" name="delete" value="Supprimer" class="btn blockBtn">
                                                     </form>
                                                 </div>
@@ -158,8 +158,14 @@ require_once "../controllers/wishlistController.php";
                         </div>
                     </div>
 
-            <?php }
-            } ?>
+                <?php } ?>
+                <?php if (empty($displayArray)) { ?>
+                    <div class="fw-bold fs-3 pb-5">
+                        <div>Ta Wishlist est vide pour le moment!</div>
+                        <div>Parcours nos <span><a href="../categories.php" class="text-dark">catégories</a></span> pour faire la liste de tes envies!</div>
+                    </div>
+                <?php } ?>
+            <?php } ?>
             </div>
     </div>
     <footer class="footer m-0" style="height: 15vh;">

@@ -4,6 +4,7 @@
 require_once('../my-config.php');
 require_once('../models/database.php');
 require_once('../models/destination.php');
+require_once('../models/accounts.php');
 
 
 if (isset($_GET['id'])) {
@@ -37,6 +38,9 @@ if (isset($_GET['id'])) {
 
 
     $showActivitiesObj = new Destinations();
-    
-    
+}
+
+if ($_GET['id'] >= 7) {
+    header('Location: 404.php');
+    exit();
 }

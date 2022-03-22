@@ -59,7 +59,7 @@ if (!empty($_POST)) {
         $regexName = "/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,25}$/u";
         $errors = [];
 
-        $email = htmlspecialchars($_POST["email"]); // le specialchars empeche d'ecrire du code dans les input et donc de faire des boucles infinis par ex.
+        $email = htmlspecialchars($_POST["email"]);
         $firstName = htmlspecialchars($_POST["prenom"]);
         $password = htmlspecialchars($_POST["passwordUser"]);
         $secondPassword = htmlspecialchars($_POST["secondPassword"]);
@@ -69,6 +69,10 @@ if (!empty($_POST)) {
         } else {
             if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i", $_POST["email"])) {
                 $errors["email"] = "Email invalide";
+            }
+            $titleObj = new Accounts();
+            if ($titleObj->getEmail($_POST['email']) !== FALSE) {
+                $errors['email'] = "Adresse email non disponible";
             }
         }
 
@@ -116,16 +120,15 @@ if (!empty($_POST)) {
 
         $secretKey = "6Ld1spQeAAAAABlNbNRqFZl_U76bqNRDwrWtCeQK";
         $ip = $_SERVER['REMOTE_ADDR'];
-        
+
         $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha ?? "");
         $response = file_get_contents($url);
         $responseKeys = json_decode($response, true);
-       
+
         if ($responseKeys["success"]) {
         } elseif (isset($_POST['g-recaptcha-response']) && empty($_POST['g-recaptcha-response'])) {
             $errors['captcha'] = "Veuillez prouver que vous n'êtes pas un robot";
         }
-
     } else {
         if (isset($_POST['submitButton'])) {
             $errors["allEmpty"] = "Veuillez remplir tous les champs";

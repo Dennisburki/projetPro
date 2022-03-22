@@ -154,7 +154,8 @@ class Accounts extends DataBase
         $base = $this->connectDB();
         $query = "SELECT * FROM `pro_blog`
         INNER JOIN `pro_users` ON pro_users.use_id = pro_blog.use_id
-        WHERE `blo_moderation` = 1";
+        WHERE `blo_moderation` = 1
+        ORDER BY `blo_id` DESC";
 
         $stmt = $base->prepare($query);
         $stmt->execute();
@@ -366,6 +367,9 @@ class Accounts extends DataBase
         $resultQuery->execute();
     }
 
+    /**
+     * Permet d'afficher le nombre d'utilisateurs
+     */
     public function getUsersQuantity()
     {
         $base = $this->connectDb();
@@ -374,5 +378,17 @@ class Accounts extends DataBase
         $stmt = $base->prepare($query);
         $stmt->execute();
         return $stmt->fetchall();
+    }
+
+    public function getEmail($email)
+    {
+        $base = $this->connectDB();
+        $query = "SELECT `use_email` FROM `pro_users` WHERE `use_email` = :email";
+
+        $statment = $base->prepare($query);
+        $statment->bindValue(':email', $email, PDO::PARAM_STR);
+        $statment->execute();
+
+        return $statment->fetch();
     }
 }

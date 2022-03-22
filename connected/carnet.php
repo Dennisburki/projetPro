@@ -92,7 +92,7 @@ require_once "../my-config.php";
                         <?php if (!empty($_SESSION['login'])) { ?>
                             <li class="d-lg-none nav-item justify-lg-content-end">
                                 <form action="" method="POST">
-                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="logout border border-white rounded"></div>
                                 </form>
                             </li>
                         <?php } ?>
@@ -143,7 +143,7 @@ require_once "../my-config.php";
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                    <form action="carnet?id=<?= $display['des_id'] ?>" method="POST">
+                                                    <form action="carnet.php?id=<?= $display['des_id'] ?>" method="POST">
                                                         <input type="submit" name="delete" value="Supprimer" class="btn blockBtn">
                                                     </form>
                                                 </div>
@@ -157,6 +157,13 @@ require_once "../my-config.php";
 
                 <?php } ?>
             </div>
+
+            <?php if (empty($displayArray)) { ?>
+                <div class=" text-center fw-bold fs-3 pb-5">
+                    <div>Ton Carnet est vide pour le moment!</div>
+                    <div>Parcours nos <span><a href="../categories.php" class="text-dark">catégories</a></span> pour ajouter les destinations ou tu t'es déjà rendu!</div>
+                </div>
+            <?php } ?>
 
 
         <?php } ?>

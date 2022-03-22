@@ -89,7 +89,7 @@ if($_SESSION['name'] != 'Admin') {
                         <?php if (!empty($_SESSION['login'])) { ?>
                             <li class="d-lg-none nav-item justify-lg-content-end">
                                 <form action="" method="POST">
-                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="logout border border-white rounded"></div>
                                 </form>
                             </li>
                         <?php } ?>
@@ -151,7 +151,7 @@ if($_SESSION['name'] != 'Admin') {
 
 
                                     <div class="form-check text-start d-inline-block col-lg-4">
-                                        <input class="form-check-input" type="checkbox" id="<?= $activity['act_name'] ?>" name="<?= $activity['act_name'] ?>" <?php if (in_array($activity['act_name'], $activitiesArray)) { ?> checked<?php } ?>>
+                                        <input value="<?= $activity['act_name'] ?>" class="form-check-input" type="checkbox" id="<?= $activity['act_name'] ?>" name="<?= $activity['act_id'] ?>" <?php if (in_array($activity['act_name'], $activitiesArray)) { ?> checked<?php } ?>>
                                         <label class="form-check-label" for="<?= $activity['act_name'] ?>">
                                             <?= $activity['act_name'] ?>
                                         </label>

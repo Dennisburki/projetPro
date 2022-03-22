@@ -32,7 +32,7 @@ require_once "../my-config.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SCRIPT TINYMCE -->
-    <script src="https://cdn.tiny.cloud/1/9omz2kptnx5l2bso2564l98rmspvfdnsjtbeepm1xwy3tejf/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/9q7p72nwj7j77iaqgemt808gawqpswi1cpr1ny7jsiby83vb/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 
     <title>Rédaction d'articles</title>
@@ -92,7 +92,7 @@ require_once "../my-config.php";
                         <?php if (!empty($_SESSION['login'])) { ?>
                             <li class="d-lg-none nav-item justify-lg-content-end">
                                 <form action="" method="POST">
-                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="btn btn-dark"></div>
+                                    <div><input type="submit" name="disconnect" value="Se déconnecter" class="logout border border-white rounded"></div>
                                 </form>
                             </li>
                         <?php } ?>
