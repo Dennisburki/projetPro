@@ -121,7 +121,7 @@ if($_SESSION['name'] != 'Admin') {
 
                         <h1 class="text-center fw-bold pt-4 pb-4">Modifier la destination:<?= $single['des_title'] ?></h1>
 
-                        <a href="admin.php" class="ms-5 d-lg-block d-none text-start"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
+                        <a href="updateDestination.php" class="ms-5 d-lg-block d-none text-start"><button class="btn btn-outline-dark fs-5"><i class="bi bi-chevron-left"></i>Retour</button></a>
                         <form action="" method="POST" enctype="multipart/form-data" class="col-lg-4 bg-white row container-fluid border border-dark justify-content-center">
 
                             <label for="title" class="pt-3 fw-bold">Titre de la destination: </label>

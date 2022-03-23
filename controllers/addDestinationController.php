@@ -79,7 +79,7 @@ if (isset($_POST['addDestination'])) {
 
         foreach ($activitiesArray as $catch) {
 
-            if (isset($_POST[$catch['act_name']])) {
+            if (isset($_POST[$catch['act_id']])) {
 
                 $activity = $catch['act_name'];
 

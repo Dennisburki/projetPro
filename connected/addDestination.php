@@ -142,8 +142,8 @@ if($_SESSION['name'] != 'Admin') {
 
                             <?php foreach ($activitiesArray as $activity) { ?>
                                 <div class="form-check text-start d-inline-block col-lg-4">
-                                    <input class="form-check-input" type="checkbox" id="<?= $activity['act_name'] ?>" name="<?= $activity['act_name'] ?>">
-                                    <label class="form-check-label" for="<?= $activity['act_name'] ?>">
+                                    <input class="form-check-input" type="checkbox" id="<?= $activity['act_id'] ?>" name="<?= $activity['act_id'] ?>">
+                                    <label class="form-check-label" for="<?= $activity['act_id'] ?>">
                                         <?= $activity['act_name'] ?>
                                     </label>
                                 </div>

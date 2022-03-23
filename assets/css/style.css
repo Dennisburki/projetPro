@@ -259,21 +259,21 @@ div {
 }
 
 .blockBtn {
-    background-color: rgb(206, 10, 10);
+    background-color: rgb(155, 1, 1);
 
 }
 
 body > header > div:nth-child(2) > form > div > input.outBtn:hover {
-    background-color: rgb(206, 10, 10);
+    background-color: rgb(155, 1, 1);
 }
 
 div.modal-footer>input.blockBtn {
-    background-color: rgb(206, 10, 10);
+    background-color:  rgb(155, 1, 1);
 
 }
 
 td>button.blockBtn {
-    background-color: rgb(206, 10, 10);
+    background-color:  rgb(155, 1, 1);
 }
 
 .appBtn {
@@ -286,12 +286,12 @@ form>button.appBtn {
 }
 
 div.col-md-8>div>button.blockBtn {
-    background-color: rgb(206, 10, 10);
+    background-color:  rgb(155, 1, 1);
     color: white;
 }
 
 div.modal-footer>form>input.blockBtn {
-    background-color: rgb(206, 10, 10);
+    background-color:  rgb(155, 1, 1);
     color: white;
 }
 
@@ -310,22 +310,22 @@ div.appBtn {
 }
 
 form>button.blockBtn {
-    background-color: rgb(206, 10, 10);
+    background-color: rgb(155, 1, 1);
     color: white;
 }
 
 form>input.sortBtn {
-    background-color: rgb(11, 137, 255);
+    background-color: rgb(3, 59, 112);
     color: white;
 }
 
 body>div>a.btn.test {
-    background-color: rgb(11, 137, 255);
+    background-color: rgb(3, 59, 112);
     color: white;
 }
 
 .testo:hover {
-    background-color: rgb(11, 137, 255);
+    background-color: rgb(3, 59, 112);
 
 }
 
