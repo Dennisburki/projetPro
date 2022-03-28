@@ -115,7 +115,7 @@ require_once "../controllers/wishlistController.php";
 
             <div class="row text-center justify-content-evenly m-0">
 
-                <!-- ****************************BOUCLER A PARTIR D'ICI -- CA MARCHE ET C'EST VERIFIE******************************************************* -->
+                
 
                 <?php foreach ($displayArray as $display) { ?>
                     <div class="card mb-3 col-lg-5 m-0" style="max-width: 800px;">

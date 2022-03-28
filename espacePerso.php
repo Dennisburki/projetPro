@@ -162,7 +162,7 @@ require_once "my-config.php";
                                         <?= $errors['secondPassword'] ?? '' ?><?= $errors['wrongPassword'] ?? '' ?></span>
                                 </div>
 
-                                <!-- -----------------------------\/GARDER LES CGU OU PAS?\/------------------------------- -->
+                              
                                 <div class="form-check text-start pt-3">
                                     <input class="form-check-input" type="checkbox" value="" id="checkbox" name="checkbox">
                                     <label class="form-check-label" for="checkbox">
@@ -170,7 +170,7 @@ require_once "my-config.php";
                                     </label>
                                     <span class="fw-bold text-danger"><?= $errors['checkbox'] ?? '' ?></span>
                                 </div>
-                                <!-- -----------------------------/\GARDER LES CGU OU PAS?/\------------------------------- -->
+                                
                             </fieldset>
 
                             <input class="fw-bold btn btn-dark rounded" type="submit" value="Inscription" name="submitButton" />

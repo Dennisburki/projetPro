@@ -70,7 +70,7 @@ if (isset($_POST['addDestination'])) {
         $title = htmlspecialchars($_POST['title']);
         $descr = htmlspecialchars($_POST['content']);
         $cityCode = htmlspecialchars($_POST['cityCode']);
-        $iframe = $_POST['iframe'];
+        $iframe = strip_tags($_POST['iframe'], "<iframe>");
         $category = $_POST['category'];
 
         $addObj = new Destinations();
